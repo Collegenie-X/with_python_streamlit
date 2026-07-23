@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공부 타이머</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #1a1a2e;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.container {
+    text-align: center;
+    padding: 40px;
+}
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    color: #e0e0e0;
+}
+.timer-display {
+    font-size: 80px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    font-variant-numeric: tabular-nums;
+}
+.buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+.btn {
+    padding: 14px 32px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    color: #fff;
+    font-family: inherit;
+}
+.btn:hover { opacity: 0.85; }
+.btn-start { background: #4CAF50; }
+.btn-pause { background: #FFC107; color: #333; }
+.btn-reset { background: #f44336; }
+.message {
+    margin-top: 30px;
+    font-size: 1.2rem;
+    min-height: 1.5em;
+    color: #FFC107;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>공부 타이머</h1>
+    <div class="timer-display" id="timer">25:00</div>
+    <div class="buttons">
+        <button class="btn btn-start" id="startBtn" onclick="startTimer()">시작</button>
+        <button class="btn btn-pause" id="pauseBtn" onclick="pauseTimer()">일시정지</button>
+        <button class="btn btn-reset" onclick="resetTimer()">리셋</button>
+    </div>
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+let totalSeconds = 25 * 60;
+let remainingSeconds = totalSeconds;
+let interval = null;
+let running = false;
+
+function updateDisplay() {
+    const min = Math.floor(remainingSeconds / 60);
+    const sec = remainingSeconds % 60;
+    document.getElementById('timer').textContent =
+        String(min).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+}
+
+function startTimer() {
+    if (running) return;
+    running = true;
+    document.getElementById('message').textContent = '';
+    interval = setInterval(() => {
+        remainingSeconds--;
+        updateDisplay();
+        if (remainingSeconds <= 0) {
+            clearInterval(interval);
+            running = false;
+            document.getElementById('message').textContent = '수고했어! 쉬는 시간!';
+        }
+    }, 1000);
+}
+
+function pauseTimer() {
+    clearInterval(interval);
+    running = false;
+}
+
+function resetTimer() {
+    clearInterval(interval);
+    running = false;
+    remainingSeconds = totalSeconds;
+    updateDisplay();
+    document.getElementById('message').textContent = '';
+}
+</script>
+
+</body>
+</html>

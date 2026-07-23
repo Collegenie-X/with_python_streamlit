@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<!-- saved from url=(0253)https://cce79711-133e-4b85-837b-fdb7c39d34f6.frame.claudeusercontent.com/_f/1784803038-8900/?__frame_t=FXb4kx7vN90EDUKJZvRMY6n0.9816a790-3a32-4fe7-a838-ae63fe5d26dc.da016d4c-938f-4350-ba62-542d785e04fd.1784806831&__frame_v=manifest.24effd4d743fdb8a.json -->
+<html data-theme="dark" style="color-scheme: dark;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- frame-runtime --><!--<base href="/_f/1784803038-8900/">--><base href="."><script>window.__FRAME_PREAMBLE={"capabilities":{"downloads":"downloads.BABDwU1K.js","mcp":"mcp.hoz5jxDa.js","permissions":"permissions.ByA9Fd8x.js","self":"self.D3u1zjZe.js","user":"user.Cp1-RnjB.js"},"transforms":"_transforms.DYk1Ltlh.js","comments":"_comments.Dp6RDy7J.js","translate":"_translate.C5leZL2A.js"}</script><script>(function(){"use strict";const we="modulepreload",Oe=function(e){return"/"+e},Se={},ee=function(t,n,c){let i=Promise.resolve();function s(f){const a=new Event("vite:preloadError",{cancelable:!0});if(a.payload=f,window.dispatchEvent(a),!a.defaultPrevented)throw f}return i.then(f=>{for(const a of f||[])a.status==="rejected"&&s(a.reason);return t().catch(s)})},te=["light","dark","system"];function ne(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_init;return t!==null&&typeof t=="object"}function Y(e){return e!==null&&typeof e=="object"&&e.__frame_size_poke===!0}function re(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_theme;if(t===null||typeof t!="object")return!1;const n=t.theme;return typeof n=="string"&&te.includes(n)}function se(e){try{typeof reportError=="function"?reportError(e):setTimeout(()=>{throw e},0)}catch{}}const oe=Object.freeze(Object.assign(Object.create(null),{user:Object.freeze(Object.assign(Object.create(null),{id:null,isOwner:!1,canEdit:!1,name:null,avatarUrl:null,email:null}))})),ie={};function K(e){if(window===top||e.type==="auxclick"&&e.button!==1)return;const t=e.composedPath?e.composedPath():[e.target];let n=null;for(let f=0;f<t.length;f++){const a=t[f];if(a&&a.matches&&a.matches("a[href],area[href]")){n=a;break}}if(!n&&e.target&&e.target.closest&&(n=e.target.closest("a[href],area[href]")),!n)return;const c=n.getAttribute("href");if(!c)return;let i,s;try{i=new URL(c,document.baseURI),s=new URL(document.baseURI).origin}catch{return}(i.protocol==="http:"||i.protocol==="https:")&&i.origin!==s&&(e.preventDefault(),parent.postMessage({__frame_nav:!0,url:i.href},"*"))}const x={};function I(e){if(window===top)return;const t=Date.now();t-(x[e]||0)<500||(x[e]=t,parent.postMessage({__frame_engaged:!0,kind:e},"*"))}const ae=2e3,J=["wheel","touchstart","touchmove","keydown","pointerdown"];let G=0;function ce(e){e.isTrusted&&(G=Date.now())}function le(){addEventListener("click",K,!0),addEventListener("auxclick",K,!0)}function ue(){for(let e=0;e<J.length;e++)addEventListener(J[e],ce,{capture:!0,passive:!0});addEventListener("scroll",e=>{e.isTrusted&&Date.now()-G<ae&&I("scroll")},{capture:!0,passive:!0}),addEventListener("pointermove",e=>{e.isTrusted&&I("pointer")},{capture:!0,passive:!0}),addEventListener("click",e=>{e.isTrusted&&I("click")},{capture:!0,passive:!0})}const U="__frame_scroll",fe=150,de=310,pe=160,me=3e4;function he(){let e=0,t=!1,n=!1,c=!1,i=0;const s=p=>{try{sessionStorage.setItem(U,JSON.stringify({y:p}))}catch{}},f=()=>{if(t){t=!1;return}n=!0,clearTimeout(e),e=setTimeout(()=>s(scrollY),fe)};try{addEventListener("scroll",f,{passive:!0}),addEventListener("pagehide",()=>{clearTimeout(e),s(scrollY)})}catch{}const a=()=>{let p;try{p=sessionStorage.getItem(U)}catch{return null}if(p===null)return null;let b;try{b=JSON.parse(p)}catch{b=null}const l=b?.y;if(!(typeof l=="number"&&Number.isFinite(l)&&l>=0)){try{sessionStorage.removeItem(U)}catch{}return null}return l};let _=!1;const h=p=>{try{const b=scrollY;scrollTo({top:p,left:0,behavior:"instant"}),i=p,c=!0,s(p);const l=scrollY;l!==b&&(t=!0),l!==p&&!_&&(_=!0,addEventListener("load",()=>{try{if(scrollY===l){const g=a();h(g!==null?g:i)}}catch{}},{once:!0}))}catch{}},o=()=>{try{return!!location.hash}catch{return!0}};let u=!1;const d=()=>{try{if(u||innerWidth>de||innerHeight>pe)return;u=!0;const p=Date.now(),b=()=>{try{removeEventListener("resize",b)}catch{}if(Date.now()-p>me||n||o())return;const l=a();h(l!==null?l:i)};addEventListener("resize",b)}catch{}};let m=!1,y=!1;return{restore(){if(m||(m=!0,o()))return;const p=a();p!==null&&(h(p),d())},promoted(){if(y||(y=!0,o()))return;const p=a();p!==null?(h(p),d()):c&&h(i)}}}function ge(e,t,n){const c=[...t.values()].filter(i=>i.targets.some(s=>s.startsWith(e+".")));return{wrap(i,s){const f=`${e}.${i}`,a=c.filter(_=>_.targets.includes(f));return a.length===0?(..._)=>{try{return s(..._)}catch(h){return Promise.reject(h)}}:(..._)=>{let h=_;for(const u of a){const d=u.module.parameters;if(d)try{h=d(h)}catch{return Promise.reject({code:"transform_error",id:u.id,scope:e,message:"parameters transform failed"})}}let o;try{o=s(...h)}catch(u){o=Promise.reject(u)}return o.then(u=>{for(let d=a.length-1;d>=0;d--){const m=a[d],y=m.module.returns;if(y)try{u=y(u)}catch{return n({id:m.id,scope:e,leg:"returns"}),u}}return u},u=>{for(let d=a.length-1;d>=0;d--){const m=a[d],y=m.module.throws;if(y)try{u=y(u)}catch{return n({id:m.id,scope:e,leg:"throws"}),Promise.reject(u)}}return Promise.reject(u)})}}}}function _e(e,t,n,c=()=>{}){const i=new Set(e.changes??[]),s=new Map;for(const f of i){const a=t[f];a&&s.set(f,a)}return{contract:e.contract,changes:i,flags:new Set(e.flags??[]),capabilities:e.capabilities??{},capBudgets:e.capBudgets??{},transforms:s,shellOrigin:n.shellOrigin,mount:n.mount,pipe:f=>ge(f,s,c)}}(function(){const e=Object.defineProperty,t=globalThis,n=["RTCPeerConnection","webkitRTCPeerConnection","RTCDataChannel","RTCIceCandidate","RTCSessionDescription","RTCRtpSender","RTCRtpReceiver"];let c=0;for(let i=0;i<n.length;i++){const s=n[i];try{e(t,s,{value:void 0,writable:!1,configurable:!1})}catch{try{delete t[s]}catch{}try{e(t,s,{value:void 0,writable:!1,configurable:!0})}catch{}}typeof t[s]=="function"&&c++}if(c&&window!==top)try{parent.postMessage({__frame_rtc_lockdown_failed:c},"*")}catch{}})();const ye=1e4,be=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function V(e){for(const t of be)if(t.endsWith(":*"))try{const n=new URL(e);if(`${n.protocol}//${n.hostname}:*`===t)return!0}catch{}else if(e===t)return!0;return!1}const T=Object.freeze({...window.__FRAME_PREAMBLE?.capabilities}),z=window.__FRAME_PREAMBLE?.transforms,q=window.__FRAME_PREAMBLE?.comments,$=window.__FRAME_PREAMBLE?.translate,C=/^[\w.-]+\.js$/,ve=/^[a-z][a-z0-9_-]{0,63}$/;let X=null,P=null;function B(e,t,n){try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!1,enumerable:!0})}catch{try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!0,enumerable:!0})}catch{}}}let F=!1;function Q(e){const t=document.documentElement;e==="light"||e==="dark"?(t.dataset.theme=e,t.style.colorScheme=e,F=!0):F&&(delete t.dataset.theme,t.style.colorScheme="",F=!1)}const M=Object.assign(Object.create(null),{mcp:Object.assign(Object.create(null),{watchTool:{handlerArg:3}})}),R=new Map;function Z(e,t){const n=R.get(e);if(!n)return;const c=Object.assign(Object.create(null),t);Object.assign(n.impl,c),n.impl.__settled=()=>Promise.reject({code:"capability_removed",message:`${e}: method not in this runtime`});const i=n.queue;n.queue=[];for(const s of i){const f=c[s.method];if(f)if(M[e]?.[s.method])try{s.resolve(f(...s.args))}catch{k(s,M[e][s.method].handlerArg,{code:"transform_error",message:`${e}.${s.method} rejected its arguments`})}else f(...s.args).then(s.resolve,s.reject);else{const a={code:"capability_removed",message:`${e}.${s.method} is not in this runtime`},_=M[e]?.[s.method];if(_){k(s,_.handlerArg,a);continue}s.reject(a)}}}function Ee(e,t){const n=R.get(e);if(!n)return;n.impl.__settled=()=>Promise.reject(t);const c=n.queue;n.queue=[];for(const i of c){const s=M[e]?.[i.method];if(s){k(i,s.handlerArg,t);continue}i.reject(t)}}function N(e,t){const n=oe[e];if(!n){Ee(e,t);return}Z(e,Object.fromEntries(Object.entries(n).map(([c,i])=>[c,()=>Promise.resolve(i)])))}function k(e,t,n){if(e.syncState?.dead)return;const c=e.args[t];typeof c=="function"&&queueMicrotask(()=>{if(!e.syncState?.dead)try{c({type:"error",error:n})}catch(i){se(i)}})}const H=Object.getOwnPropertyDescriptor(window,"claude");if(window!==top&&!(H&&H.writable===!1)){le(),ue();let e=null;try{e=he()}catch{}const t=H?.value??{};B(window,"claude",t);const n=o=>{const u={impl:Object.create(null),queue:[]};R.set(o,u);const d=u.impl,m=ie[o],y=m===void 0?d:()=>{},p=new Proxy(y,{apply:(b,l,g)=>{const v=m,O=d[v]??d.__settled;return O?O(...g):new Promise((E,w)=>{u.queue.push({method:v,args:g,resolve:E,reject:w})})},get:(b,l)=>{if(typeof l!="string"||l==="then"||l==="toJSON"||l==="valueOf")return;if(l==="toString")return Object.prototype.toString;if(m!==void 0&&(l==="call"||l==="apply"||l==="bind"))return Function.prototype[l];const g=M[o]?.[l];return g?(...v)=>{if(typeof v[g.handlerArg]!="function")throw new TypeError(`${o}.${l} requires a handler function`);const O=d[l];if(O)return O(...v);if(d.__settled){const S={dead:!1},A={args:[...v],syncState:S};return d.__settled().catch(D=>k(A,g.handlerArg,D)),()=>{S.dead=!0}}let E=null;const w={dead:!1};return u.queue.push({method:l,args:v,resolve:S=>{E=typeof S=="function"?S:null,w.dead&&E?.()},reject:()=>{},syncState:w}),()=>{w.dead=!0,E?.()}}:(...v)=>{const O=d[l]??d.__settled;return O?O(...v):new Promise((E,w)=>{u.queue.push({method:l,args:v,resolve:E,reject:w})})}},set:()=>!1});B(t,o,p)};for(const o of Object.keys(T)){if(t[o]!==void 0){B(t,o,t[o]);continue}n(o)}let c=null,i=null,s=0;const f=o=>{o.source!==parent||!V(o.origin)||ne(o.data)&&(c=o.data.__frame_init,P=o.origin,removeEventListener("message",f),clearTimeout(s),i?.())};addEventListener("message",f),parent.postMessage({__frame_connect:!0},"*");const a=new Promise(o=>{i=o,s=setTimeout(()=>{removeEventListener("message",f),o()},ye)}),_=document.readyState==="loading"?new Promise(o=>document.addEventListener("DOMContentLoaded",()=>o(),{once:!0})):Promise.resolve();_.then(()=>{try{e?.restore()}catch{}});const h=o=>{if(!(o.source!==parent||!V(o.origin))&&Y(o.data)){removeEventListener("message",h);try{e?.promoted()}catch{}}};addEventListener("message",h),a.then(async()=>{if(!c||!P){for(const r of R.keys())N(r,{code:"not_granted",message:"frame initialization did not arrive - capability unavailable"});return}Q(c.theme);const o=P;let u=!1,d=!1;addEventListener("message",r=>{if(r.source!==parent||r.origin!==o)return;re(r.data)&&Q(r.data.__frame_theme.theme);const j=r.data?.__fc_mode;j&&typeof j=="object"&&!u&&q&&C.test(q)&&(u=!0,m(q).then(W=>W.install?.(o,j.on===!0)).catch(()=>{}));const L=r.data?.__ft_cmd;L&&typeof L=="object"&&!d&&$&&C.test($)&&(d=!0,m($).then(W=>W.install?.(o,L)).catch(()=>{}))});const m=r=>ee(()=>import("/_runtime/"+r),void 0),y=Object.keys(c.capabilities??{});for(const r of y)Object.hasOwn(T,r)||ve.test(r)&&t[r]===void 0&&(n(r),N(r,{code:"capability_disabled",message:"capability not in this runtime generation"}));const p=y.filter(r=>Object.hasOwn(T,r)).map(r=>[r,T[r]]).filter(r=>typeof r[1]=="string"&&C.test(r[1])),[b,...l]=await Promise.allSettled([z&&C.test(z)?m(z):Promise.resolve({}),...p.map(([,r])=>m(r))]),g=P;X=_e(c,b.status==="fulfilled"&&b.value?.TRANSFORMS||{},{shellOrigin:g,mount:Z},r=>parent.postMessage({__frame_cap_telemetry:r},g));const v=r=>parent.postMessage({__frame_cap_telemetry:{kind:"cap-load-error",cap:r}},g),O=X;l.forEach((r,j)=>{const L=p[j][0];if(r.status!=="fulfilled"){v(L);return}try{r.value?.install?.(O)}catch{v(L)}});for(const[r,j]of R)if(!(j.queue.length===0&&Object.keys(j.impl).length>0)){if(y.includes(r)){N(r,{code:"capability_disabled",message:"capability not available in this session"});continue}N(r,{code:"not_granted",message:"capability not available in this session"})}await _,parent.postMessage({__frame_ready:!0},P);let E=-1,w=0;const S=()=>{w=0;const r=Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0);r!==E&&(E=r,parent.postMessage({__frame_size:!0,h:r},g))},A=()=>{w||(w=setTimeout(S,200))},D=new ResizeObserver(A);D.observe(document.documentElement),document.body&&D.observe(document.body),document.addEventListener("load",A,!0),document.fonts?.ready.then(A,()=>{}),addEventListener("beforeprint",()=>{E=-1,S()}),A(),addEventListener("message",r=>{if(!(r.source!==parent||r.origin!==g)&&Y(r.data)){try{e?.promoted()}catch{}E=-1,A()}})})}})();</script><!-- /frame-runtime --><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>바이브 코딩에서 AI 오케스트라까지 — 1인 창작자의 시대</title>
+<style>
+  :root {
+    --ink: #1a1f3a;
+    --ground: #f5f0e6;
+    --ground-alt: #ede8dc;
+    --accent: #e85d3a;
+    --accent-glow: #ff7a55;
+    --teal: #3a8a7a;
+    --teal-soft: #d0e8e3;
+    --lavender: #a8a0c8;
+    --lavender-soft: #e8e4f0;
+    --text: #2a2520;
+    --text-muted: #7a756e;
+    --text-inv: #f0ece4;
+    --card-bg: #ffffff;
+    --card-border: #e0dbd2;
+    --code-bg: #2d2b3a;
+    --code-text: #e8e4f0;
+    --chapter-line: #d5cfc5;
+    --highlight: rgba(232,93,58,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #e8e4dc;
+      --ground: #12151e;
+      --ground-alt: #1a1d28;
+      --text: #d8d4cc;
+      --text-muted: #8a8580;
+      --text-inv: #1a1f3a;
+      --card-bg: #1e2130;
+      --card-border: #2e3142;
+      --chapter-line: #2e3142;
+      --highlight: rgba(232,93,58,0.12);
+      --teal-soft: #1a3a34;
+      --lavender-soft: #2a2840;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #e8e4dc;
+    --ground: #12151e;
+    --ground-alt: #1a1d28;
+    --text: #d8d4cc;
+    --text-muted: #8a8580;
+    --text-inv: #1a1f3a;
+    --card-bg: #1e2130;
+    --card-border: #2e3142;
+    --chapter-line: #2e3142;
+    --highlight: rgba(232,93,58,0.12);
+    --teal-soft: #1a3a34;
+    --lavender-soft: #2a2840;
+  }
+  :root[data-theme="light"] {
+    --ink: #1a1f3a;
+    --ground: #f5f0e6;
+    --ground-alt: #ede8dc;
+    --text: #2a2520;
+    --text-muted: #7a756e;
+    --text-inv: #f0ece4;
+    --card-bg: #ffffff;
+    --card-border: #e0dbd2;
+    --chapter-line: #d5cfc5;
+    --highlight: rgba(232,93,58,0.08);
+    --teal-soft: #d0e8e3;
+    --lavender-soft: #e8e4f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: -apple-system, "Pretendard", "Noto Sans KR", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 20% 30%, var(--lavender-soft) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 350px at 80% 60%, var(--teal-soft) 0%, transparent 70%);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: Georgia, "Noto Serif KR", serif;
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    text-wrap: balance;
+    max-width: 16em;
+    position: relative;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 32em;
+    margin-top: 1.5rem;
+    position: relative;
+    line-height: 1.8;
+  }
+  .hero-orchestra {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 2.5rem;
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-orchestra span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* Chapter sections */
+  .chapter {
+    padding: 5rem 0 3rem;
+    position: relative;
+  }
+  .chapter + .chapter {
+    border-top: 1px solid var(--chapter-line);
+  }
+  .ch-marker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .ch-marker::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .chapter h2 {
+    font-family: Georgia, "Noto Serif KR", serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+    text-wrap: balance;
+    margin-bottom: 1rem;
+  }
+  .chapter h3 {
+    font-family: Georgia, "Noto Serif KR", serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 2.5rem 0 0.8rem;
+  }
+  .chapter p {
+    margin-bottom: 1.2rem;
+    color: var(--text);
+  }
+  .chapter p.lead {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.85;
+  }
+
+  /* Story blocks */
+  .story-scene {
+    background: var(--ground-alt);
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 1.8rem;
+    margin: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 1.02rem;
+  }
+  .story-scene .scene-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Quote */
+  blockquote {
+    border-left: 3px solid var(--lavender);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--lavender-soft);
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+    color: var(--text);
+  }
+  blockquote cite {
+    display: block;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  /* Tables */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    font-variant-numeric: tabular-nums;
+  }
+  thead {
+    background: var(--ground-alt);
+  }
+  th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid var(--card-border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--card-border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  /* Horizontal card scroll */
+  .card-scroll {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0 1.5rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .card-scroll::-webkit-scrollbar { height: 4px; }
+  .card-scroll::-webkit-scrollbar-track { background: var(--ground-alt); border-radius: 2px; }
+  .card-scroll::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 2px; }
+  .hcard {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .hcard-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .hcard-icon.coral { background: rgba(232,93,58,0.12); }
+  .hcard-icon.teal { background: var(--teal-soft); }
+  .hcard-icon.lav { background: var(--lavender-soft); }
+  .hcard h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .hcard p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    padding: 1.5rem 0;
+    flex-wrap: nowrap;
+  }
+  .flow-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    text-align: center;
+  }
+  .flow-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border: 2px solid var(--card-border);
+    background: var(--card-bg);
+    color: var(--ink);
+  }
+  .flow-circle.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+  }
+  .flow-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text);
+    max-width: 80px;
+  }
+  .flow-arrow {
+    width: 36px;
+    height: 2px;
+    background: var(--card-border);
+    flex-shrink: 0;
+    position: relative;
+  }
+  .flow-arrow::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -4px;
+    border: 5px solid transparent;
+    border-left-color: var(--card-border);
+  }
+
+  /* Highlight box */
+  .insight {
+    background: var(--highlight);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 1.3rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .insight-title {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .insight p { margin: 0; font-size: 0.95rem; }
+
+  /* Comparison grid */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 560px) { .compare { grid-template-columns: 1fr; } }
+  .compare-col {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.3rem;
+  }
+  .compare-col h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .compare-col ul {
+    list-style: none;
+    font-size: 0.9rem;
+  }
+  .compare-col li {
+    padding: 0.3rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .compare-col li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+    font-family: monospace;
+  }
+
+  /* Step list */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  .step-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .step-body p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Persona card */
+  .persona-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .persona-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.3rem;
+    text-align: center;
+  }
+  .persona-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin: 0 auto 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  .persona-card h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  .persona-card .role {
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .persona-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0 0;
+    line-height: 1.5;
+  }
+
+  /* Orchestra visual */
+  .orchestra-visual {
+    background: var(--ground-alt);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+  .orchestra-visual h4 {
+    font-family: Georgia, "Noto Serif KR", serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .orch-ring {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .orch-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    width: 90px;
+  }
+  .orch-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border: 2px solid var(--card-border);
+    background: var(--card-bg);
+    transition: transform 0.2s;
+  }
+  .orch-dot:hover { transform: scale(1.15); }
+  .orch-dot.center {
+    width: 56px;
+    height: 56px;
+    border-color: var(--accent);
+    background: var(--accent);
+    font-size: 1.4rem;
+  }
+  .orch-name {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--card-border);
+  }
+  .tl-item {
+    position: relative;
+    padding-bottom: 1.8rem;
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 3px solid var(--teal);
+  }
+  .tl-item.active::before {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+  .tl-item h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .tl-item p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0.2rem 0 0;
+    line-height: 1.55;
+  }
+  .tl-item .tl-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: var(--teal-soft);
+    color: var(--teal);
+    margin-top: 0.3rem;
+  }
+
+  /* Code block */
+  .code-block {
+    background: var(--code-bg);
+    color: var(--code-text);
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    margin: 1.2rem 0;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .code-block .comment { color: #6a6580; }
+  .code-block .keyword { color: #c792ea; }
+  .code-block .string { color: #c3e88d; }
+  .code-block .func { color: #82aaff; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 4rem 1.5rem 3rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--chapter-line);
+    margin-top: 3rem;
+  }
+  .footer strong {
+    color: var(--ink);
+    font-family: Georgia, "Noto Serif KR", serif;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Utility */
+  .mt-2 { margin-top: 2rem; }
+  .mb-1 { margin-bottom: 1rem; }
+  strong.accent { color: var(--accent); }
+
+  /* Architecture diagram */
+  .arch-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+    align-items: center;
+  }
+  .arch-row {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 600px;
+  }
+  .arch-box {
+    flex: 1;
+    min-width: 140px;
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .arch-box.server { border-color: var(--teal); }
+  .arch-box.client { border-color: var(--accent); }
+  .arch-box.data { border-color: var(--lavender); }
+  .arch-box h5 {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .arch-box.server h5 { color: var(--teal); }
+  .arch-box.client h5 { color: var(--accent); }
+  .arch-box.data h5 { color: var(--lavender); }
+  .arch-box p { font-size: 0.85rem; margin: 0; color: var(--text-muted); line-height: 1.5; }
+  .arch-box .tech { font-family: "SF Mono", monospace; font-size: 0.8rem; color: var(--ink); font-weight: 600; margin-bottom: 0.3rem; }
+  .arch-connector {
+    width: 2px;
+    height: 28px;
+    background: var(--card-border);
+    margin: 0 auto;
+    position: relative;
+  }
+  .arch-connector::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: -4px;
+    border: 5px solid transparent;
+    border-top-color: var(--card-border);
+  }
+  .arch-connector.up::after {
+    top: -1px;
+    bottom: auto;
+    border-top-color: transparent;
+    border-bottom-color: var(--card-border);
+  }
+  .arch-label {
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0;
+  }
+
+  /* Sequence steps (for request/response flow) */
+  .seq-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .seq-step {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .seq-step:last-child { border-bottom: none; }
+  .seq-num {
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .seq-num.req { background: var(--teal); }
+  .seq-num.res { background: var(--accent); }
+  .seq-num.proc { background: var(--lavender); }
+  .seq-content {
+    padding: 0.8rem 1rem;
+    flex: 1;
+    background: var(--card-bg);
+  }
+  .seq-content h5 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+  .seq-content p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .seq-content code {
+    font-family: "SF Mono", monospace;
+    font-size: 0.78rem;
+    background: var(--ground-alt);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+
+  /* Algo box */
+  .algo-box {
+    background: var(--ground-alt);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--card-border);
+  }
+  .algo-box h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .algo-list {
+    list-style: none;
+    counter-reset: algo;
+    font-size: 0.9rem;
+  }
+  .algo-list li {
+    counter-increment: algo;
+    padding: 0.5rem 0 0.5rem 2.5rem;
+    position: relative;
+    border-left: 2px solid var(--card-border);
+    margin-left: 0.8rem;
+  }
+  .algo-list li::before {
+    content: counter(algo);
+    position: absolute;
+    left: -12px;
+    top: 0.5rem;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .algo-list li:last-child { border-left-color: transparent; }
+  .algo-list li code {
+    font-family: "SF Mono", monospace;
+    font-size: 0.8rem;
+    background: var(--card-bg);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+
+  /* Benefits grid */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .benefit-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.2rem;
+    border-top: 3px solid var(--teal);
+  }
+  .benefit-card.alt { border-top-color: var(--accent); }
+  .benefit-card.lav { border-top-color: var(--lavender); }
+  .benefit-card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .benefit-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .hero { min-height: 80vh; padding: 2rem 1rem; }
+    .container { padding: 0 1rem; }
+    .chapter { padding: 3rem 0 2rem; }
+    .hcard { flex: 0 0 240px; }
+    .flow { gap: 0; }
+    .flow-arrow { width: 20px; }
+    .orchestra-visual { padding: 1.2rem; }
+  }
+</style>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Vibe Coding &amp; Beyond</div>
+  <h1>코드를 넘어, <em>AI 오케스트라</em>의 지휘자가 되다</h1>
+  <p class="hero-sub">
+    바이브 코딩은 시작일 뿐이다.<br>
+    코딩, 영상, 디자인, 마케팅, 사업까지 —<br>
+    AI와 함께라면 한 사람이 열 사람의 일을 한다.
+  </p>
+  <div class="hero-orchestra">
+    <span>💻 코딩</span>
+    <span>🎨 디자인</span>
+    <span>🎥 영상</span>
+    <span>📢 마케팅</span>
+    <span>💰 사업</span>
+    <span>🎧 음악</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ==================== PROLOGUE ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Prologue</div>
+    <h2>민수의 질문: "나 혼자서도 뭔가 만들 수 있을까?"</h2>
+
+    <div class="story-scene">
+      <div class="scene-label">Scene</div>
+      중학교 2학년 민수는 유튜브를 보다가 생각했다.<br>
+      "이 사람은 혼자서 앱도 만들고, 영상도 찍고, 광고도 하고, 돈도 번다고?<br>
+      나는 코딩도 못하는데... 이런 건 천재만 하는 거 아닐까?"<br><br>
+      그런데 댓글에 이런 글이 있었다.<br>
+      <strong>"저 코딩 1도 몰랐는데, AI로 3일 만에 앱 만들어서 출시했어요."</strong>
+    </div>
+
+    <p>민수의 이야기는 여기서 시작된다. 코딩을 몰라도 앱을 만들고, 디자인을 몰라도 로고를 만들고, 촬영 장비 없이도 영상을 만드는 — <strong class="accent">AI 시대의 1인 창작자</strong>가 되는 여정이다.</p>
+
+    <div class="insight">
+      <div class="insight-title">이 수업에서 배울 것</div>
+      <p>바이브 코딩의 원리를 익히고, 그것이 코딩 너머의 모든 창작 — 영상, 이미지, 광고, 사업 — 에 어떻게 확장되는지 직접 경험한다. 단순한 기술이 아니라 <strong>생각하는 방법</strong>을 배운다.</p>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 1 ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Chapter 1</div>
+    <h2>바이브 코딩이란 무엇인가</h2>
+    <p class="lead">2025년 2월, 테슬라와 OpenAI의 공동 창업자 안드레이 카파시가 새로운 용어를 만들었다.</p>
+
+    <blockquote>
+      "나는 요즘 새로운 종류의 코딩을 하고 있다. <strong>바이브 코딩</strong>이라고 부른다. AI에게 말로 설명하고, 코드는 AI가 쓴다. 나는 결과만 보고 '좋아' 또는 '이 부분 고쳐줘'라고 한다."
+      <cite>— Andrej Karpathy, 2025</cite>
+    </blockquote>
+
+    <h3>핵심 정의</h3>
+    <p><strong>바이브 코딩 = 원하는 것을 말로 설명하면, AI가 코드를 만들어주는 방식</strong></p>
+    <p>코드 문법을 외울 필요가 없다. 대신 <strong>"무엇을 만들고 싶은지 정확하게 설명하는 능력"</strong>이 핵심이다.</p>
+
+    <div class="compare">
+      <div class="compare-col">
+        <h4 style="color:var(--text-muted)">◯ 전통적 코딩</h4>
+        <ul>
+          <li>문법을 외워야 한다</li>
+          <li>코드를 한 줄씩 직접 타이핑</li>
+          <li>에러를 직접 읽고 수정</li>
+          <li>완성까지 며칠~몇 주</li>
+          <li>외국어를 직접 배워서 말하기</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <h4 style="color:var(--accent)">● 바이브 코딩</h4>
+        <ul>
+          <li>문법을 몰라도 된다</li>
+          <li>만들고 싶은 걸 말로 설명</li>
+          <li>AI에게 에러를 알려주고 수정 요청</li>
+          <li>몇 시간~하루면 완성</li>
+          <li>통역사에게 한국어로 설명하기</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>바이브 코딩 5단계 방법론</h3>
+    <p>이 5단계는 코딩뿐만 아니라, 뒤에서 배울 영상/디자인/마케팅에도 똑같이 적용된다.</p>
+
+    <div class="flow">
+      <div class="flow-node">
+        <div class="flow-circle active">1</div>
+        <div class="flow-label">기획하기</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node">
+        <div class="flow-circle">2</div>
+        <div class="flow-label">설명하기</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node">
+        <div class="flow-circle">3</div>
+        <div class="flow-label">확인하기</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node">
+        <div class="flow-circle">4</div>
+        <div class="flow-label">수정하기</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node">
+        <div class="flow-circle">5</div>
+        <div class="flow-label">반복하기</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>단계</th><th>하는 일</th><th>누가 하나</th><th>비유</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. 기획</strong></td><td>뭘 만들지 정한다</td><td>사람</td><td>건축 설계도 그리기</td></tr>
+          <tr><td><strong>2. 설명</strong></td><td>AI에게 원하는 것을 말한다</td><td>사람 → AI</td><td>건축가에게 주문하기</td></tr>
+          <tr><td><strong>3. 확인</strong></td><td>결과를 실행해서 본다</td><td>사람</td><td>완성된 집 둘러보기</td></tr>
+          <tr><td><strong>4. 수정</strong></td><td>마음에 안 드는 부분을 고친다</td><td>사람 → AI</td><td>"이 벽 색깔 바꿔주세요"</td></tr>
+          <tr><td><strong>5. 반복</strong></td><td>2~4를 반복해서 완성도를 높인다</td><td>사람 + AI</td><td>인테리어 하나씩 추가</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>좋은 프롬프트의 공식</h3>
+    <div class="code-block"><span class="comment"># 좋은 프롬프트 = 무엇을 + 어떻게 + 제약 조건</span>
+
+<span class="string">"25분 카운트다운 타이머를 만들어줘"</span>     <span class="comment"># 무엇을</span>
+<span class="string">"시작/정지/리셋 버튼이 있고"</span>           <span class="comment"># 어떻게</span>
+<span class="string">"Flask + HTML로, 파일 2개로 구성해줘"</span>  <span class="comment"># 제약 조건</span></div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>구분</th><th>나쁜 프롬프트</th><th>좋은 프롬프트</th></tr></thead>
+        <tbody>
+          <tr><td>기능</td><td>"타이머 만들어"</td><td>"25분 카운트다운, 시작/정지/리셋 버튼"</td></tr>
+          <tr><td>디자인</td><td>"이쁘게 해줘"</td><td>"배경 #e8f4fd, 둥근 버튼, 타이머 60px"</td></tr>
+          <tr><td>수정</td><td>"이상해, 다시 해"</td><td>"시작 버튼 누르면 타이머 안 움직여. 콘솔에 에러 나와"</td></tr>
+          <tr><td>추가</td><td>"다 추가해줘"</td><td>"타이머 위에 과목 드롭다운 추가. 수학/영어/국어"</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="story-scene">
+      <div class="scene-label">민수의 첫 번째 성공</div>
+      민수는 Claude Code에 이렇게 입력했다:<br>
+      <em>"공부 타이머 웹앱을 만들어줘. Flask + HTML. 25분 카운트다운, 시작/정지/리셋 버튼, 가운데 정렬, 타이머 60px."</em><br><br>
+      30초 뒤, 화면에 진짜 타이머가 나타났다. 시작 버튼을 누르자 숫자가 줄어들기 시작했다.<br>
+      <strong>"와... 코딩 한 줄도 안 쳤는데 진짜 돌아간다."</strong>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 1.5: FLASK & HTML DEEP DIVE ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Deep Dive</div>
+    <h2>Flask 서버와 HTML: 웹앱은 어떻게 돌아가는가</h2>
+    <p class="lead">민수가 만든 타이머 앱이 브라우저에서 돌아가는 그 순간, 보이지 않는 곳에서는 무슨 일이 벌어지고 있을까? 이 장에서는 Flask 서버의 동작 원리를 식당 비유로 완전히 파헤쳐본다.</p>
+
+    <h3>웹앱의 구조: 3개의 층</h3>
+    <p>우리가 만든 공부 타이머는 세 부분으로 나뉜다. 각각이 다른 역할을 한다.</p>
+
+    <div class="arch-diagram">
+      <div class="arch-row">
+        <div class="arch-box client">
+          <h5>클라이언트 (손님)</h5>
+          <div class="tech">웹 브라우저</div>
+          <p>사용자가 보는 화면. 버튼을 누르고, 타이머를 보고, 기록을 확인하는 곳.</p>
+        </div>
+      </div>
+      <div class="arch-connector"></div>
+      <div class="arch-label">HTTP 요청 / 응답</div>
+      <div class="arch-connector up"></div>
+      <div class="arch-row">
+        <div class="arch-box server">
+          <h5>서버 (주방장)</h5>
+          <div class="tech">Flask (Python)</div>
+          <p>요청을 받고, 데이터를 처리하고, HTML 페이지를 만들어서 보내주는 곳.</p>
+        </div>
+      </div>
+      <div class="arch-connector"></div>
+      <div class="arch-label">읽기 / 쓰기</div>
+      <div class="arch-connector up"></div>
+      <div class="arch-row">
+        <div class="arch-box data">
+          <h5>데이터 (냉장고)</h5>
+          <div class="tech">records.json</div>
+          <p>공부 기록이 저장되는 곳. 서버가 여기서 데이터를 꺼내고 넣는다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>구성 요소</th><th>식당 비유</th><th>실제 역할</th><th>우리 프로젝트에서</th></tr></thead>
+        <tbody>
+          <tr><td><strong>브라우저</strong></td><td>손님</td><td>화면 표시, 사용자 입력 받기</td><td>타이머 화면, 버튼 클릭</td></tr>
+          <tr><td><strong>Flask 서버</strong></td><td>주방장</td><td>요청 처리, 데이터 가공, 응답 전달</td><td>HTML 페이지 전달, 기록 저장/불러오기</td></tr>
+          <tr><td><strong>records.json</strong></td><td>냉장고</td><td>데이터 영구 저장</td><td>과목, 시간, 날짜 저장</td></tr>
+          <tr><td><strong>HTTP</strong></td><td>주문서</td><td>브라우저와 서버 사이 대화 규칙</td><td>GET /, POST /save, GET /records</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Flask란 정확히 무엇인가?</h3>
+    <p><strong>Flask</strong>는 Python으로 웹 서버를 만드는 프레임워크(도구 모음)다. "마이크로 프레임워크"라고 불리는데, 이유가 있다:</p>
+
+    <div class="compare">
+      <div class="compare-col">
+        <h4 style="color:var(--teal)">● Flask (마이크로)</h4>
+        <ul>
+          <li>필요한 것만 가볍게</li>
+          <li>파일 2~3개로 시작</li>
+          <li>배우기 쉽다</li>
+          <li>작은 프로젝트에 최적</li>
+          <li>코드가 단순하고 읽기 쉽다</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <h4 style="color:var(--text-muted)">◯ Django (풀스택)</h4>
+        <ul>
+          <li>기능이 매우 많다</li>
+          <li>파일이 10개 이상 필요</li>
+          <li>배우는 데 오래 걸린다</li>
+          <li>대형 프로젝트에 적합</li>
+          <li>구조가 복잡하다</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">왜 Flask를 선택하나?</div>
+      <p>바이브 코딩에서 가장 중요한 원칙은 <strong>"빠르게 만들고, 빠르게 확인한다"</strong>이다. Flask는 <code>app.py</code> 파일 하나로 서버를 시작할 수 있고, 코드 5줄이면 웹 페이지를 띄울 수 있다. 복잡한 설정 없이 <strong>아이디어 → 실행</strong>까지 가장 빠른 경로를 제공한다.</p>
+    </div>
+
+    <h3>Flask 서버의 동작 알고리즘</h3>
+    <p><code>python app.py</code>를 실행하면 정확히 어떤 일이 벌어지는가?</p>
+
+    <div class="algo-box">
+      <h4>⚙ 서버 시작 알고리즘</h4>
+      <ol class="algo-list">
+        <li><code>python app.py</code> 실행 — Python이 app.py 파일을 읽기 시작한다</li>
+        <li><code>app = Flask(__name__)</code> — Flask 앱 객체를 생성한다. 이 객체가 "주방장"이다</li>
+        <li><code>@app.route('/')</code> — "누군가 / 주소로 오면 이 함수를 실행해라"라는 규칙을 등록한다</li>
+        <li><code>app.run(debug=True)</code> — 서버가 <strong>127.0.0.1:5000</strong> 에서 대기 상태로 진입한다</li>
+        <li>서버는 꺼지지 않고 <strong>계속 대기</strong>한다 — 손님(브라우저)이 올 때까지</li>
+      </ol>
+    </div>
+
+    <p>서버가 켜진 뒤, 브라우저가 접속하면 <strong>요청-응답 사이클</strong>이 시작된다:</p>
+
+    <div class="seq-flow">
+      <div class="seq-step">
+        <div class="seq-num req">1</div>
+        <div class="seq-content">
+          <h5>브라우저가 요청을 보낸다</h5>
+          <p>주소창에 <code>http://127.0.0.1:5000</code> 을 입력하면, 브라우저가 Flask 서버에 <code>GET /</code> 요청을 보낸다. "홈페이지를 보여달라"는 주문서다.</p>
+        </div>
+      </div>
+      <div class="seq-step">
+        <div class="seq-num proc">2</div>
+        <div class="seq-content">
+          <h5>Flask가 라우트를 찾는다</h5>
+          <p><code>@app.route('/')</code> 와 일치하는 함수 <code>home()</code>을 찾는다. 마치 주방장이 "이 주문에 맞는 레시피가 뭐지?" 하고 찾는 것과 같다.</p>
+        </div>
+      </div>
+      <div class="seq-step">
+        <div class="seq-num proc">3</div>
+        <div class="seq-content">
+          <h5>HTML 파일을 읽는다</h5>
+          <p><code>render_template('index.html')</code> 이 <code>templates/</code> 폴더에서 index.html 파일을 찾아서 읽는다. 요리 재료를 냉장고에서 꺼내는 과정이다.</p>
+        </div>
+      </div>
+      <div class="seq-step">
+        <div class="seq-num res">4</div>
+        <div class="seq-content">
+          <h5>브라우저에 HTML을 보낸다</h5>
+          <p>완성된 HTML을 <strong>HTTP 응답</strong>으로 브라우저에 돌려보낸다. 완성된 요리를 접시에 담아 손님에게 내주는 것이다.</p>
+        </div>
+      </div>
+      <div class="seq-step">
+        <div class="seq-num res">5</div>
+        <div class="seq-content">
+          <h5>브라우저가 화면을 그린다</h5>
+          <p>받은 HTML을 해석해서 화면에 타이머, 버튼, 기록 영역을 그린다. 이제부터 JavaScript가 타이머 동작을 담당한다.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>127.0.0.1:5000 — 이 숫자는 뭘까?</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>부분</th><th>의미</th><th>비유</th></tr></thead>
+        <tbody>
+          <tr><td><code>127.0.0.1</code></td><td>내 컴퓨터 자체를 가리키는 주소 (localhost)</td><td>우리 집 주소</td></tr>
+          <tr><td><code>:</code></td><td>주소와 포트를 구분하는 기호</td><td>동(棟) 표시</td></tr>
+          <tr><td><code>5000</code></td><td>Flask가 사용하는 포트 번호</td><td>5000호 (방 번호)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>즉, "내 컴퓨터의 5000번 방에서 Flask 서버가 손님을 기다리고 있다"는 뜻이다. 다른 프로그램이 이미 5000번을 쓰고 있으면, <code>app.run(port=5001)</code> 처럼 방 번호를 바꿀 수 있다.</p>
+
+    <h3>app.py 코드 완전 해부</h3>
+
+    <div class="code-block"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template, request, jsonify
+<span class="keyword">import</span> json
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime
+
+app = Flask(__name__)    <span class="comment"># 주방장(서버)을 만든다</span>
+
+<span class="comment"># 라우트 1: 홈페이지 보여주기</span>
+@app.route(<span class="string">'/'</span>)
+<span class="keyword">def</span> <span class="func">home</span>():
+    <span class="keyword">return</span> render_template(<span class="string">'index.html'</span>)
+
+<span class="comment"># 라우트 2: 공부 기록 저장하기</span>
+@app.route(<span class="string">'/save'</span>, methods=[<span class="string">'POST'</span>])
+<span class="keyword">def</span> <span class="func">save_record</span>():
+    data = request.json  <span class="comment"># 브라우저가 보낸 데이터를 받는다</span>
+    records = load_records()
+    records.append({
+        <span class="string">'subject'</span>: data[<span class="string">'subject'</span>],
+        <span class="string">'minutes'</span>: data[<span class="string">'minutes'</span>],
+        <span class="string">'date'</span>: datetime.now().strftime(<span class="string">'%Y-%m-%d'</span>)
+    })
+    save_records(records)
+    <span class="keyword">return</span> jsonify({<span class="string">'status'</span>: <span class="string">'ok'</span>})
+
+<span class="comment"># 라우트 3: 저장된 기록 불러오기</span>
+@app.route(<span class="string">'/records'</span>)
+<span class="keyword">def</span> <span class="func">get_records</span>():
+    <span class="keyword">return</span> jsonify(load_records())
+
+<span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:
+    app.run(debug=<span class="keyword">True</span>)  <span class="comment"># 서버를 켠다 (5000번 방에서 대기)</span></div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>코드</th><th>역할</th><th>비유</th></tr></thead>
+        <tbody>
+          <tr><td><code>Flask(__name__)</code></td><td>서버 객체 생성</td><td>주방을 연다</td></tr>
+          <tr><td><code>@app.route('/')</code></td><td>URL과 함수를 연결 (라우팅)</td><td>메뉴판에 요리 등록</td></tr>
+          <tr><td><code>render_template()</code></td><td>HTML 파일을 찾아서 반환</td><td>레시피대로 요리해서 접시에 담기</td></tr>
+          <tr><td><code>request.json</code></td><td>브라우저가 보낸 데이터를 읽기</td><td>주문서 내용 확인</td></tr>
+          <tr><td><code>jsonify()</code></td><td>Python 데이터를 JSON으로 변환</td><td>요리를 포장해서 전달</td></tr>
+          <tr><td><code>debug=True</code></td><td>코드 수정 시 자동 재시작</td><td>레시피 바꾸면 바로 적용</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>GET vs POST — 두 가지 주문 방식</h3>
+    <p>HTTP에는 여러 "주문 방식"이 있다. 우리 앱에서는 두 가지를 쓴다:</p>
+
+    <div class="compare">
+      <div class="compare-col">
+        <h4 style="color:var(--teal)">📥 GET 요청</h4>
+        <ul>
+          <li>"정보를 가져와라"</li>
+          <li>데이터를 <strong>읽기만</strong> 한다</li>
+          <li>주소창에 URL 입력 = GET</li>
+          <li>예: 홈페이지 보기, 기록 불러오기</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <h4 style="color:var(--accent)">📤 POST 요청</h4>
+        <ul>
+          <li>"정보를 보내라"</li>
+          <li>데이터를 <strong>저장/수정</strong>한다</li>
+          <li>JavaScript에서 fetch()로 전송</li>
+          <li>예: 공부 기록 저장하기</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>데이터 저장 알고리즘: 기록이 저장되는 전체 과정</h3>
+    <p>25분 타이머가 끝나는 순간부터, 기록이 파일에 저장되기까지의 전체 흐름:</p>
+
+    <div class="algo-box">
+      <h4>💾 기록 저장 전체 알고리즘</h4>
+      <ol class="algo-list">
+        <li>타이머가 <code>00:00</code>에 도달 — JavaScript의 <code>setInterval</code>이 감지</li>
+        <li>JavaScript가 저장할 데이터를 JSON으로 만든다: <code>{"subject":"수학", "minutes":25}</code></li>
+        <li><code>fetch('/save', {method:'POST', body:JSON})</code> — Flask 서버에 POST 요청 전송</li>
+        <li>Flask가 <code>request.json</code>으로 데이터를 받는다</li>
+        <li><code>records.json</code> 파일을 열어서 기존 기록을 읽는다</li>
+        <li>새 기록에 날짜를 추가하여 목록 끝에 덧붙인다</li>
+        <li>업데이트된 전체 기록을 <code>records.json</code>에 다시 저장한다</li>
+        <li><code>{"status":"ok"}</code>를 브라우저에 돌려보낸다</li>
+        <li>JavaScript가 응답을 받고 화면에 "저장 완료!" 메시지를 표시한다</li>
+      </ol>
+    </div>
+
+    <h3>타이머 동작 알고리즘: JavaScript의 역할</h3>
+    <p>타이머의 카운트다운은 Flask가 아니라 <strong>JavaScript</strong>가 담당한다. 브라우저 안에서 돌아가는 코드다.</p>
+
+    <div class="algo-box">
+      <h4>⏱ 카운트다운 타이머 알고리즘</h4>
+      <ol class="algo-list">
+        <li>사용자가 "시작" 버튼을 클릭한다</li>
+        <li><code>setInterval(함수, 1000)</code> — 1초(1000ms)마다 함수를 반복 실행하도록 예약</li>
+        <li>매 1초마다: 남은 시간에서 1을 뺀다</li>
+        <li>남은 시간을 <code>분:초</code> 형식으로 계산한다 — <code>Math.floor(seconds/60)</code> + <code>seconds%60</code></li>
+        <li>계산 결과를 화면의 타이머 영역에 업데이트한다 — <code>element.textContent = "24:59"</code></li>
+        <li>남은 시간이 <code>0</code>이 되면: <code>clearInterval</code>로 반복을 멈추고, "수고했어!" 표시 + 기록 저장 요청</li>
+      </ol>
+    </div>
+
+    <div class="code-block"><span class="keyword">let</span> timeLeft = <span class="string">25 * 60</span>;  <span class="comment">// 25분 = 1500초</span>
+<span class="keyword">let</span> timer = <span class="keyword">null</span>;
+
+<span class="keyword">function</span> <span class="func">startTimer</span>() {
+    timer = <span class="func">setInterval</span>(() =&gt; {
+        timeLeft--;
+        <span class="keyword">const</span> min = Math.<span class="func">floor</span>(timeLeft / <span class="string">60</span>);
+        <span class="keyword">const</span> sec = timeLeft % <span class="string">60</span>;
+        document.<span class="func">getElementById</span>(<span class="string">'timer'</span>).textContent
+            = <span class="string">`${min}:${sec &lt; 10 ? '0'+sec : sec}`</span>;
+
+        <span class="keyword">if</span> (timeLeft &lt;= <span class="string">0</span>) {
+            <span class="func">clearInterval</span>(timer);  <span class="comment">// 타이머 멈춤</span>
+            <span class="func">saveRecord</span>();           <span class="comment">// 기록 저장</span>
+            <span class="func">alert</span>(<span class="string">'수고했어! 쉬는 시간!'</span>);
+        }
+    }, <span class="string">1000</span>);  <span class="comment">// 1000ms = 1초마다 실행</span>
+}
+
+<span class="keyword">function</span> <span class="func">pauseTimer</span>() {
+    <span class="func">clearInterval</span>(timer);  <span class="comment">// 반복 실행을 멈춤</span>
+}
+
+<span class="keyword">function</span> <span class="func">resetTimer</span>() {
+    <span class="func">clearInterval</span>(timer);
+    timeLeft = <span class="string">25 * 60</span>;    <span class="comment">// 시간을 원래대로</span>
+    document.<span class="func">getElementById</span>(<span class="string">'timer'</span>).textContent = <span class="string">'25:00'</span>;
+}</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>함수</th><th>역할</th><th>핵심 명령</th></tr></thead>
+        <tbody>
+          <tr><td><code>setInterval</code></td><td>지정한 시간마다 함수를 반복 실행</td><td>1초마다 시간 빼기</td></tr>
+          <tr><td><code>clearInterval</code></td><td>반복 실행을 멈춤</td><td>일시정지, 리셋, 종료 시</td></tr>
+          <tr><td><code>Math.floor</code></td><td>소수점을 버림 (내림)</td><td>초를 분으로 변환</td></tr>
+          <tr><td><code>%</code> (나머지)</td><td>나눗셈의 나머지 계산</td><td>남은 초 계산</td></tr>
+          <tr><td><code>textContent</code></td><td>화면의 텍스트를 바꿈</td><td>타이머 숫자 업데이트</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>왜 Flask + HTML 조합인가?</h3>
+    <p>다른 방법도 있지만, 이 수업에서 Flask + HTML을 선택한 이유가 있다.</p>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h4>배움의 효율성</h4>
+        <p>파일 2개(app.py + index.html)로 <strong>서버와 화면의 전체 구조</strong>를 이해할 수 있다. 복잡한 프레임워크 없이 웹의 핵심 원리를 배운다.</p>
+      </div>
+      <div class="benefit-card alt">
+        <h4>데이터 저장 가능</h4>
+        <p>순수 HTML만으로는 데이터를 파일에 저장할 수 없다. Flask가 있으면 공부 기록을 <strong>영구 저장</strong>하고, 다음에 접속해도 볼 수 있다.</p>
+      </div>
+      <div class="benefit-card lav">
+        <h4>확장이 쉽다</h4>
+        <p>나중에 사용자 로그인, 데이터베이스, 실시간 기능을 추가할 때 Flask의 구조를 그대로 확장하면 된다.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>실제 서비스와 같은 구조</h4>
+        <p>네이버, 유튜브 같은 실제 서비스도 "서버 + 클라이언트" 구조다. 작은 앱에서 이 구조를 체험하면 큰 서비스의 원리도 이해된다.</p>
+      </div>
+      <div class="benefit-card alt">
+        <h4>바이브 코딩과 궁합</h4>
+        <p>Flask의 코드가 직관적이라 AI가 만든 코드를 <strong>읽고 이해하기 쉽다.</strong> 바이브 코딩의 "확인→수정" 단계가 수월해진다.</p>
+      </div>
+      <div class="benefit-card lav">
+        <h4>무료 + 가볍다</h4>
+        <p>설치가 <code>pip install flask</code> 한 줄이면 끝. 무겁지 않아서 학교 컴퓨터에서도 잘 돌아간다.</p>
+      </div>
+    </div>
+
+    <h3>HTML만 쓰면 안 되나? — 기술별 가능/불가능 비교</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>기능</th><th>HTML+CSS+JS만</th><th>Flask + HTML</th><th>차이가 나는 이유</th></tr></thead>
+        <tbody>
+          <tr><td>타이머 보여주기</td><td>✅ 가능</td><td>✅ 가능</td><td>화면 표시는 HTML/JS의 역할</td></tr>
+          <tr><td>버튼 클릭 반응</td><td>✅ 가능</td><td>✅ 가능</td><td>클릭 이벤트는 JavaScript가 처리</td></tr>
+          <tr><td>공부 기록 저장</td><td>❌ 불가능*</td><td>✅ 가능</td><td>서버 없이는 파일에 쓸 수 없다</td></tr>
+          <tr><td>다음에 접속해도 기록 유지</td><td>❌ 불가능*</td><td>✅ 가능</td><td>서버가 데이터를 영구 보관</td></tr>
+          <tr><td>여러 기기에서 접속</td><td>❌ 불가능</td><td>✅ 가능</td><td>서버는 네트워크로 접근 가능</td></tr>
+          <tr><td>통계/분석 계산</td><td>⚠ 제한적</td><td>✅ 가능</td><td>Python의 강력한 데이터 처리</td></tr>
+          <tr><td>사용자 구분 (로그인)</td><td>❌ 불가능</td><td>✅ 가능</td><td>서버가 세션/인증 관리</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.85rem; color:var(--text-muted)">*localStorage로 브라우저에 임시 저장은 가능하지만, 브라우저를 바꾸거나 캐시를 지우면 사라진다.</p>
+
+    <h3>Flask 서버가 HTML 파일을 찾는 규칙</h3>
+    <p>Flask는 HTML 파일을 아무 데서나 찾지 않는다. <strong>정해진 폴더 구조</strong>가 있다:</p>
+
+    <div class="code-block"><span class="comment"># Flask가 기대하는 폴더 구조</span>
+
+study-timer/
+├── app.py              <span class="comment"># Flask 서버 코드 (여기서 python app.py 실행)</span>
+├── records.json        <span class="comment"># 공부 기록 데이터 파일</span>
+├── templates/          <span class="comment"># ⚠ Flask는 이 폴더에서만 HTML을 찾는다</span>
+│   └── index.html      <span class="comment"># 타이머 화면</span>
+└── static/             <span class="comment"># (선택) CSS, JS, 이미지 파일</span>
+    ├── style.css
+    └── logo.png</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>폴더</th><th>역할</th><th>중요도</th></tr></thead>
+        <tbody>
+          <tr><td><code>templates/</code></td><td>HTML 파일 저장 — <code>render_template()</code>이 여기서 찾음</td><td>필수</td></tr>
+          <tr><td><code>static/</code></td><td>CSS, JS, 이미지 등 정적 파일</td><td>선택 (우리는 HTML 안에 CSS/JS를 넣어서 생략)</td></tr>
+          <tr><td><code>records.json</code></td><td>데이터 저장 파일 (처음엔 없고, 앱 사용 중 자동 생성)</td><td>앱 실행 후 생김</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">자주 나는 실수</div>
+      <p><code>templates</code> 폴더 이름을 <code>template</code> (s 빠짐)으로 쓰거나, HTML 파일을 app.py와 같은 폴더에 넣으면 Flask가 파일을 못 찾는다. 이때 에러 메시지: <code>jinja2.exceptions.TemplateNotFound: index.html</code> — 이 에러가 나면 폴더 이름과 위치를 확인하자!</p>
+    </div>
+
+    <div class="story-scene">
+      <div class="scene-label">민수의 깨달음</div>
+      "아... 그러니까 Flask는 <strong>배달부</strong>고, HTML은 <strong>상품</strong>이고, JavaScript는 상품 안에서 <strong>움직이는 부분</strong>이고, records.json은 <strong>창고</strong>인 거구나. 각자 역할이 다른데 같이 일하는 거네!"<br><br>
+      민수는 코드를 한 줄도 직접 쓰지 않았지만, <strong>앱이 어떻게 돌아가는지</strong>는 완전히 이해했다. 그래서 AI에게 수정을 요청할 때도 "서버 쪽을 고쳐줘" 또는 "JavaScript에서 타이머 로직을 바꿔줘"라고 <strong>정확하게</strong> 말할 수 있게 됐다.
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 2 ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Chapter 2</div>
+    <h2>바이브 코딩, 실전에서는 어떻게 쓰이나</h2>
+    <p class="lead">바이브 코딩은 교실 밖에서 이미 실제 제품과 사업에 사용되고 있다.</p>
+
+    <h3>실제 사용 사례</h3>
+    <div class="card-scroll">
+      <div class="hcard">
+        <div class="hcard-icon coral">📚</div>
+        <h4>교사의 퀴즈 앱</h4>
+        <p>음악 교사가 음계 연습 퀴즈 앱을 하루 만에 제작. 코딩 경험 0. 학생 200명이 사용 중.</p>
+      </div>
+      <div class="hcard">
+        <div class="hcard-icon teal">🍲</div>
+        <h4>레시피 추천 사이트</h4>
+        <p>요리 블로거가 AI로 재료 기반 레시피 추천 웹사이트 제작. 월 방문자 5,000명 달성.</p>
+      </div>
+      <div class="hcard">
+        <div class="hcard-icon lav">💼</div>
+        <h4>소상공인 예약 시스템</h4>
+        <p>네일샵 사장님이 카카오톡 예약 봇을 직접 제작. 전화 예약 70% 감소.</p>
+      </div>
+      <div class="hcard">
+        <div class="hcard-icon coral">🎓</div>
+        <h4>학생 팀 프로젝트</h4>
+        <p>중학생 3명이 교실 좌석 배치 랜덤 앱 제작. 담임 선생님이 매주 사용.</p>
+      </div>
+      <div class="hcard">
+        <div class="hcard-icon teal">📈</div>
+        <h4>프리랜서 포트폴리오</h4>
+        <p>디자이너가 3시간 만에 인터랙티브 포트폴리오 사이트 완성. 클라이언트 3명 확보.</p>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">공통점을 발견했는가?</div>
+      <p>이 사람들은 모두 <strong>코딩 전문가가 아니다.</strong> 하지만 자기 분야의 <strong>문제</strong>를 정확히 알고 있었고, 그 해결책을 AI에게 <strong>설명</strong>할 수 있었다. 바이브 코딩의 진짜 역량은 "코드를 쓰는 것"이 아니라 <strong>"문제를 정의하는 것"</strong>이다.</p>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 3 ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Chapter 3</div>
+    <h2>코딩을 넘어서: AI는 코드만 쓰는 게 아니다</h2>
+    <p class="lead">민수는 앱을 만들고 나서 깨달았다. "AI가 코드를 만들 수 있다면... 다른 것도 만들 수 있지 않을까?"</p>
+
+    <div class="story-scene">
+      <div class="scene-label">전환점</div>
+      앱은 완성됐지만, 아무도 안 쓴다. 민수는 생각했다.<br>
+      "앱을 만드는 건 시작일 뿐이구나. 사람들에게 <strong>알려야</strong> 하고, <strong>보여줘야</strong> 하고, <strong>매력적으로</strong> 만들어야 해."<br><br>
+      그때 민수는 깨달았다 — 바이브 코딩의 5단계(기획→설명→확인→수정→반복)는 코딩에만 쓸 수 있는 게 아니라, <strong>모든 AI 창작에 통하는 공식</strong>이라는 것을.
+    </div>
+
+    <h3>바이브 코딩 방법론의 확장</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>영역</th><th>AI 도구</th><th>바이브 코딩처럼 하면</th><th>결과물</th></tr></thead>
+        <tbody>
+          <tr><td><strong>이미지/디자인</strong></td><td>Midjourney, DALL-E, Canva AI</td><td>"20대 여성 타겟, 따뜻한 카페 느낌의 로고"</td><td>브랜드 로고, 포스터, 굿즈</td></tr>
+          <tr><td><strong>영상 제작</strong></td><td>Runway, Sora, CapCut AI</td><td>"15초 제품 소개, 밝은 톤, 자막 포함"</td><td>유튜브 쇼츠, 릴스, 광고</td></tr>
+          <tr><td><strong>음악/사운드</strong></td><td>Suno, Udio</td><td>"밝은 팝 스타일, 30초, 광고 배경음악"</td><td>배경음악, 징글, 효과음</td></tr>
+          <tr><td><strong>글쓰기/카피</strong></td><td>Claude, GPT</td><td>"Z세대 타겟, 친근한 말투, 앱 소개 글"</td><td>블로그, SNS, 광고 문구</td></tr>
+          <tr><td><strong>광고/마케팅</strong></td><td>Claude + Canva + Meta Ads</td><td>"클릭률 높은 인스타 광고 3종 세트"</td><td>광고 배너, 타겟팅 전략</td></tr>
+          <tr><td><strong>사업 기획</strong></td><td>Claude, Notion AI</td><td>"학생 대상 공부 앱, 수익 모델 3가지"</td><td>사업 계획서, 피칭 자료</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">핵심 발견</div>
+      <p>모든 AI 창작에는 <strong>같은 공식</strong>이 적용된다: <strong>기획 → 설명 → 확인 → 수정 → 반복.</strong> 도구만 바뀔 뿐, 방법론은 동일하다. 바이브 코딩을 배운다는 것은 <strong>AI 시대의 범용 제작 능력</strong>을 배우는 것이다.</p>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 4 ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Chapter 4</div>
+    <h2>1인 AI 오케스트라: 혼자서 팀 전체의 일을 한다</h2>
+
+    <div class="story-scene">
+      <div class="scene-label">Scene</div>
+      민수는 유튜브에서 한 1인 사업가를 봤다. 그 사람은 혼자서:<br>
+      • AI로 앱을 만들고<br>
+      • AI로 로고와 디자인을 만들고<br>
+      • AI로 소개 영상을 만들고<br>
+      • AI로 광고 문구를 쓰고<br>
+      • AI로 고객 응대 챗봇을 만들었다.<br><br>
+      예전에는 개발자 + 디자이너 + 영상 편집자 + 마케터 + 고객 지원팀이 필요했던 일을 <strong>한 사람이 AI와 함께</strong> 해냈다.
+    </div>
+
+    <h3>오케스트라라고 부르는 이유</h3>
+    <p>오케스트라에서 지휘자는 악기를 직접 연주하지 않는다. 대신 <strong>어떤 악기가 언제, 어떻게 연주할지</strong>를 결정한다. AI 오케스트라의 지휘자도 마찬가지다 — 코드를 직접 쓰지 않고, <strong>어떤 AI가 언제, 무엇을 만들지</strong>를 결정한다.</p>
+
+    <div class="orchestra-visual">
+      <h4>나(지휘자)를 중심으로 한 AI 오케스트라</h4>
+      <div class="orch-ring">
+        <div class="orch-item">
+          <div class="orch-dot">💻</div>
+          <div class="orch-name">코딩 AI<br><small>Claude Code</small></div>
+        </div>
+        <div class="orch-item">
+          <div class="orch-dot">🎨</div>
+          <div class="orch-name">디자인 AI<br><small>Midjourney</small></div>
+        </div>
+        <div class="orch-item">
+          <div class="orch-dot">🎥</div>
+          <div class="orch-name">영상 AI<br><small>Runway</small></div>
+        </div>
+        <div class="orch-item">
+          <div class="orch-dot center">🎸</div>
+          <div class="orch-name"><strong>나</strong><br><small>지휘자</small></div>
+        </div>
+        <div class="orch-item">
+          <div class="orch-dot">📝</div>
+          <div class="orch-name">글쓰기 AI<br><small>Claude</small></div>
+        </div>
+        <div class="orch-item">
+          <div class="orch-dot">📢</div>
+          <div class="orch-name">마케팅 AI<br><small>Meta + Claude</small></div>
+        </div>
+        <div class="orch-item">
+          <div class="orch-dot">🎧</div>
+          <div class="orch-name">음악 AI<br><small>Suno</small></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>전통 팀 vs AI 오케스트라</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>역할</th><th>전통 (사람 고용)</th><th>AI 오케스트라 (1인)</th><th>비용 절감</th></tr></thead>
+        <tbody>
+          <tr><td>개발자</td><td>월 400만원</td><td>Claude Code 구독</td><td>~95%</td></tr>
+          <tr><td>디자이너</td><td>월 300만원</td><td>Midjourney 구독</td><td>~97%</td></tr>
+          <tr><td>영상 편집자</td><td>건당 30만원</td><td>Runway + CapCut</td><td>~90%</td></tr>
+          <tr><td>카피라이터</td><td>건당 10만원</td><td>Claude</td><td>~95%</td></tr>
+          <tr><td>마케팅 매니저</td><td>월 350만원</td><td>AI + 본인 판단</td><td>~80%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">핵심 메시지</div>
+      <p>AI 오케스트라의 지휘자에게 필요한 것은 <strong>각 AI 도구의 전문 지식이 아니라, "무엇을 만들고 싶은지"를 명확하게 정의하는 능력</strong>이다. 그리고 그 능력의 기본기가 바로 — 바이브 코딩의 5단계다.</p>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 5 ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Chapter 5</div>
+    <h2>왜 "상업용"으로 생각해야 하는가</h2>
+
+    <div class="story-scene">
+      <div class="scene-label">민수의 두 번째 질문</div>
+      민수의 공부 타이머 앱을 본 친구가 말했다.<br>
+      "야, 이거 진짜 좋다. 돈 내고 쓸래. 근데... 이걸 어떻게 팔아?"<br><br>
+      민수는 처음으로 생각했다 — <strong>"만드는 것"과 "사업이 되는 것"은 다르구나.</strong>
+    </div>
+
+    <h3>취미 프로젝트 vs 상업용 프로젝트</h3>
+    <div class="compare">
+      <div class="compare-col">
+        <h4 style="color:var(--text-muted)">🏠 취미 프로젝트</h4>
+        <ul>
+          <li>"내가 쓰려고 만든다"</li>
+          <li>아무도 안 써도 괜찮다</li>
+          <li>디자인은 대충</li>
+          <li>에러가 좀 있어도 OK</li>
+          <li>성장이 없다</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <h4 style="color:var(--accent)">🚀 상업용 프로젝트</h4>
+        <ul>
+          <li>"다른 사람의 문제를 해결한다"</li>
+          <li>사용자가 있어야 의미가 있다</li>
+          <li>첫인상이 중요하다</li>
+          <li>안정적으로 작동해야 한다</li>
+          <li>피드백 → 개선 → 성장</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>상업적 사고가 중요한 세 가지 이유</h3>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>"다른 사람"을 위해 만들면 더 잘 만든다</h4>
+          <p>내가 쓸 앱은 대충 만들어도 된다. 하지만 "누군가 돈을 내고 쓸 앱"이라고 생각하면, 자연스럽게 사용자 경험, 디자인, 안정성을 고민하게 된다. 이 고민이 실력을 키운다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>문제 해결 능력 = 미래의 핵심 역량</h4>
+          <p>AI 시대에 가장 중요한 능력은 "코드를 잘 쓰는 것"이 아니라 "사람들의 문제를 발견하고 해결하는 것"이다. 상업적 사고는 이 능력을 훈련시킨다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>시작이 쉬워진 만큼, 시작하지 않을 이유가 없다</h4>
+          <p>예전에는 사업을 시작하려면 최소 수천만 원이 필요했다. 지금은 AI와 노트북 한 대면 된다. 진입 장벽이 사라진 시대에, "일단 만들어보는 것"이 가장 큰 경쟁력이다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>시대</th><th>사업 시작에 필요한 것</th><th>기간</th><th>비용</th></tr></thead>
+        <tbody>
+          <tr><td>2010년</td><td>개발팀 + 디자이너 + 서버 + 사무실</td><td>6개월~1년</td><td>5,000만원+</td></tr>
+          <tr><td>2020년</td><td>노코드 도구 + 프리랜서</td><td>1~3개월</td><td>500만원</td></tr>
+          <tr><td><strong>2025년</strong></td><td><strong>AI + 노트북 + 아이디어</strong></td><td><strong>1일~1주</strong></td><td><strong>월 5만원</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 6 ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Chapter 6</div>
+    <h2>아이디어를 사업으로: 생각을 발전시키는 기술</h2>
+    <p class="lead">좋은 아이디어는 처음부터 완성되지 않는다. 계속 생각하고, 조사하고, 수정하면서 날카로워진다.</p>
+
+    <h3>아이디어 발전의 4단계</h3>
+    <div class="timeline">
+      <div class="tl-item active">
+        <h4>1단계: 씨앗 — "이런 거 있으면 좋겠다"</h4>
+        <p>일상에서 불편한 점을 발견한다. 민수의 경우: "공부할 때 시간 관리가 안 돼."</p>
+        <div class="tl-tag">관찰</div>
+      </div>
+      <div class="tl-item">
+        <h4>2단계: 검증 — "나만 그런 건가?"</h4>
+        <p>같은 문제를 가진 사람이 얼마나 있는지 조사한다. 인스타, 유튜브 댓글, 커뮤니티를 뒤져본다. "공부 타이머" 검색량: 월 12,000건. 비슷한 불편을 가진 사람이 많다.</p>
+        <div class="tl-tag">조사</div>
+      </div>
+      <div class="tl-item">
+        <h4>3단계: 벤치마킹 — "다른 사람은 어떻게 풀었지?"</h4>
+        <p>경쟁 앱을 분석한다. 강점과 약점을 파악하고, "내가 더 잘할 수 있는 부분"을 찾는다.</p>
+        <div class="tl-tag">분석</div>
+      </div>
+      <div class="tl-item">
+        <h4>4단계: 차별화 — "내 것만의 무기는 뭐지?"</h4>
+        <p>"학생 전용 + 과목별 기록 + 친구와 경쟁" — 기존 앱에 없는 조합을 찾아낸다.</p>
+        <div class="tl-tag">창의</div>
+      </div>
+    </div>
+
+    <h3>벤치마킹: 경쟁자에게서 배우기</h3>
+    <p>벤치마킹은 "베끼기"가 아니다. <strong>다른 사람의 해결책에서 배우고, 내 것에 적용</strong>하는 것이다.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>경쟁 앱</th><th>강점</th><th>약점</th><th>내가 가져갈 것</th><th>내가 다르게 할 것</th></tr></thead>
+        <tbody>
+          <tr><td>Forest</td><td>나무 키우기 동기부여</td><td>과목별 기록 없음</td><td>게이미피케이션 아이디어</td><td>과목별 통계 추가</td></tr>
+          <tr><td>Todoist</td><td>할 일 관리 체계적</td><td>타이머 기능 없음</td><td>깔끔한 UI 참고</td><td>타이머 + 할 일 통합</td></tr>
+          <tr><td>Focus To-Do</td><td>뽀모도로 + 할 일</td><td>학생 맞춤 아님</td><td>뽀모도로 구조</td><td>시험 일정 연동</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">AI로 벤치마킹하기</div>
+      <p>Claude에게 이렇게 물어보자: <em>"공부 타이머 앱 시장을 분석해줘. 상위 5개 앱의 강점, 약점, 차별화 포인트를 표로 정리해줘."</em> AI가 시장 조사까지 도와준다. 지휘자는 결과를 보고 <strong>판단</strong>만 하면 된다.</p>
+    </div>
+
+    <h3>페르소나 설정: "누구를 위한 건가?"</h3>
+    <p>"모든 사람을 위한 앱"은 아무도 안 쓴다. <strong>딱 한 명의 구체적인 사용자</strong>를 정하면, 오히려 더 많은 사람이 쓴다.</p>
+
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:var(--lavender-soft)">👦</div>
+        <h4>김민수</h4>
+        <div class="role">중학교 2학년</div>
+        <p>시험 기간에 집중이 안 됨. SNS를 자꾸 봄. 공부 시간을 기록하고 싶지만 귀찮음.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:var(--teal-soft)">👧</div>
+        <h4>이서연</h4>
+        <div class="role">고등학교 1학년</div>
+        <p>하루 공부 계획을 세우지만 지키지 못함. 친구와 공부 시간을 비교하고 싶음.</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:rgba(232,93,58,0.1)">👨</div>
+        <h4>박준호</h4>
+        <div class="role">공시생 (24세)</div>
+        <p>하루 10시간 공부 목표. 과목별 시간 배분이 중요. 주간/월간 통계 필요.</p>
+      </div>
+    </div>
+
+    <p>같은 "공부 타이머"지만, 페르소나에 따라 기능 우선순위가 완전히 달라진다:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>기능</th><th>민수 (중학생)</th><th>서연 (고등학생)</th><th>준호 (공시생)</th></tr></thead>
+        <tbody>
+          <tr><td>기본 타이머</td><td>핵심</td><td>핵심</td><td>핵심</td></tr>
+          <tr><td>과목별 기록</td><td>있으면 좋음</td><td>핵심</td><td>핵심</td></tr>
+          <tr><td>친구 경쟁</td><td>핵심</td><td>핵심</td><td>불필요</td></tr>
+          <tr><td>주간/월간 통계</td><td>불필요</td><td>있으면 좋음</td><td>핵심</td></tr>
+          <tr><td>SNS 차단</td><td>핵심</td><td>있으면 좋음</td><td>불필요</td></tr>
+          <tr><td>디자인 스타일</td><td>귀여운, 캐릭터</td><td>깔끔, 미니멀</td><td>기능적, 대시보드</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 7 ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Chapter 7</div>
+    <h2>생각을 계속 업데이트하라: 반복적 사고의 힘</h2>
+
+    <div class="story-scene">
+      <div class="scene-label">Scene</div>
+      민수는 첫 번째 버전을 친구 5명에게 보여줬다.<br>
+      • "과목 선택이 드롭다운이라 불편해. 버튼이 나았을 텐데."<br>
+      • "색깔이 너무 밝아서 밤에 눈 아파."<br>
+      • "친구랑 같이 공부하는 기능 있으면 좋겠다."<br><br>
+      민수는 깨달았다. <strong>완벽한 첫 버전은 없다.</strong> 계속 듣고, 고치고, 다시 보여주는 것 — 이것이 진짜 제작 과정이다.
+    </div>
+
+    <h3>반복적 사고 사이클</h3>
+    <div class="flow">
+      <div class="flow-node">
+        <div class="flow-circle active">💡</div>
+        <div class="flow-label">아이디어</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node">
+        <div class="flow-circle">🔧</div>
+        <div class="flow-label">제작</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node">
+        <div class="flow-circle">💬</div>
+        <div class="flow-label">피드백</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node">
+        <div class="flow-circle">🔬</div>
+        <div class="flow-label">분석</div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node">
+        <div class="flow-circle">🔄</div>
+        <div class="flow-label">개선</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>버전</th><th>바꾼 것</th><th>이유</th><th>결과</th></tr></thead>
+        <tbody>
+          <tr><td>v1</td><td>기본 타이머 완성</td><td>첫 출발</td><td>작동은 하지만 아무도 안 씀</td></tr>
+          <tr><td>v2</td><td>다크 모드 추가</td><td>밤에 눈이 아프다는 피드백</td><td>밤 시간 사용률 2배 증가</td></tr>
+          <tr><td>v3</td><td>과목 버튼으로 변경</td><td>드롭다운이 불편하다는 피드백</td><td>과목 선택 속도 50% 빨라짐</td></tr>
+          <tr><td>v4</td><td>친구 경쟁 기능</td><td>같이 공부하고 싶다는 요청</td><td>일일 활성 사용자 3배 증가</td></tr>
+          <tr><td>v5</td><td>주간 리포트</td><td>데이터 분석 — 주말 사용률이 낮음</td><td>주말 사용률 40% 증가</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">AI 시대의 반복적 사고</div>
+      <p>AI 덕분에 수정 비용이 거의 0에 가깝다. 예전에는 디자인 하나 바꾸려면 디자이너에게 다시 의뢰하고 며칠을 기다렸다. 이제는 <strong>"이 부분 이렇게 바꿔줘"</strong> 한마디면 된다. 빠르게 만들고, 빠르게 고치는 것 — 이것이 AI 시대의 경쟁력이다.</p>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 8 ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Chapter 8</div>
+    <h2>실전 확장: 유튜브, 광고, 그리고 브랜드</h2>
+    <p class="lead">민수는 앱이 어느 정도 완성되자, 이제 "알리는 것"이 필요했다.</p>
+
+    <h3>유튜브 채널 만들기 — AI 오케스트라 실전</h3>
+    <p>민수가 "공부 타이머 앱 소개 영상"을 만드는 과정을 따라가보자.</p>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>대본 작성 (Claude)</h4>
+          <p>"중학생이 공부할 때 시간 관리가 어려운 문제를 소개하고, 우리 앱이 어떻게 해결하는지 15초 쇼츠 대본을 써줘. 후킹 멘트로 시작해."</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>썸네일 제작 (Midjourney + Canva)</h4>
+          <p>"공부하는 학생이 타이머를 보면서 집중하는 일러스트, 밝은 톤, 텍스트 공간 확보" → AI가 이미지 생성 → Canva에서 텍스트 추가</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>영상 제작 (Runway + CapCut)</h4>
+          <p>앱 화면 녹화 + AI가 만든 b-roll 영상 + AI 음성 나레이션 + 배경음악(Suno). 편집은 CapCut AI가 자동으로.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>SEO + 해시태그 (Claude)</h4>
+          <p>"공부 타이머 앱 유튜브 쇼츠에 적합한 제목 5개, 설명문, 해시태그 10개를 추천해줘. 10대 학생이 검색할 만한 키워드 중심으로."</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>인스타그램 광고 — AI로 제작하기</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>광고 요소</th><th>AI 도구</th><th>프롬프트 예시</th></tr></thead>
+        <tbody>
+          <tr><td>광고 이미지</td><td>Midjourney</td><td>"스마트폰 화면에 타이머 앱, 깔끔한 배경, 광고 스타일"</td></tr>
+          <tr><td>광고 문구</td><td>Claude</td><td>"10대 타겟, 공부 시간 관리 앱, CTA 포함, 3줄 이내"</td></tr>
+          <tr><td>타겟 설정</td><td>Claude</td><td>"인스타 광고 타겟팅: 13~18세, 관심사 공부/시험, 한국"</td></tr>
+          <tr><td>A/B 테스트안</td><td>Claude</td><td>"같은 앱 광고를 유머 버전과 진지한 버전으로 2개 만들어줘"</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>브랜드 아이덴티티 만들기</h3>
+    <div class="card-scroll">
+      <div class="hcard">
+        <div class="hcard-icon coral">🎨</div>
+        <h4>로고</h4>
+        <p>Midjourney: "미니멀 공부 타이머 로고, 둥근 시계 모티프, 파란색+초록색, 플랫 스타일"</p>
+      </div>
+      <div class="hcard">
+        <div class="hcard-icon teal">🎨</div>
+        <h4>컬러 팔레트</h4>
+        <p>Claude: "학생 공부 앱에 적합한 컬러 팔레트 3종 추천해줘. 집중과 안정감을 주는 색상으로"</p>
+      </div>
+      <div class="hcard">
+        <div class="hcard-icon lav">🎨</div>
+        <h4>앱 이름</h4>
+        <p>Claude: "공부 타이머 앱 이름 후보 10개. 한글, 기억하기 쉬운, 10대가 좋아할 만한"</p>
+      </div>
+      <div class="hcard">
+        <div class="hcard-icon coral">🎨</div>
+        <h4>슬로건</h4>
+        <p>Claude: "앱 슬로건 5개. 짧고, 동기부여, Z세대 말투. 예: '오늘도 작심삼일? 이젠 작심삼백!'"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 9 ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Chapter 9</div>
+    <h2>스토리라인: 민수의 30일</h2>
+    <p class="lead">아이디어에서 사업까지, 민수가 걸어간 30일의 기록.</p>
+
+    <div class="timeline">
+      <div class="tl-item active">
+        <h4>Day 1~3 — 발견</h4>
+        <p>"공부 시간 관리가 안 돼"라는 불편을 발견. 유사 앱을 조사하고, 페르소나를 설정.</p>
+        <div class="tl-tag">기획</div>
+      </div>
+      <div class="tl-item active">
+        <h4>Day 4~5 — 첫 번째 제작</h4>
+        <p>Claude Code로 공부 타이머 v1 완성. 기본 기능(타이머 + 과목 선택 + 기록 저장).</p>
+        <div class="tl-tag">바이브 코딩</div>
+      </div>
+      <div class="tl-item">
+        <h4>Day 6~10 — 피드백 &amp; 개선</h4>
+        <p>친구 10명에게 테스트 요청. 피드백 수집. 다크 모드, UI 개선, 버그 수정. v2 → v3.</p>
+        <div class="tl-tag">반복 개선</div>
+      </div>
+      <div class="tl-item">
+        <h4>Day 11~15 — 브랜딩</h4>
+        <p>앱 이름 "집중모드" 결정. Midjourney로 로고 제작. 컬러 팔레트 확정. 슬로건 작성.</p>
+        <div class="tl-tag">디자인</div>
+      </div>
+      <div class="tl-item">
+        <h4>Day 16~20 — 콘텐츠 제작</h4>
+        <p>유튜브 쇼츠 3개 제작(대본→영상→편집 모두 AI). 인스타 피드 5개 제작. 블로그 글 2개 작성.</p>
+        <div class="tl-tag">유튜브 + SNS</div>
+      </div>
+      <div class="tl-item">
+        <h4>Day 21~25 — 마케팅</h4>
+        <p>인스타 광고 실행 (일 5,000원 예산). 학교 커뮤니티에 공유. A/B 테스트로 효과적인 메시지 발견.</p>
+        <div class="tl-tag">광고</div>
+      </div>
+      <div class="tl-item">
+        <h4>Day 26~30 — 성장</h4>
+        <p>사용자 50명 달성. 수익 모델 고민 시작 (프리미엄 통계 기능). 투자자에게 보낼 피칭 자료 AI로 작성.</p>
+        <div class="tl-tag">사업</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">30일 동안 민수가 사용한 AI 도구</div>
+      <p><strong>Claude Code</strong> (앱 개발) + <strong>Claude</strong> (기획, 카피, 분석) + <strong>Midjourney</strong> (로고, 썸네일) + <strong>Runway</strong> (영상) + <strong>Suno</strong> (배경음악) + <strong>CapCut</strong> (편집) + <strong>Canva</strong> (SNS 디자인) = <strong>7가지 AI, 1명의 지휘자.</strong></p>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 10 ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Chapter 10</div>
+    <h2>지휘자의 마인드셋: 기술보다 중요한 것</h2>
+
+    <h3>AI 오케스트라 지휘자의 5가지 원칙</h3>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>문제부터 시작하라</h4>
+          <p>"이 기술로 뭘 만들지?"가 아니라 <strong>"이 문제를 어떻게 풀지?"</strong>가 먼저다. 기술은 문제를 풀기 위한 도구일 뿐이다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>완벽보다 시작이 먼저다</h4>
+          <p>첫 버전은 항상 부족하다. 하지만 시작하지 않으면 피드백도, 개선도, 성장도 없다. <strong>50%짜리를 내놓고, 나머지 50%는 피드백으로 채워라.</strong></p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>계속 물어봐라</h4>
+          <p>사용자에게, AI에게, 경쟁자의 제품에게 계속 질문하라. <strong>"왜 이렇게 했지?" "더 나은 방법은?" "사용자가 정말 원하는 건?"</strong></p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>AI의 한계를 알아라</h4>
+          <p>AI는 훌륭한 도구이지만, <strong>판단은 사람의 몫</strong>이다. AI가 만들어준 것을 무조건 수용하지 말고, 항상 검증하고 수정하라.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>나만의 이야기를 만들어라</h4>
+          <p>AI 도구는 누구나 쓸 수 있다. 차이를 만드는 건 <strong>"무엇에 관심을 갖느냐"</strong>와 <strong>"어떤 문제를 풀고 싶으냐"</strong>다. 나만의 관점, 나만의 경험이 곧 차별화다.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>AI 시대에 살아남는 능력</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>사라질 능력</th><th>살아남는 능력</th></tr></thead>
+        <tbody>
+          <tr><td>코드 문법 암기</td><td>문제 정의 능력</td></tr>
+          <tr><td>포토샵 도구 조작</td><td>심미적 판단력</td></tr>
+          <tr><td>영상 편집 기술</td><td>스토리텔링 능력</td></tr>
+          <tr><td>단순 번역</td><td>문화적 맥락 이해</td></tr>
+          <tr><td>데이터 수집</td><td>데이터에서 인사이트 도출</td></tr>
+          <tr><td>반복적 글쓰기</td><td>독창적 관점과 경험</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ==================== EPILOGUE ==================== -->
+  <section class="chapter">
+    <div class="ch-marker">Epilogue</div>
+    <h2>민수의 대답: "나 혼자서도 만들 수 있었다"</h2>
+
+    <div class="story-scene">
+      <div class="scene-label">마지막 장면</div>
+      30일이 지난 뒤, 민수의 책상 위에는 노트북 한 대뿐이었다.<br>
+      하지만 그 안에는 — 앱이 돌아가고 있었고, 유튜브에 영상이 올라와 있었고, 인스타에 광고가 돌고 있었고, 50명의 사용자가 매일 공부 기록을 남기고 있었다.<br><br>
+      민수가 혼자서 다 만들었을까? 아니다. <strong>AI와 함께</strong> 만들었다.<br>
+      민수가 천재였을까? 아니다. <strong>문제를 발견하고, 설명하고, 확인하고, 고치고, 반복</strong>했을 뿐이다.<br><br>
+      바이브 코딩의 5단계. 그게 전부였다.
+    </div>
+
+    <blockquote>
+      "코딩을 잘하는 사람"이 아니라 "설명을 잘하는 사람"이 만드는 시대.<br>
+      "혼자서 다 할 수 있는 사람"이 아니라 "AI를 잘 지휘하는 사람"이 이기는 시대.<br>
+      그 시대가 — 지금이다.
+    </blockquote>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <strong>바이브 코딩에서 AI 오케스트라까지</strong>
+    기획 → 설명 → 확인 → 수정 → 반복 — 이 공식 하나로 무엇이든 만들 수 있다.
+  </div>
+
+</div>
+</body></html>
