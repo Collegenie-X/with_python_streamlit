@@ -2,6 +2,13 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "study-timer",
+      "runtimeExecutable": "venv/bin/python",
+      "runtimeArgs": ["app.py"],
+      "port": 5055,
+      "autoPort": true
+    },
+    {
       "name": "dashboard",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["app_dashboard.py"],

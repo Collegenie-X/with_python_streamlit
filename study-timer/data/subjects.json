@@ -1,0 +1,26 @@
+[
+  {
+    "name": "영어",
+    "goal_minutes": 50,
+    "color": "#2196f3",
+    "done": false
+  },
+  {
+    "name": "국어",
+    "goal_minutes": 30,
+    "color": "#FF9800",
+    "done": false
+  },
+  {
+    "name": "수학",
+    "goal_minutes": 90,
+    "color": "#ae4c8f",
+    "done": false
+  },
+  {
+    "name": "과학",
+    "goal_minutes": 45,
+    "color": "#9C27B0",
+    "done": false
+  }
+]

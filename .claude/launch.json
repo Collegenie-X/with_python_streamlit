@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "study-timer",
+      "runtimeExecutable": "study-timer/venv/bin/python",
+      "runtimeArgs": ["study-timer/app.py"],
+      "port": 5050
+    },
+    {
       "name": "dashboard",
       "runtimeExecutable": "study-timer/venv/bin/python",
       "runtimeArgs": ["study-timer/app_dashboard.py"],

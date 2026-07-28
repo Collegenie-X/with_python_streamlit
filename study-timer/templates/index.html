@@ -3,115 +3,765 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공부 타이머</title>
+<title>AI 공부 매니저 - 타이머</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: system-ui, -apple-system, sans-serif;
-    background: #1a1a2e;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0f0f23;
+    color: #e0e0e0;
     min-height: 100vh;
 }
-.container {
-    text-align: center;
-    padding: 40px;
+nav {
+    background: #16213e;
+    padding: 12px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 2px solid #0f3460;
 }
-h1 {
-    font-size: 1.5rem;
-    margin-bottom: 40px;
-    color: #e0e0e0;
+nav .logo { font-size: 1.2rem; font-weight: 700; color: #e94560; }
+nav .nav-links a {
+    color: #a0a0c0; text-decoration: none; margin-left: 24px;
+    font-weight: 500; transition: color 0.2s;
 }
-.timer-display {
-    font-size: 80px;
-    font-weight: 700;
-    margin-bottom: 40px;
+nav .nav-links a:hover, nav .nav-links a.active { color: #e94560; }
+
+.datetime-header {
+    text-align: center; padding: 16px 16px 4px;
+    max-width: 1000px; margin: 0 auto;
+}
+.datetime-header .date { font-size: 1rem; color: #999; }
+.datetime-header .time {
+    font-size: 1.8rem; font-weight: 700; color: #e94560;
     font-variant-numeric: tabular-nums;
 }
-.buttons {
-    display: flex;
+.datetime-header .remaining { font-size: 0.75rem; color: #555; margin-top: 2px; }
+
+.main {
+    max-width: 1000px; margin: 0 auto;
+    padding: 12px 16px 24px;
+    display: grid;
+    grid-template-columns: 370px 1fr;
     gap: 16px;
-    justify-content: center;
 }
+@media (max-width: 780px) { .main { grid-template-columns: 1fr; } }
+
+.card {
+    background: #16213e; border-radius: 14px;
+    padding: 18px; border: 1px solid #1a1a40;
+}
+.card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+}
+.card-header h2 {
+    font-size: 0.85rem; color: #a0a0c0;
+    text-transform: uppercase; letter-spacing: 1px;
+}
+.card-header .info {
+    font-size: 0.7rem; color: #666;
+}
+
+/* ── 과목 리스트 ── */
+.plan-list { list-style: none; }
+.plan-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 12px; margin-bottom: 4px;
+    border-radius: 10px; border: 2px solid transparent;
+    cursor: pointer; transition: all 0.15s;
+}
+.plan-item:hover { background: #1a1a40; }
+.plan-item.selected { border-color: #e94560; background: #1e1535; }
+.plan-item.dragging { opacity: 0.3; }
+.plan-item.drag-over { border-color: #4CAF50; }
+
+.drag-handle {
+    cursor: grab; color: #444; font-size: 0.85rem;
+    user-select: none; flex-shrink: 0;
+}
+.drag-handle:active { cursor: grabbing; }
+.plan-num {
+    font-size: 0.7rem; color: #e94560; font-weight: 700;
+    width: 18px; text-align: center; flex-shrink: 0;
+}
+.plan-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.plan-name {
+    flex: 1; font-weight: 500; font-size: 0.95rem;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.plan-minutes {
+    font-size: 0.7rem; color: #888;
+    background: #0f0f23; padding: 2px 7px; border-radius: 6px; flex-shrink: 0;
+}
+.plan-time-range {
+    font-size: 0.65rem; color: #666; flex-shrink: 0;
+    min-width: 80px; text-align: right;
+}
+.plan-time-range .end { color: #e94560; font-weight: 600; }
+.plan-del {
+    background: none; border: none; color: #f44336; cursor: pointer;
+    font-size: 0.9rem; opacity: 0; transition: opacity 0.15s;
+    flex-shrink: 0; padding: 0 2px;
+}
+.plan-item:hover .plan-del { opacity: 0.5; }
+.plan-del:hover { opacity: 1 !important; }
+
+.plan-total {
+    text-align: center; margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid #1a1a40;
+    font-size: 0.75rem; color: #666;
+}
+.plan-total strong { color: #e94560; }
+
+/* ── 입력 폼 (추가 or 편집) ── */
+.input-form {
+    margin-top: 12px; padding: 12px;
+    background: #0f0f23; border-radius: 10px;
+    border: 1px solid #333;
+}
+.input-form .form-label {
+    font-size: 0.7rem; color: #e94560; margin-bottom: 8px;
+    font-weight: 600; text-transform: uppercase;
+}
+.input-form .form-row {
+    display: flex; gap: 6px; align-items: center;
+}
+.input-form input[type="text"] {
+    flex: 1; min-width: 70px;
+    padding: 8px 10px; border-radius: 8px;
+    border: 1px solid #333; background: #16213e; color: #fff;
+    font-size: 0.85rem;
+}
+.input-form input[type="number"] {
+    width: 55px; padding: 8px 6px; border-radius: 8px;
+    border: 1px solid #333; background: #16213e; color: #fff;
+    font-size: 0.85rem; text-align: center;
+}
+.input-form .unit { font-size: 0.7rem; color: #666; }
+.input-form input[type="color"] {
+    width: 32px; height: 32px; border: none; border-radius: 6px;
+    cursor: pointer; background: none;
+}
+.input-form .form-btns {
+    display: flex; gap: 4px; margin-top: 8px;
+}
+.input-form button {
+    padding: 7px 14px; border-radius: 8px; border: none;
+    font-weight: 600; cursor: pointer; font-size: 0.8rem; color: #fff;
+}
+.input-form .primary-btn { background: #4CAF50; }
+.input-form .secondary-btn { background: #555; }
+.input-form .danger-btn { background: #f44336; }
+
+.warning-msg {
+    font-size: 0.72rem; color: #FFC107; margin-top: 6px;
+    line-height: 1.4; padding: 5px 8px;
+    background: #2a2200; border-radius: 6px; border: 1px solid #5a4400;
+}
+
+/* ── 타이머 ── */
+.timer-section { text-align: center; }
+.selected-subject {
+    font-size: 1.4rem; font-weight: 700; min-height: 1.6em;
+}
+.timer-schedule { font-size: 0.8rem; color: #888; margin-bottom: 10px; min-height: 1.2em; }
+.timer-display {
+    font-size: 4.5rem; font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    margin: 8px 0; letter-spacing: 2px;
+}
+.timer-progress {
+    width: 100%; height: 5px; background: #1a1a40;
+    border-radius: 3px; margin-bottom: 10px; overflow: hidden;
+}
+.timer-progress .bar {
+    height: 100%; background: #4CAF50; border-radius: 3px;
+    transition: width 1s linear; width: 0%;
+}
+.timer-progress .bar.over { background: #f44336; }
+.timer-sub { font-size: 0.8rem; color: #888; margin-bottom: 16px; min-height: 1.2em; }
+.timer-buttons { display: flex; gap: 12px; justify-content: center; }
 .btn {
-    padding: 14px 32px;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    color: #fff;
-    font-family: inherit;
+    padding: 12px 32px; border: none; border-radius: 12px;
+    font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    color: #fff; font-family: inherit;
 }
 .btn:hover { opacity: 0.85; }
+.btn:active { transform: scale(0.97); }
 .btn-start { background: #4CAF50; }
 .btn-pause { background: #FFC107; color: #333; }
-.btn-reset { background: #f44336; }
-.message {
-    margin-top: 30px;
-    font-size: 1.2rem;
-    min-height: 1.5em;
-    color: #FFC107;
+.btn-stop { background: #f44336; }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.comment-box {
+    margin-top: 16px; padding: 12px; border-radius: 10px;
+    background: #1a1a40; text-align: left; line-height: 1.5;
+    display: none;
 }
+.comment-box .label { font-size: 0.7rem; color: #e94560; margin-bottom: 4px; }
+.comment-box .text { color: #ccc; font-size: 0.82rem; }
+
+/* ── 오늘 기록 ── */
+.today-log { margin-top: 16px; }
+.today-summary {
+    display: flex; gap: 20px; justify-content: center; margin-bottom: 12px;
+}
+.today-summary .stat { text-align: center; }
+.today-summary .stat .val { font-size: 1.2rem; font-weight: 700; color: #e94560; }
+.today-summary .stat .lbl { font-size: 0.6rem; color: #888; }
+.today-log table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+.today-log th { text-align: left; padding: 5px 8px; color: #555; border-bottom: 1px solid #333; }
+.today-log td { padding: 5px 8px; border-bottom: 1px solid #1a1a40; }
+.today-log .empty { color: #444; text-align: center; padding: 14px; }
+.subj-dot {
+    display: inline-block; width: 7px; height: 7px;
+    border-radius: 50%; margin-right: 5px; vertical-align: middle;
+}
+
+.debug-bar { text-align: center; margin-top: 8px; }
+.debug-bar button {
+    font-size: 0.65rem; padding: 3px 8px; border-radius: 6px;
+    border: 1px solid #333; background: #1a1a40; color: #666; cursor: pointer;
+}
+.debug-bar button:hover { color: #e94560; border-color: #e94560; }
+
+.desel-btn {
+    font-size: 0.65rem; padding: 3px 8px; border-radius: 6px;
+    border: 1px solid #e94560; background: none; color: #e94560;
+    cursor: pointer; white-space: nowrap;
+}
+.desel-btn:hover { background: #e94560; color: #fff; }
 </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>공부 타이머</h1>
-    <div class="timer-display" id="timer">25:00</div>
-    <div class="buttons">
-        <button class="btn btn-start" id="startBtn" onclick="startTimer()">시작</button>
-        <button class="btn btn-pause" id="pauseBtn" onclick="pauseTimer()">일시정지</button>
-        <button class="btn btn-reset" onclick="resetTimer()">리셋</button>
+<nav>
+    <div class="logo">AI 공부 매니저</div>
+    <div class="nav-links">
+        <a href="/" class="active">타이머</a>
+        <a href="/dashboard">대시보드</a>
     </div>
-    <div class="message" id="message"></div>
+</nav>
+
+<div class="datetime-header">
+    <div class="date" id="curDate"></div>
+    <div class="time" id="curTime"></div>
+    <div class="remaining" id="curRemain"></div>
+</div>
+
+<div class="main">
+    <!-- 왼쪽: 공부 계획 -->
+    <div class="card">
+        <div class="card-header">
+            <h2>오늘의 공부 계획</h2>
+            <div style="display:flex;gap:6px;align-items:center">
+                <button class="desel-btn" id="deselBtn" onclick="event.stopPropagation();deselect()" style="display:none">선택 해제</button>
+                <span class="info" id="planInfo"></span>
+            </div>
+        </div>
+
+        <ul class="plan-list" id="planList"></ul>
+        <div class="plan-total" id="planTotal"></div>
+
+        <!-- 추가 / 편집 폼 (하나만 보임) -->
+        <div class="input-form" id="inputForm">
+            <div class="form-label" id="formLabel">새 과목 추가</div>
+            <div class="form-row">
+                <input type="text" id="fName" placeholder="과목명">
+                <input type="number" id="fGoal" value="60" min="10" max="480">
+                <span class="unit">분</span>
+                <input type="color" id="fColor" value="#9C27B0">
+            </div>
+            <div class="form-btns" id="formBtns">
+                <button class="primary-btn" id="formAction" onclick="doFormAction()">추가</button>
+            </div>
+            <div class="warning-msg" id="formWarning" style="display:none"></div>
+        </div>
+
+        <div class="debug-bar">
+            <button onclick="loadDummy()">더미 데이터 로드</button>
+        </div>
+    </div>
+
+    <!-- 오른쪽: 타이머 + 기록 -->
+    <div>
+        <div class="card timer-section">
+            <div class="selected-subject" id="selSubject" style="color:#555">과목을 선택하세요</div>
+            <div class="timer-schedule" id="timerSchedule"></div>
+            <div class="timer-display" id="timerDisplay">00:00:00</div>
+            <div class="timer-progress"><div class="bar" id="progressBar"></div></div>
+            <div class="timer-sub" id="timerSub"></div>
+            <div class="timer-buttons">
+                <button class="btn btn-start" id="startBtn" onclick="startTimer()" disabled>시작</button>
+                <button class="btn btn-pause" id="pauseBtn" onclick="pauseTimer()" disabled>일시정지</button>
+                <button class="btn btn-stop" id="stopBtn" onclick="stopTimer()" disabled>종료 & 저장</button>
+            </div>
+            <div class="comment-box" id="commentBox">
+                <div class="label">AI 코멘트</div>
+                <div class="text" id="commentText"></div>
+            </div>
+        </div>
+
+        <div class="card today-log">
+            <div class="card-header"><h2>오늘의 기록</h2></div>
+            <div class="today-summary" id="todaySummary"></div>
+            <table>
+                <thead><tr><th>과목</th><th>공부 시간</th><th>시작</th><th>종료</th><th>일시정지</th></tr></thead>
+                <tbody id="todayBody"></tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script>
-let totalSeconds = 25 * 60;
-let remainingSeconds = totalSeconds;
-let interval = null;
+let subjects = [];
+let selected = null;  // selected subject name
+let formMode = 'add'; // 'add' or 'edit'
+let timerInterval = null;
 let running = false;
+let elapsed = 0;
+let pauseCount = 0;
+let pauseSec = 0;
+let pauseStart = null;
+let startTime = null;
+let dragSrc = null;
 
-function updateDisplay() {
-    const min = Math.floor(remainingSeconds / 60);
-    const sec = remainingSeconds % 60;
-    document.getElementById('timer').textContent =
-        String(min).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+// ── 시계 ──
+function tickClock() {
+    const now = new Date();
+    const days = ['일','월','화','수','목','금','토'];
+    document.getElementById('curDate').textContent =
+        `${now.getFullYear()}년 ${now.getMonth()+1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
+    document.getElementById('curTime').textContent =
+        now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+    const mid = new Date(now); mid.setHours(24,0,0,0);
+    const rm = Math.floor((mid-now)/60000);
+    document.getElementById('curRemain').textContent =
+        `오늘 남은 시간: ${Math.floor(rm/60)}시간 ${rm%60}분`;
+}
+tickClock(); setInterval(tickClock, 1000);
+
+// ── 누적 시간 계산 ──
+function calcTimes() {
+    const now = new Date();
+    let cursor = now.getTime();
+    return subjects.map(s => {
+        const st = new Date(cursor);
+        cursor += s.goal_minutes * 60000;
+        const en = new Date(cursor);
+        const mid = new Date(now); mid.setHours(24,0,0,0);
+        return {
+            start: hm(st), end: hm(en),
+            overMidnight: cursor > mid.getTime()
+        };
+    });
+}
+function hm(d) { return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0'); }
+function fmt(sec) {
+    return [Math.floor(sec/3600), Math.floor((sec%3600)/60), sec%60]
+        .map(v=>String(v).padStart(2,'0')).join(':');
+}
+
+// ── 과목 로드 ──
+async function load() {
+    const res = await fetch('/api/subjects');
+    subjects = await res.json();
+    render();
+}
+
+function getColor(name) { return subjects.find(x=>x.name===name)?.color || '#888'; }
+
+// ── 렌더 ──
+function render() {
+    const ul = document.getElementById('planList');
+    ul.innerHTML = '';
+    const times = calcTimes();
+    const total = subjects.reduce((a,s) => a+s.goal_minutes, 0);
+
+    document.getElementById('planInfo').textContent =
+        subjects.length > 0 ? `${subjects.length}과목` : '';
+    document.getElementById('deselBtn').style.display = selected ? 'inline-block' : 'none';
+
+    subjects.forEach((s, i) => {
+        const li = document.createElement('li');
+        li.className = 'plan-item' + (selected === s.name ? ' selected' : '');
+        li.draggable = true;
+        li.dataset.idx = i;
+        li.addEventListener('dragstart', onDS);
+        li.addEventListener('dragover', onDO);
+        li.addEventListener('dragleave', onDL);
+        li.addEventListener('drop', onDD);
+        li.addEventListener('dragend', onDE);
+
+        const t = times[i];
+        li.innerHTML = `
+            <span class="drag-handle" title="순서 변경">&#9776;</span>
+            <span class="plan-num">${i+1}</span>
+            <span class="plan-dot" style="background:${s.color}"></span>
+            <span class="plan-name">${s.name}</span>
+            <span class="plan-minutes">${s.goal_minutes}분</span>
+            <span class="plan-time-range">${t.start}~<span class="end">${t.overMidnight ? '초과' : t.end}</span></span>
+            <button class="plan-del" onclick="event.stopPropagation();delSub('${s.name}')" title="삭제">&times;</button>
+        `;
+        li.onclick = (e) => { e.stopPropagation(); selectSub(s.name); };
+        ul.appendChild(li);
+    });
+
+    if (subjects.length > 0) {
+        const last = times[times.length-1];
+        const h = Math.floor(total/60), m = total%60;
+        document.getElementById('planTotal').innerHTML =
+            `총 <strong>${h}시간${m>0?' '+m+'분':''}</strong> · 종료 <strong>${last.overMidnight?'자정 초과':last.end}</strong>`;
+    } else {
+        document.getElementById('planTotal').innerHTML = '';
+    }
+
+    updateForm();
+    updateTimer();
+}
+
+// ── 선택 ──
+function selectSub(name) {
+    if (running) return;
+    selected = (selected === name) ? null : name;
+    render();
+}
+
+function updateTimer() {
+    if (selected) {
+        const s = subjects.find(x=>x.name===selected);
+        const idx = subjects.indexOf(s);
+        const t = calcTimes()[idx];
+        document.getElementById('selSubject').textContent = selected;
+        document.getElementById('selSubject').style.color = s.color;
+        const goalH = Math.floor(s.goal_minutes/60);
+        const goalM = s.goal_minutes%60;
+        const goalStr = goalH > 0 ? `${goalH}시간${goalM>0?' '+goalM+'분':''}` : `${goalM}분`;
+        document.getElementById('timerSchedule').textContent =
+            `목표: ${goalStr} | 예상 종료: ~${t.overMidnight?'자정초과':t.end}`;
+        document.getElementById('timerSub').textContent = '시작 버튼을 눌러주세요';
+        document.getElementById('startBtn').disabled = false;
+    } else {
+        document.getElementById('selSubject').textContent = '과목을 선택하세요';
+        document.getElementById('selSubject').style.color = '#555';
+        document.getElementById('timerSchedule').textContent = '';
+        document.getElementById('timerSub').textContent = '';
+        document.getElementById('startBtn').disabled = true;
+    }
+}
+
+// ── 폼: 선택 없으면 추가, 선택 있으면 편집 ──
+function updateForm() {
+    const label = document.getElementById('formLabel');
+    const nameEl = document.getElementById('fName');
+    const goalEl = document.getElementById('fGoal');
+    const colorEl = document.getElementById('fColor');
+    const btns = document.getElementById('formBtns');
+    const warn = document.getElementById('formWarning');
+    warn.style.display = 'none';
+
+    if (selected) {
+        formMode = 'edit';
+        const s = subjects.find(x=>x.name===selected);
+        label.textContent = `"${s.name}" 수정`;
+        nameEl.value = s.name;
+        goalEl.value = s.goal_minutes;
+        colorEl.value = s.color;
+        btns.innerHTML = '';
+        checkGoal(s.goal_minutes);
+    } else {
+        formMode = 'add';
+        label.textContent = '새 과목 추가';
+        nameEl.value = '';
+        goalEl.value = '60';
+        colorEl.value = randomColor();
+        btns.innerHTML = `<button class="primary-btn" onclick="doFormAction()">추가</button>`;
+    }
+}
+
+function deselect() {
+    if (running) return;
+    selected = null;
+    render();
+    updateTimer();
+}
+
+function randomColor() {
+    const colors = ['#4CAF50','#2196F3','#FF9800','#9C27B0','#E91E63','#00BCD4','#FF5722','#8BC34A'];
+    return colors[Math.floor(Math.random()*colors.length)];
+}
+
+function checkGoal(val) {
+    const warn = document.getElementById('formWarning');
+    if (val < 60) {
+        warn.textContent = `⚠ ${val}분은 짧습니다. 최소 1시간(60분) 이상 공부해야 효과적입니다.`;
+        warn.style.display = 'block';
+    } else {
+        warn.style.display = 'none';
+    }
+}
+document.getElementById('fGoal').addEventListener('input', function() {
+    checkGoal(+this.value);
+    if (formMode === 'edit') autoSave();
+});
+document.getElementById('fName').addEventListener('input', function() {
+    if (formMode === 'edit') autoSave();
+});
+document.getElementById('fColor').addEventListener('input', function() {
+    if (formMode === 'edit') autoSave();
+});
+
+let saveTimer = null;
+function autoSave() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(async () => {
+        const name = document.getElementById('fName').value.trim();
+        const goal = parseInt(document.getElementById('fGoal').value) || 60;
+        const color = document.getElementById('fColor').value;
+        if (!name || !selected) return;
+        await fetch('/api/subjects/edit', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({old_name:selected, name, goal_minutes:goal, color})
+        });
+        const prev = selected;
+        selected = name;
+        const res = await fetch('/api/subjects');
+        subjects = await res.json();
+        const ul = document.getElementById('planList');
+        const times = calcTimes();
+        const total = subjects.reduce((a,s)=>a+s.goal_minutes,0);
+        ul.innerHTML = '';
+        subjects.forEach((s,i) => {
+            const li = document.createElement('li');
+            li.className = 'plan-item' + (selected===s.name?' selected':'');
+            li.draggable = true; li.dataset.idx = i;
+            li.addEventListener('dragstart',onDS); li.addEventListener('dragover',onDO);
+            li.addEventListener('dragleave',onDL); li.addEventListener('drop',onDD); li.addEventListener('dragend',onDE);
+            const t = times[i];
+            li.innerHTML = `
+                <span class="drag-handle" title="순서 변경">&#9776;</span>
+                <span class="plan-num">${i+1}</span>
+                <span class="plan-dot" style="background:${s.color}"></span>
+                <span class="plan-name">${s.name}</span>
+                <span class="plan-minutes">${s.goal_minutes}분</span>
+                <span class="plan-time-range">${t.start}~<span class="end">${t.overMidnight?'초과':t.end}</span></span>
+                <button class="plan-del" onclick="event.stopPropagation();delSub('${s.name}')" title="삭제">&times;</button>
+            `;
+            li.onclick = (e) => { e.stopPropagation(); selectSub(s.name); };
+            ul.appendChild(li);
+        });
+        if (subjects.length > 0) {
+            const last = times[times.length-1];
+            const h=Math.floor(total/60), m=total%60;
+            document.getElementById('planTotal').innerHTML =
+                `총 <strong>${h}시간${m>0?' '+m+'분':''}</strong> · 종료 <strong>${last.overMidnight?'자정 초과':last.end}</strong>`;
+        }
+        updateTimer();
+    }, 400);
+}
+
+async function doFormAction() {
+    const name = document.getElementById('fName').value.trim();
+    const goal = parseInt(document.getElementById('fGoal').value) || 60;
+    const color = document.getElementById('fColor').value;
+    if (!name) { document.getElementById('fName').focus(); return; }
+
+    if (goal < 60) {
+        if (!confirm(`목표가 ${goal}분입니다.\n최소 1시간 이상 권장합니다. 그래도 진행할까요?`)) return;
+    }
+
+    if (formMode === 'add') {
+        const res = await fetch('/api/subjects/add', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({name, goal_minutes:goal, color})
+        });
+        const d = await res.json();
+        if (d.error) { alert(d.error); return; }
+    } else {
+        await fetch('/api/subjects/edit', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({old_name:selected, name, goal_minutes:goal, color})
+        });
+        selected = name;
+    }
+    load();
+}
+
+document.getElementById('fName').addEventListener('keydown', e => { if (e.key==='Enter') doFormAction(); });
+
+async function delSub(name) {
+    if (running && selected === name) return;
+    if (!confirm(`"${name}" 삭제할까요?`)) return;
+    await fetch('/api/subjects/delete', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({name})
+    });
+    if (selected === name) selected = null;
+    load();
+    updateTimer();
+}
+
+// ── 드래그 ──
+function onDS(e) { dragSrc=+e.currentTarget.dataset.idx; e.currentTarget.classList.add('dragging'); e.dataTransfer.effectAllowed='move'; }
+function onDO(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function onDL(e) { e.currentTarget.classList.remove('drag-over'); }
+function onDD(e) {
+    e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+    const to=+e.currentTarget.dataset.idx;
+    if(dragSrc===null||dragSrc===to) return;
+    const item=subjects.splice(dragSrc,1)[0];
+    subjects.splice(to,0,item);
+    render();
+    fetch('/api/subjects/reorder',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({order:subjects.map(s=>s.name)})});
+}
+function onDE(e) { e.currentTarget.classList.remove('dragging'); dragSrc=null; document.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over')); }
+
+// ── 타이머 ──
+function tick() {
+    elapsed++;
+    document.getElementById('timerDisplay').textContent = fmt(elapsed);
+    const s = subjects.find(x=>x.name===selected);
+    if (s) {
+        const gs = s.goal_minutes*60;
+        const pct = Math.min((elapsed/gs)*100, 100);
+        const bar = document.getElementById('progressBar');
+        bar.style.width = pct+'%';
+        if (elapsed >= gs) {
+            bar.classList.add('over'); bar.style.width='100%';
+            document.getElementById('timerSub').textContent = `목표 달성! +${fmt(elapsed-gs)} 초과 진행 중`;
+        } else {
+            bar.classList.remove('over');
+            document.getElementById('timerSub').textContent = `남은: ${fmt(gs-elapsed)}`;
+        }
+    }
 }
 
 function startTimer() {
-    if (running) return;
+    if (running || !selected) return;
     running = true;
-    document.getElementById('message').textContent = '';
-    interval = setInterval(() => {
-        remainingSeconds--;
-        updateDisplay();
-        if (remainingSeconds <= 0) {
-            clearInterval(interval);
-            running = false;
-            document.getElementById('message').textContent = '수고했어! 쉬는 시간!';
-        }
-    }, 1000);
+    if (!startTime) startTime = new Date().toISOString();
+    document.getElementById('startBtn').disabled = true;
+    document.getElementById('pauseBtn').disabled = false;
+    document.getElementById('stopBtn').disabled = false;
+    document.getElementById('commentBox').style.display = 'none';
+    if (pauseStart) { pauseSec += Math.floor((Date.now()-pauseStart)/1000); pauseStart=null; }
+    timerInterval = setInterval(tick, 1000);
 }
 
 function pauseTimer() {
-    clearInterval(interval);
+    if (!running) return;
+    clearInterval(timerInterval); timerInterval=null;
     running = false;
+    pauseCount++;
+    pauseStart = Date.now();
+    document.getElementById('startBtn').disabled = false;
+    document.getElementById('pauseBtn').disabled = true;
+    document.getElementById('timerSub').textContent = `일시정지 중 (${pauseCount}회)`;
 }
 
-function resetTimer() {
-    clearInterval(interval);
+async function stopTimer() {
+    clearInterval(timerInterval); timerInterval=null;
     running = false;
-    remainingSeconds = totalSeconds;
-    updateDisplay();
-    document.getElementById('message').textContent = '';
+    if (pauseStart) { pauseSec += Math.floor((Date.now()-pauseStart)/1000); pauseStart=null; }
+    const endTime = new Date().toISOString();
+
+    if (elapsed > 0 && selected) {
+        const res = await fetch('/api/sessions/save', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({
+                subject:selected, start_time:startTime, end_time:endTime,
+                duration_seconds:elapsed, pause_count:pauseCount, pause_seconds:pauseSec
+            })
+        });
+        const d = await res.json();
+        if (d.comment) {
+            document.getElementById('commentText').textContent = d.comment;
+            document.getElementById('commentBox').style.display = 'block';
+        }
+        loadSessions();
+    }
+
+    elapsed=0; pauseCount=0; pauseSec=0; startTime=null;
+    document.getElementById('timerDisplay').textContent = '00:00:00';
+    document.getElementById('startBtn').disabled = !selected;
+    document.getElementById('pauseBtn').disabled = true;
+    document.getElementById('stopBtn').disabled = true;
+    document.getElementById('timerSub').textContent = selected ? '시작 버튼을 눌러주세요' : '';
+    document.getElementById('progressBar').style.width = '0%';
+    document.getElementById('progressBar').classList.remove('over');
 }
+
+// ── 오늘 기록 ──
+async function loadSessions() {
+    const res = await fetch('/api/sessions/today');
+    const sessions = await res.json();
+    const tbody = document.getElementById('todayBody');
+    if (!sessions.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty">아직 기록이 없어요</td></tr>';
+        document.getElementById('todaySummary').innerHTML = '';
+        return;
+    }
+    tbody.innerHTML = sessions.map(s => {
+        const st = s.start_time ? new Date(s.start_time).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}) : '-';
+        const et = s.end_time ? new Date(s.end_time).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}) : '-';
+        return `<tr>
+            <td><span class="subj-dot" style="background:${getColor(s.subject)}"></span>${s.subject}</td>
+            <td>${fmt(s.duration_seconds)}</td><td>${st}</td><td>${et}</td><td>${s.pause_count}회</td>
+        </tr>`;
+    }).join('');
+    const tot = sessions.reduce((a,s)=>a+s.duration_seconds,0);
+    document.getElementById('todaySummary').innerHTML = `
+        <div class="stat"><div class="val">${sessions.length}</div><div class="lbl">세션</div></div>
+        <div class="stat"><div class="val">${Math.floor(tot/3600)}h ${Math.floor((tot%3600)/60)}m</div><div class="lbl">총 공부</div></div>
+        <div class="stat"><div class="val">${sessions.reduce((a,s)=>a+s.pause_count,0)}</div><div class="lbl">일시정지</div></div>
+    `;
+}
+
+// ── 더미 데이터 ──
+async function loadDummy() {
+    const dummy = [
+        {name:'수학', goal_minutes:60, color:'#4CAF50'},
+        {name:'영어', goal_minutes:50, color:'#2196F3'},
+        {name:'국어', goal_minutes:30, color:'#FF9800'},
+        {name:'과학', goal_minutes:45, color:'#9C27B0'},
+    ];
+    for (const d of dummy) {
+        await fetch('/api/subjects/add', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(d)
+        });
+    }
+    const now = new Date();
+    const sessions = [
+        {subject:'수학', duration_seconds:3720, pause_count:1, pause_seconds:120,
+         start_time:new Date(now-7200000).toISOString(), end_time:new Date(now-3480000).toISOString()},
+        {subject:'영어', duration_seconds:1800, pause_count:0, pause_seconds:0,
+         start_time:new Date(now-3000000).toISOString(), end_time:new Date(now-1200000).toISOString()},
+    ];
+    for (const s of sessions) {
+        await fetch('/api/sessions/save', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(s)
+        });
+    }
+    load(); loadSessions();
+}
+
+// ── 외부 클릭 시 선택 해제 ──
+document.addEventListener('click', function(e) {
+    if (running || !selected) return;
+    const card = e.target.closest('.card');
+    const leftCard = document.getElementById('planList').closest('.card');
+    if (card === leftCard) return;
+    if (e.target.closest('.timer-buttons')) return;
+    selected = null;
+    render();
+});
+
+// ── 초기화 ──
+load(); loadSessions();
 </script>
-
 </body>
 </html>

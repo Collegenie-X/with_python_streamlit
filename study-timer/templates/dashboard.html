@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 공부 매니저 - 대시보드</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0f0f23;
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+/* ── 네비게이션 ── */
+nav {
+    background: #16213e;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #0f3460;
+}
+nav .logo { font-size: 1.2rem; font-weight: 700; color: #e94560; }
+nav .nav-links a {
+    color: #a0a0c0;
+    text-decoration: none;
+    margin-left: 24px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+nav .nav-links a:hover, nav .nav-links a.active { color: #e94560; }
+
+/* ── 레이아웃 ── */
+.main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+/* ── 요약 카드 ── */
+.summary-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.stat-card {
+    background: #16213e;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #1a1a40;
+}
+.stat-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.stat-card .label { font-size: 0.85rem; color: #888; }
+.stat-card.highlight .value { color: #e94560; }
+.stat-card.green .value { color: #4CAF50; }
+.stat-card.blue .value { color: #2196F3; }
+.stat-card.orange .value { color: #FF9800; }
+
+/* ── 카드 ── */
+.card {
+    background: #16213e;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #1a1a40;
+    margin-bottom: 24px;
+}
+.card h2 {
+    font-size: 1rem;
+    color: #a0a0c0;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ── 차트 (CSS 바) ── */
+.bar-chart { display: flex; flex-direction: column; gap: 10px; }
+.bar-row { display: flex; align-items: center; gap: 12px; }
+.bar-row .day-label { width: 80px; font-size: 0.85rem; color: #888; text-align: right; flex-shrink: 0; }
+.bar-row .bar-track {
+    flex: 1; height: 28px; background: #0f0f23; border-radius: 8px; overflow: hidden;
+    display: flex;
+}
+.bar-row .bar-fill {
+    height: 100%; border-radius: 8px; transition: width 0.5s;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding: 0 8px; font-size: 0.75rem; font-weight: 600; color: #fff;
+    min-width: 0;
+}
+.bar-row .bar-fill span { white-space: nowrap; }
+
+/* ── 과목별 파이 (간단 막대) ── */
+.subject-bars { display: flex; flex-direction: column; gap: 8px; }
+.subject-bar-row { display: flex; align-items: center; gap: 10px; }
+.subject-bar-row .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.subject-bar-row .name { width: 60px; font-size: 0.85rem; }
+.subject-bar-row .track { flex: 1; height: 20px; background: #0f0f23; border-radius: 6px; overflow: hidden; }
+.subject-bar-row .fill { height: 100%; border-radius: 6px; transition: width 0.5s; }
+.subject-bar-row .mins { width: 60px; text-align: right; font-size: 0.85rem; color: #888; }
+
+/* ── 코멘트 영역 ── */
+.comment-section {
+    background: #1a1a40;
+    border-radius: 12px;
+    padding: 20px;
+}
+.comment-section .title { color: #e94560; font-weight: 600; margin-bottom: 12px; }
+.comment-section ul { list-style: none; }
+.comment-section li {
+    padding: 8px 0;
+    border-bottom: 1px solid #252550;
+    line-height: 1.5;
+}
+.comment-section li:last-child { border-bottom: none; }
+.comment-section li .subj { font-weight: 600; margin-right: 8px; }
+.comment-section .empty { color: #555; }
+
+/* ── 기간 선택 ── */
+.period-selector {
+    display: flex; gap: 8px; margin-bottom: 16px;
+}
+.period-selector button {
+    padding: 6px 16px; border-radius: 8px; border: 1px solid #333;
+    background: #0f0f23; color: #aaa; cursor: pointer; font-size: 0.85rem;
+}
+.period-selector button.active { background: #e94560; color: #fff; border-color: #e94560; }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">AI 공부 매니저</div>
+    <div class="nav-links">
+        <a href="/">타이머</a>
+        <a href="/dashboard" class="active">대시보드</a>
+    </div>
+</nav>
+
+<div class="main">
+    <!-- 요약 카드 -->
+    <div class="summary-row" id="summaryRow">
+        <div class="stat-card highlight">
+            <div class="value" id="totalToday">0분</div>
+            <div class="label">오늘 총 공부</div>
+        </div>
+        <div class="stat-card green">
+            <div class="value" id="sessionCount">0회</div>
+            <div class="label">오늘 세션 수</div>
+        </div>
+        <div class="stat-card blue">
+            <div class="value" id="avgSession">0분</div>
+            <div class="label">평균 세션 시간</div>
+        </div>
+        <div class="stat-card orange">
+            <div class="value" id="weekTotal">0분</div>
+            <div class="label">이번 주 총 공부</div>
+        </div>
+    </div>
+
+    <!-- 일별 공부 시간 차트 -->
+    <div class="card">
+        <h2>일별 공부 시간</h2>
+        <div class="period-selector">
+            <button class="active" onclick="changePeriod(7, this)">7일</button>
+            <button onclick="changePeriod(14, this)">14일</button>
+            <button onclick="changePeriod(30, this)">30일</button>
+        </div>
+        <div class="bar-chart" id="dailyChart"></div>
+    </div>
+
+    <!-- 과목별 공부 시간 (오늘) -->
+    <div class="card">
+        <h2>오늘 과목별 공부 시간</h2>
+        <div class="subject-bars" id="subjectBars"></div>
+    </div>
+
+    <!-- 코멘트 / 피드백 -->
+    <div class="card">
+        <h2>오늘의 코멘트</h2>
+        <div class="comment-section" id="commentSection">
+            <div class="empty">아직 오늘 공부 기록이 없어요.</div>
+        </div>
+    </div>
+</div>
+
+<script>
+const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
+let currentDays = 7;
+
+function formatMin(sec) {
+    const m = Math.floor(sec / 60);
+    if (m >= 60) return `${Math.floor(m/60)}시간 ${m%60}분`;
+    return `${m}분`;
+}
+
+async function loadStats(days) {
+    const res = await fetch(`/api/stats?days=${days}`);
+    return await res.json();
+}
+
+async function loadTodaySessions() {
+    const res = await fetch('/api/sessions/today');
+    return await res.json();
+}
+
+async function loadSubjects() {
+    const res = await fetch('/api/subjects');
+    return await res.json();
+}
+
+async function renderAll() {
+    const [stats, sessions, subjects] = await Promise.all([
+        loadStats(currentDays),
+        loadTodaySessions(),
+        loadSubjects()
+    ]);
+
+    const subjectMap = {};
+    subjects.forEach(s => subjectMap[s.name] = s);
+
+    // 요약 카드
+    const today = stats[0] || {total_seconds: 0, session_count: 0, by_subject: {}};
+    const todayMin = Math.floor(today.total_seconds / 60);
+    const weekTotal = stats.slice(0, 7).reduce((a, d) => a + d.total_seconds, 0);
+    const avgSec = today.session_count > 0 ? Math.floor(today.total_seconds / today.session_count) : 0;
+
+    document.getElementById('totalToday').textContent = formatMin(today.total_seconds);
+    document.getElementById('sessionCount').textContent = `${today.session_count}회`;
+    document.getElementById('avgSession').textContent = formatMin(avgSec);
+    document.getElementById('weekTotal').textContent = formatMin(weekTotal);
+
+    // 일별 차트
+    const maxSec = Math.max(...stats.map(d => d.total_seconds), 3600);
+    const chartEl = document.getElementById('dailyChart');
+    chartEl.innerHTML = stats.slice().reverse().map(d => {
+        const dt = new Date(d.date + 'T00:00:00');
+        const dayStr = `${dt.getMonth()+1}/${dt.getDate()}(${WEEKDAY[dt.getDay()]})`;
+        const pct = Math.max((d.total_seconds / maxSec) * 100, 0);
+
+        const segments = Object.entries(d.by_subject).map(([name, sec]) => {
+            const segPct = (sec / maxSec) * 100;
+            const color = (subjectMap[name] && subjectMap[name].color) || '#888';
+            return `<div class="bar-fill" style="width:${segPct}%;background:${color}"><span>${segPct > 8 ? name : ''}</span></div>`;
+        }).join('');
+
+        return `<div class="bar-row">
+            <div class="day-label">${dayStr}</div>
+            <div class="bar-track">${segments}</div>
+        </div>`;
+    }).join('');
+
+    // 과목별 바
+    const subjectEl = document.getElementById('subjectBars');
+    const bySubj = today.by_subject;
+    const maxSubjSec = Math.max(...Object.values(bySubj), 1);
+    if (Object.keys(bySubj).length === 0) {
+        subjectEl.innerHTML = '<div style="color:#555;text-align:center;padding:16px;">오늘 기록이 없어요</div>';
+    } else {
+        subjectEl.innerHTML = Object.entries(bySubj).map(([name, sec]) => {
+            const color = (subjectMap[name] && subjectMap[name].color) || '#888';
+            const pct = (sec / maxSubjSec) * 100;
+            return `<div class="subject-bar-row">
+                <span class="dot" style="background:${color}"></span>
+                <span class="name">${name}</span>
+                <div class="track"><div class="fill" style="width:${pct}%;background:${color}"></div></div>
+                <span class="mins">${formatMin(sec)}</span>
+            </div>`;
+        }).join('');
+    }
+
+    // 코멘트
+    const commentEl = document.getElementById('commentSection');
+    if (sessions.length === 0) {
+        commentEl.innerHTML = '<div class="empty">아직 오늘 공부 기록이 없어요.</div>';
+    } else {
+        const totalSec = sessions.reduce((a, s) => a + s.duration_seconds, 0);
+        const totalPause = sessions.reduce((a, s) => a + s.pause_count, 0);
+
+        const comments = [];
+
+        sessions.forEach(s => {
+            const d = s.duration_seconds;
+            let msg = '';
+            if (d >= 3600) msg = `1시간 이상 집중! 대단해!`;
+            else if (d >= 1800) msg = `30분 넘게 꾸준히 했어요.`;
+            else if (d >= 600) msg = `10분 이상 좋은 시작!`;
+            else msg = `짧은 세션이지만 시작이 중요해요.`;
+            comments.push({subject: s.subject, text: msg});
+        });
+
+        if (totalSec >= 7200) {
+            comments.push({subject: '총평', text: `오늘 ${formatMin(totalSec)} 공부! 정말 열심히 했어요!`});
+        } else if (totalSec >= 3600) {
+            comments.push({subject: '총평', text: `오늘 ${formatMin(totalSec)} 공부. 좋은 페이스에요!`});
+        } else if (sessions.length > 0) {
+            comments.push({subject: '총평', text: `오늘 ${formatMin(totalSec)} 공부했어요. 조금씩 늘려봐요!`});
+        }
+
+        commentEl.innerHTML = `<ul>${comments.map(c =>
+            `<li><span class="subj">[${c.subject}]</span>${c.text}</li>`
+        ).join('')}</ul>`;
+    }
+}
+
+function changePeriod(days, btn) {
+    currentDays = days;
+    document.querySelectorAll('.period-selector button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderAll();
+}
+
+renderAll();
+</script>
+</body>
+</html>
