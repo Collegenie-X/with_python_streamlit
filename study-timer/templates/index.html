@@ -233,6 +233,101 @@ nav .nav-links a:hover, nav .nav-links a.active { color: #e94560; }
     cursor: pointer; white-space: nowrap;
 }
 .desel-btn:hover { background: #e94560; color: #fff; }
+
+/* ── 모니터링 패널 ── */
+.monitor-panel { display: none; margin-top: 16px; }
+.monitor-panel.active { display: block; }
+.monitor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.webcam-box {
+    position: relative;
+    background: #0a0a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+}
+#webcamVideo {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+    display: block;
+}
+#overlayCanvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    transform: scaleX(-1);
+    pointer-events: none;
+}
+.webcam-badge {
+    position: absolute;
+    top: 8px; left: 8px;
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    z-index: 2;
+    transform: scaleX(-1);
+}
+.webcam-badge.ok { background: #1b5e20; color: #81c784; }
+.webcam-badge.warn { background: #e65100; color: #ffcc80; }
+.webcam-badge.away { background: #b71c1c; color: #ef9a9a; }
+.motion-meter {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.65rem; color: #666; margin-top: 6px;
+}
+.motion-track {
+    flex: 1; height: 4px; background: #1a1a40; border-radius: 2px; overflow: hidden;
+}
+.motion-track .fill { height: 100%; background: #4CAF50; border-radius: 2px; transition: width 0.3s; }
+
+.distraction-panel { display: flex; flex-direction: column; }
+.distraction-total-box {
+    text-align: center; margin-bottom: 8px;
+    padding: 8px; background: #0f0f23; border-radius: 8px;
+}
+.distraction-total-box .big { font-size: 1.5rem; font-weight: 700; color: #f44336; }
+.distraction-total-box .lbl { font-size: 0.65rem; color: #888; }
+
+.dist-bar-row {
+    display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+}
+.dist-bar-label { width: 70px; font-size: 0.7rem; color: #aaa; text-align: right; flex-shrink: 0; }
+.dist-bar-track {
+    flex: 1; height: 22px; background: #0f0f23;
+    border-radius: 5px; overflow: hidden;
+}
+.dist-bar-fill {
+    height: 100%; border-radius: 5px;
+    transition: width 0.5s ease;
+    display: flex; align-items: center;
+    padding-left: 6px;
+    font-size: 0.6rem; font-weight: 600; color: #fff;
+}
+.dist-bar-val { font-size: 0.65rem; color: #888; width: 36px; flex-shrink: 0; }
+
+.tag-buttons {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 8px;
+}
+.tag-btn {
+    padding: 7px 6px; border: 2px solid #333; border-radius: 8px;
+    background: #0f0f23; color: #ccc; font-size: 0.72rem;
+    font-weight: 600; cursor: pointer; transition: all 0.15s;
+    font-family: inherit; text-align: center;
+}
+.tag-btn:hover { border-color: #e94560; color: #e94560; }
+.tag-btn.active { border-color: #f44336; background: #2a1010; color: #f44336; }
+.tag-btn .icon { font-size: 1rem; display: block; margin-bottom: 1px; }
+
+.monitor-log {
+    margin-top: 8px; max-height: 100px; overflow-y: auto;
+    font-size: 0.6rem; color: #666;
+}
+.monitor-log .entry { padding: 2px 0; border-bottom: 1px solid #1a1a40; }
+.monitor-log .entry .t { color: #e94560; margin-right: 4px; }
 </style>
 </head>
 <body>
@@ -304,13 +399,65 @@ nav .nav-links a:hover, nav .nav-links a.active { color: #e94560; }
             </div>
         </div>
 
-        <div class="card today-log">
+        <div class="card today-log" id="todayLogCard">
             <div class="card-header"><h2>오늘의 기록</h2></div>
             <div class="today-summary" id="todaySummary"></div>
             <table>
                 <thead><tr><th>과목</th><th>공부 시간</th><th>시작</th><th>종료</th><th>일시정지</th></tr></thead>
                 <tbody id="todayBody"></tbody>
             </table>
+        </div>
+
+        <!-- 모니터링 패널 (시작 시 today-log 대신 표시) -->
+        <div class="card monitor-panel" id="monitorPanel">
+            <div class="card-header"><h2>웹캠 모니터링</h2></div>
+            <div class="monitor-grid">
+                <div>
+                    <div class="webcam-box">
+                        <video id="webcamVideo" autoplay playsinline muted></video>
+                        <canvas id="overlayCanvas"></canvas>
+                        <div class="webcam-badge ok" id="webcamBadge">집중 중</div>
+                    </div>
+                    <div class="motion-meter">
+                        <span>움직임</span>
+                        <div class="motion-track"><div class="fill" id="motionFill" style="width:0%"></div></div>
+                        <span id="motionVal">0%</span>
+                    </div>
+                </div>
+                <div class="distraction-panel">
+                    <div class="distraction-total-box">
+                        <div class="big" id="totalDistraction">0:00</div>
+                        <div class="lbl">총 딴짓 시간</div>
+                    </div>
+                    <div class="dist-bar-row">
+                        <div class="dist-bar-label">📱 핸드폰</div>
+                        <div class="dist-bar-track"><div class="dist-bar-fill" id="bar-phone" style="width:0%;background:#e91e63"></div></div>
+                        <div class="dist-bar-val" id="val-phone">0:00</div>
+                    </div>
+                    <div class="dist-bar-row">
+                        <div class="dist-bar-label">😶 멍때림</div>
+                        <div class="dist-bar-track"><div class="dist-bar-fill" id="bar-spacing" style="width:0%;background:#ff9800"></div></div>
+                        <div class="dist-bar-val" id="val-spacing">0:00</div>
+                    </div>
+                    <div class="dist-bar-row">
+                        <div class="dist-bar-label">🚶 자리비움</div>
+                        <div class="dist-bar-track"><div class="dist-bar-fill" id="bar-away" style="width:0%;background:#2196f3"></div></div>
+                        <div class="dist-bar-val" id="val-away">0:00</div>
+                    </div>
+                    <div class="dist-bar-row">
+                        <div class="dist-bar-label">😴 졸음/기타</div>
+                        <div class="dist-bar-track"><div class="dist-bar-fill" id="bar-drowsy" style="width:0%;background:#9c27b0"></div></div>
+                        <div class="dist-bar-val" id="val-drowsy">0:00</div>
+                    </div>
+                    <div class="tag-buttons">
+                        <button class="tag-btn" data-tag="phone" onclick="tagDistraction('phone')"><span class="icon">📱</span>핸드폰</button>
+                        <button class="tag-btn" data-tag="spacing" onclick="tagDistraction('spacing')"><span class="icon">😶</span>멍때림</button>
+                        <button class="tag-btn" data-tag="away" onclick="tagDistraction('away')"><span class="icon">🚶</span>자리 비움</button>
+                        <button class="tag-btn" data-tag="drowsy" onclick="tagDistraction('drowsy')"><span class="icon">😴</span>졸음/기타</button>
+                    </div>
+                </div>
+            </div>
+            <div class="monitor-log" id="monitorLog"></div>
         </div>
     </div>
 </div>
@@ -641,13 +788,16 @@ function tick() {
 function startTimer() {
     if (running || !selected) return;
     running = true;
-    if (!startTime) startTime = new Date().toISOString();
+    if (!startTime) {
+        startTime = new Date().toISOString();
+        showMonitor();
+    }
     document.getElementById('startBtn').disabled = true;
     document.getElementById('pauseBtn').disabled = false;
     document.getElementById('stopBtn').disabled = false;
     document.getElementById('commentBox').style.display = 'none';
     if (pauseStart) { pauseSec += Math.floor((Date.now()-pauseStart)/1000); pauseStart=null; }
-    timerInterval = setInterval(tick, 1000);
+    timerInterval = setInterval(function(){ tick(); tickDistraction(); }, 1000);
 }
 
 function pauseTimer() {
@@ -667,12 +817,14 @@ async function stopTimer() {
     if (pauseStart) { pauseSec += Math.floor((Date.now()-pauseStart)/1000); pauseStart=null; }
     const endTime = new Date().toISOString();
 
+    const totalDist = cvDistractions.phone+cvDistractions.spacing+cvDistractions.away+cvDistractions.drowsy;
     if (elapsed > 0 && selected) {
         const res = await fetch('/api/sessions/save', {
             method:'POST', headers:{'Content-Type':'application/json'},
             body: JSON.stringify({
                 subject:selected, start_time:startTime, end_time:endTime,
-                duration_seconds:elapsed, pause_count:pauseCount, pause_seconds:pauseSec
+                duration_seconds:elapsed, pause_count:pauseCount, pause_seconds:pauseSec,
+                distractions:cvDistractions, distraction_seconds:totalDist
             })
         });
         const d = await res.json();
@@ -683,6 +835,7 @@ async function stopTimer() {
         loadSessions();
     }
 
+    hideMonitor();
     elapsed=0; pauseCount=0; pauseSec=0; startTime=null;
     document.getElementById('timerDisplay').textContent = '00:00:00';
     document.getElementById('startBtn').disabled = !selected;
@@ -759,6 +912,184 @@ document.addEventListener('click', function(e) {
     selected = null;
     render();
 });
+
+// ── 모니터링 ──
+let cvVideo, cvCanvas, cvCtx;
+let prevFrame = null, refFrame = null, cvFrameCount = 0;
+let motionLevel = 0, noMotionCount = 0, noPresenceCount = 0;
+let cvDistractions = { phone: 0, spacing: 0, away: 0, drowsy: 0 };
+let currentTag = null;
+let cvLogs = [];
+let cvAnimId = null;
+const MOTION_TH = 15, PRESENCE_TH = 5, NO_MOTION_LIM = 100, NO_PRESENCE_LIM = 50;
+
+function showMonitor() {
+    document.getElementById('todayLogCard').style.display = 'none';
+    const mp = document.getElementById('monitorPanel');
+    mp.style.display = 'block';
+    mp.classList.add('active');
+    initWebcam();
+}
+function hideMonitor() {
+    document.getElementById('todayLogCard').style.display = '';
+    const mp = document.getElementById('monitorPanel');
+    mp.style.display = 'none';
+    mp.classList.remove('active');
+    stopWebcam();
+}
+function fmtShort(sec) { const m=Math.floor(sec/60),s=sec%60; return m+':'+String(s).padStart(2,'0'); }
+
+async function initWebcam() {
+    cvVideo = document.getElementById('webcamVideo');
+    cvCanvas = document.getElementById('overlayCanvas');
+    cvCtx = cvCanvas.getContext('2d', { willReadFrequently: true });
+    prevFrame = null; refFrame = null; cvFrameCount = 0;
+    noMotionCount = 0; noPresenceCount = 0;
+    cvDistractions = { phone:0, spacing:0, away:0, drowsy:0 };
+    currentTag = null; cvLogs = [];
+    document.querySelectorAll('.tag-btn').forEach(b=>b.classList.remove('active'));
+    updateDistChart();
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video:{width:640,height:480,facingMode:'user'} });
+        cvVideo.srcObject = stream;
+        cvVideo.addEventListener('loadeddata', function onLoad() {
+            cvCanvas.width = cvVideo.videoWidth;
+            cvCanvas.height = cvVideo.videoHeight;
+            addCvLog('웹캠 연결 완료');
+            cvAnimId = requestAnimationFrame(processFrame);
+            cvVideo.removeEventListener('loadeddata', onLoad);
+        });
+    } catch(e) {
+        addCvLog('웹캠 연결 실패: '+e.message);
+        document.getElementById('webcamBadge').textContent = '웹캠 없음';
+        document.getElementById('webcamBadge').className = 'webcam-badge away';
+    }
+}
+function stopWebcam() {
+    if (cvAnimId) { cancelAnimationFrame(cvAnimId); cvAnimId = null; }
+    if (cvVideo && cvVideo.srcObject) {
+        cvVideo.srcObject.getTracks().forEach(t=>t.stop());
+        cvVideo.srcObject = null;
+    }
+    prevFrame = null; refFrame = null;
+}
+
+function processFrame() {
+    if (!cvVideo || cvVideo.paused || cvVideo.ended) { cvAnimId=requestAnimationFrame(processFrame); return; }
+    const w=cvCanvas.width, h=cvCanvas.height;
+    cvCtx.drawImage(cvVideo,0,0,w,h);
+    const frame = cvCtx.getImageData(0,0,w,h);
+    cvFrameCount++;
+    if (cvFrameCount===30) { refFrame=new Uint8Array(frame.data); addCvLog('기준 프레임 저장'); }
+
+    if (prevFrame && cvFrameCount>10) {
+        let diff=0, presDiff=0;
+        const d=frame.data, step=8, total=(d.length/4)/step;
+        for (let i=0;i<d.length;i+=step*4) {
+            const avg=(Math.abs(d[i]-prevFrame[i])+Math.abs(d[i+1]-prevFrame[i+1])+Math.abs(d[i+2]-prevFrame[i+2]))/3;
+            if(avg>MOTION_TH) diff++;
+        }
+        if (refFrame) {
+            for (let i=0;i<d.length;i+=step*4) {
+                const avg=(Math.abs(d[i]-refFrame[i])+Math.abs(d[i+1]-refFrame[i+1])+Math.abs(d[i+2]-refFrame[i+2]))/3;
+                if(avg>25) presDiff++;
+            }
+        }
+        motionLevel = (diff/total)*100;
+        const presLevel = refFrame ? (presDiff/total)*100 : 50;
+        document.getElementById('motionFill').style.width = Math.min(motionLevel*5,100)+'%';
+        document.getElementById('motionVal').textContent = motionLevel.toFixed(1)+'%';
+
+        const badge = document.getElementById('webcamBadge');
+        if (presLevel < PRESENCE_TH && refFrame) {
+            noPresenceCount++;
+            if (noPresenceCount>NO_PRESENCE_LIM && !currentTag) {
+                tagDistraction('away');
+                badge.textContent='자리 비움 감지'; badge.className='webcam-badge away';
+            }
+        } else {
+            if (currentTag==='away' && noPresenceCount>NO_PRESENCE_LIM) tagDistraction('away');
+            noPresenceCount=0;
+            if (motionLevel<0.3) {
+                noMotionCount++;
+                if (noMotionCount>NO_MOTION_LIM && !currentTag) {
+                    tagDistraction('spacing');
+                    badge.textContent='멍때림 감지'; badge.className='webcam-badge warn';
+                }
+            } else {
+                if (currentTag==='spacing' && noMotionCount>NO_MOTION_LIM) tagDistraction('spacing');
+                noMotionCount=0;
+                if (!currentTag) { badge.textContent='집중 중'; badge.className='webcam-badge ok'; }
+            }
+        }
+        drawOverlay(w,h);
+    }
+    prevFrame = new Uint8Array(frame.data);
+    cvAnimId = requestAnimationFrame(processFrame);
+}
+
+function drawOverlay(w,h) {
+    cvCtx.clearRect(0,0,w,h);
+    cvCtx.strokeStyle = currentTag ? 'rgba(244,67,54,0.6)' : 'rgba(76,175,80,0.4)';
+    cvCtx.lineWidth = 2;
+    cvCtx.setLineDash([8,4]);
+    const cx=w/2, headY=h*0.22, headR=h*0.12;
+    cvCtx.beginPath();
+    cvCtx.ellipse(cx,headY,headR*0.85,headR,0,0,Math.PI*2);
+    cvCtx.stroke();
+    cvCtx.beginPath();
+    cvCtx.moveTo(cx-w*0.25,h*0.55);
+    cvCtx.quadraticCurveTo(cx-w*0.15,h*0.32,cx,h*0.35);
+    cvCtx.quadraticCurveTo(cx+w*0.15,h*0.32,cx+w*0.25,h*0.55);
+    cvCtx.stroke();
+    cvCtx.setLineDash([]);
+    if (currentTag) { cvCtx.fillStyle='rgba(244,67,54,0.12)'; cvCtx.fillRect(0,0,w,h); }
+}
+
+function tagDistraction(tag) {
+    const btns = document.querySelectorAll('.tag-btn');
+    if (currentTag===tag) {
+        currentTag=null;
+        btns.forEach(b=>b.classList.remove('active'));
+        const badge=document.getElementById('webcamBadge');
+        badge.textContent='집중 중'; badge.className='webcam-badge ok';
+        addCvLog(getTagName(tag)+' 종료');
+        return;
+    }
+    if (currentTag) {
+        btns.forEach(b=>b.classList.remove('active'));
+        addCvLog(getTagName(currentTag)+' 종료');
+    }
+    currentTag=tag;
+    btns.forEach(b=>b.classList.toggle('active',b.dataset.tag===tag));
+    addCvLog(getTagName(tag)+' 시작');
+}
+function getTagName(t) { return {phone:'📱 핸드폰',spacing:'😶 멍때림',away:'🚶 자리비움',drowsy:'😴 졸음/기타'}[t]||t; }
+
+function tickDistraction() {
+    if (currentTag && running) {
+        cvDistractions[currentTag]++;
+        updateDistChart();
+    }
+}
+function updateDistChart() {
+    const tot = cvDistractions.phone+cvDistractions.spacing+cvDistractions.away+cvDistractions.drowsy;
+    document.getElementById('totalDistraction').textContent = fmtShort(tot);
+    const mx = Math.max(tot,60);
+    ['phone','spacing','away','drowsy'].forEach(k=>{
+        const pct = tot>0?(cvDistractions[k]/mx)*100:0;
+        document.getElementById('bar-'+k).style.width = Math.max(pct,0)+'%';
+        document.getElementById('val-'+k).textContent = fmtShort(cvDistractions[k]);
+    });
+}
+
+function addCvLog(msg) {
+    const now=new Date();
+    const t=now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    cvLogs.unshift({time:t,msg});
+    const el=document.getElementById('monitorLog');
+    el.innerHTML=cvLogs.slice(0,15).map(l=>`<div class="entry"><span class="t">${l.time}</span>${l.msg}</div>`).join('');
+}
 
 // ── 초기화 ──
 load(); loadSessions();

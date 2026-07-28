@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 공부 매니저 - 모니터링</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0f0f23;
+    color: #e0e0e0;
+    min-height: 100vh;
+    overflow: hidden;
+}
+nav {
+    background: #16213e;
+    padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 2px solid #0f3460;
+}
+nav .logo { font-size: 1.1rem; font-weight: 700; color: #e94560; }
+nav .nav-links a {
+    color: #a0a0c0; text-decoration: none; margin-left: 20px;
+    font-weight: 500; font-size: 0.9rem;
+}
+nav .nav-links a:hover { color: #e94560; }
+
+.monitor-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px 300px;
+    gap: 12px;
+    padding: 12px;
+    height: calc(100vh - 52px);
+}
+
+.panel {
+    background: #16213e;
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid #1a1a40;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.panel-title {
+    font-size: 0.75rem;
+    color: #e94560;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* LEFT: Webcam */
+.webcam-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a0a1a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#webcamVideo {
+    position: absolute;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+}
+#overlayCanvas {
+    position: absolute;
+    width: 100%; height: 100%;
+    transform: scaleX(-1);
+}
+.webcam-status {
+    position: absolute;
+    top: 10px; left: 10px;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    z-index: 2;
+    transform: scaleX(-1);
+}
+.webcam-status.ok { background: #1b5e20; color: #81c784; }
+.webcam-status.warn { background: #e65100; color: #ffcc80; }
+.webcam-status.away { background: #b71c1c; color: #ef9a9a; }
+
+.motion-meter {
+    margin-top: 8px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.7rem; color: #888;
+}
+.motion-bar {
+    flex: 1; height: 6px; background: #1a1a40; border-radius: 3px; overflow: hidden;
+}
+.motion-bar .fill {
+    height: 100%; background: #4CAF50; border-radius: 3px;
+    transition: width 0.3s;
+}
+
+/* CENTER: Timer + Controls */
+.timer-info { text-align: center; margin-bottom: 12px; }
+.timer-subject {
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 4px;
+}
+.timer-clock {
+    font-size: 3rem; font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 2px;
+    margin: 8px 0;
+}
+.timer-goal { font-size: 0.75rem; color: #888; }
+.timer-progress-bar {
+    width: 100%; height: 4px; background: #1a1a40;
+    border-radius: 2px; margin: 8px 0 12px; overflow: hidden;
+}
+.timer-progress-bar .bar {
+    height: 100%; background: #4CAF50; border-radius: 2px;
+    transition: width 1s linear;
+}
+.timer-progress-bar .bar.over { background: #f44336; }
+
+.detection-status {
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-height: 42px;
+    display: flex; align-items: center; justify-content: center;
+}
+.detection-status.studying { background: #1b3a1b; color: #81c784; }
+.detection-status.distracted { background: #3a1b1b; color: #ef9a9a; }
+
+.tag-section { margin-top: auto; }
+.tag-label {
+    font-size: 0.65rem; color: #666;
+    text-transform: uppercase; margin-bottom: 6px;
+}
+.tag-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+.tag-btn {
+    padding: 10px 8px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #0f0f23;
+    color: #ccc;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+}
+.tag-btn:hover { border-color: #e94560; color: #e94560; }
+.tag-btn.active { border-color: #f44336; background: #2a1010; color: #f44336; }
+.tag-btn .icon { font-size: 1.2rem; display: block; margin-bottom: 2px; }
+
+.control-buttons {
+    display: flex; gap: 8px; margin-top: 10px;
+}
+.ctrl-btn {
+    flex: 1; padding: 10px;
+    border: none; border-radius: 10px;
+    font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; color: #fff; font-family: inherit;
+}
+.ctrl-btn.pause { background: #FFC107; color: #333; }
+.ctrl-btn.resume { background: #4CAF50; }
+.ctrl-btn.stop { background: #f44336; }
+
+/* RIGHT: Chart */
+.chart-area { flex: 1; display: flex; flex-direction: column; }
+.distraction-total {
+    text-align: center; margin-bottom: 12px;
+    font-size: 0.75rem; color: #888;
+}
+.distraction-total .big {
+    font-size: 1.8rem; font-weight: 700; color: #f44336;
+}
+.bar-chart {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px 0;
+}
+.bar-row {
+    display: flex; align-items: center; gap: 8px;
+}
+.bar-label {
+    width: 60px; font-size: 0.72rem; color: #aaa;
+    text-align: right; flex-shrink: 0;
+}
+.bar-track {
+    flex: 1; height: 28px; background: #0f0f23;
+    border-radius: 6px; overflow: hidden; position: relative;
+}
+.bar-fill {
+    height: 100%; border-radius: 6px;
+    transition: width 0.5s ease;
+    display: flex; align-items: center;
+    padding-left: 8px;
+    font-size: 0.7rem; font-weight: 600; color: #fff;
+    min-width: 0;
+}
+.bar-value {
+    font-size: 0.7rem; color: #888;
+    width: 40px; text-align: left; flex-shrink: 0;
+}
+
+.log-section {
+    margin-top: auto;
+    max-height: 180px;
+    overflow-y: auto;
+}
+.log-section .log-title {
+    font-size: 0.65rem; color: #666;
+    text-transform: uppercase; margin-bottom: 4px;
+}
+.log-entry {
+    font-size: 0.68rem; color: #888;
+    padding: 3px 0;
+    border-bottom: 1px solid #1a1a40;
+}
+.log-entry .log-time { color: #e94560; margin-right: 6px; }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">AI 공부 매니저 - 모니터링</div>
+    <div class="nav-links">
+        <a href="/" id="backLink">타이머로 돌아가기</a>
+    </div>
+</nav>
+
+<div class="monitor-layout">
+    <!-- LEFT: Webcam -->
+    <div class="panel">
+        <div class="panel-title">웹캠 모니터링</div>
+        <div class="webcam-wrapper">
+            <video id="webcamVideo" autoplay playsinline muted></video>
+            <canvas id="overlayCanvas"></canvas>
+            <div class="webcam-status ok" id="webcamStatus">집중 중</div>
+        </div>
+        <div class="motion-meter">
+            <span>움직임</span>
+            <div class="motion-bar"><div class="fill" id="motionFill" style="width:0%"></div></div>
+            <span id="motionVal">0%</span>
+        </div>
+    </div>
+
+    <!-- CENTER: Timer + Tag -->
+    <div class="panel">
+        <div class="panel-title">타이머</div>
+        <div class="timer-info">
+            <div class="timer-subject" id="mSubject" style="color:#e94560">-</div>
+            <div class="timer-clock" id="mClock">00:00:00</div>
+            <div class="timer-goal" id="mGoal"></div>
+            <div class="timer-progress-bar"><div class="bar" id="mProgressBar"></div></div>
+        </div>
+
+        <div class="detection-status studying" id="detectionStatus">
+            집중 모드 활성화
+        </div>
+
+        <div class="tag-section">
+            <div class="tag-label">딴짓 감지 시 수동 태그</div>
+            <div class="tag-buttons">
+                <button class="tag-btn" data-tag="phone" onclick="tagDistraction('phone')">
+                    <span class="icon">📱</span>핸드폰
+                </button>
+                <button class="tag-btn" data-tag="spacing" onclick="tagDistraction('spacing')">
+                    <span class="icon">😶</span>멍때림
+                </button>
+                <button class="tag-btn" data-tag="away" onclick="tagDistraction('away')">
+                    <span class="icon">🚶</span>자리 비움
+                </button>
+                <button class="tag-btn" data-tag="drowsy" onclick="tagDistraction('drowsy')">
+                    <span class="icon">😴</span>졸음/기타
+                </button>
+            </div>
+            <div class="control-buttons">
+                <button class="ctrl-btn pause" id="mPauseBtn" onclick="togglePause()">일시정지</button>
+                <button class="ctrl-btn stop" onclick="stopAndSave()">종료 & 저장</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT: Distraction Chart -->
+    <div class="panel">
+        <div class="panel-title">딴짓 시간</div>
+        <div class="chart-area">
+            <div class="distraction-total">
+                <div class="big" id="totalDistraction">0:00</div>
+                <div>총 딴짓 시간</div>
+            </div>
+
+            <div class="bar-chart" id="barChart">
+                <div class="bar-row">
+                    <div class="bar-label">📱 핸드폰</div>
+                    <div class="bar-track"><div class="bar-fill" id="bar-phone" style="width:0%;background:#e91e63"></div></div>
+                    <div class="bar-value" id="val-phone">0:00</div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">😶 멍때림</div>
+                    <div class="bar-track"><div class="bar-fill" id="bar-spacing" style="width:0%;background:#ff9800"></div></div>
+                    <div class="bar-value" id="val-spacing">0:00</div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">🚶 자리비움</div>
+                    <div class="bar-track"><div class="bar-fill" id="bar-away" style="width:0%;background:#2196f3"></div></div>
+                    <div class="bar-value" id="val-away">0:00</div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">😴 졸음/기타</div>
+                    <div class="bar-track"><div class="bar-fill" id="bar-drowsy" style="width:0%;background:#9c27b0"></div></div>
+                    <div class="bar-value" id="val-drowsy">0:00</div>
+                </div>
+            </div>
+
+            <div class="log-section">
+                <div class="log-title">감지 로그</div>
+                <div id="logList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const subject = params.get('subject') || '알 수 없음';
+const goalMin = parseInt(params.get('goal') || '60');
+const subjectColor = params.get('color') || '#e94560';
+const startTimeISO = params.get('start') || new Date().toISOString();
+
+document.getElementById('mSubject').textContent = subject;
+document.getElementById('mSubject').style.color = subjectColor;
+document.getElementById('mGoal').textContent = `목표: ${goalMin}분`;
+
+let elapsed = 0;
+let paused = false;
+let pauseCount = 0;
+let pauseSec = 0;
+let pauseStart = null;
+let timerInterval = null;
+
+let distractions = { phone: 0, spacing: 0, away: 0, drowsy: 0 };
+let currentTag = null;
+let tagStartTime = null;
+let logs = [];
+
+// CV state
+let video, canvas, ctx;
+let prevFrame = null;
+let refFrame = null;
+let frameCount = 0;
+let motionLevel = 0;
+let noMotionCount = 0;
+let noPresenceCount = 0;
+const MOTION_THRESHOLD = 15;
+const PRESENCE_THRESHOLD = 5;
+const NO_MOTION_LIMIT = 100;
+const NO_PRESENCE_LIMIT = 50;
+
+function fmt(sec) {
+    const s = Math.abs(Math.floor(sec));
+    return [Math.floor(s/3600), Math.floor((s%3600)/60), s%60]
+        .map(v => String(v).padStart(2,'0')).join(':');
+}
+function fmtShort(sec) {
+    const m = Math.floor(sec/60), s = sec%60;
+    return `${m}:${String(s).padStart(2,'0')}`;
+}
+
+// Timer
+function tickTimer() {
+    if (paused) return;
+    elapsed++;
+    document.getElementById('mClock').textContent = fmt(elapsed);
+    const gs = goalMin * 60;
+    const pct = Math.min((elapsed/gs)*100, 100);
+    const bar = document.getElementById('mProgressBar');
+    bar.style.width = pct + '%';
+    if (elapsed >= gs) {
+        bar.classList.add('over');
+        bar.style.width = '100%';
+    }
+
+    if (currentTag) {
+        distractions[currentTag]++;
+        updateChart();
+    }
+}
+timerInterval = setInterval(tickTimer, 1000);
+
+// Tag
+function tagDistraction(tag) {
+    const btns = document.querySelectorAll('.tag-btn');
+    if (currentTag === tag) {
+        currentTag = null;
+        btns.forEach(b => b.classList.remove('active'));
+        document.getElementById('detectionStatus').className = 'detection-status studying';
+        document.getElementById('detectionStatus').textContent = '집중 모드 활성화';
+        addLog(`${getTagName(tag)} 종료`);
+        return;
+    }
+    currentTag = tag;
+    btns.forEach(b => b.classList.toggle('active', b.dataset.tag === tag));
+    document.getElementById('detectionStatus').className = 'detection-status distracted';
+    document.getElementById('detectionStatus').textContent = `⚠ ${getTagName(tag)} 감지 중`;
+    addLog(`${getTagName(tag)} 시작`);
+}
+
+function getTagName(tag) {
+    return {phone:'📱 핸드폰', spacing:'😶 멍때림', away:'🚶 자리 비움', drowsy:'😴 졸음/기타'}[tag] || tag;
+}
+
+function addLog(msg) {
+    const now = new Date();
+    const t = now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    logs.unshift({time: t, msg});
+    const el = document.getElementById('logList');
+    el.innerHTML = logs.slice(0, 20).map(l =>
+        `<div class="log-entry"><span class="log-time">${l.time}</span>${l.msg}</div>`
+    ).join('');
+}
+
+function updateChart() {
+    const total = distractions.phone + distractions.spacing + distractions.away + distractions.drowsy;
+    document.getElementById('totalDistraction').textContent = fmtShort(total);
+    const maxVal = Math.max(total, 60);
+    ['phone','spacing','away','drowsy'].forEach(key => {
+        const pct = total > 0 ? (distractions[key] / maxVal) * 100 : 0;
+        document.getElementById(`bar-${key}`).style.width = Math.max(pct, 0) + '%';
+        document.getElementById(`val-${key}`).textContent = fmtShort(distractions[key]);
+    });
+}
+
+// Pause
+function togglePause() {
+    if (paused) {
+        paused = false;
+        if (pauseStart) { pauseSec += Math.floor((Date.now()-pauseStart)/1000); pauseStart=null; }
+        document.getElementById('mPauseBtn').textContent = '일시정지';
+        document.getElementById('mPauseBtn').className = 'ctrl-btn pause';
+        addLog('재개');
+    } else {
+        paused = true;
+        pauseCount++;
+        pauseStart = Date.now();
+        document.getElementById('mPauseBtn').textContent = '재개';
+        document.getElementById('mPauseBtn').className = 'ctrl-btn resume';
+        addLog('일시정지');
+    }
+}
+
+// Stop & Save
+async function stopAndSave() {
+    clearInterval(timerInterval);
+    if (paused && pauseStart) {
+        pauseSec += Math.floor((Date.now()-pauseStart)/1000);
+    }
+    const endTime = new Date().toISOString();
+    const totalDistraction = distractions.phone + distractions.spacing + distractions.away + distractions.drowsy;
+
+    if (elapsed > 0) {
+        await fetch('/api/sessions/save', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                subject,
+                start_time: startTimeISO,
+                end_time: endTime,
+                duration_seconds: elapsed,
+                pause_count: pauseCount,
+                pause_seconds: pauseSec,
+                distractions,
+                distraction_seconds: totalDistraction,
+            })
+        });
+    }
+
+    if (video && video.srcObject) {
+        video.srcObject.getTracks().forEach(t => t.stop());
+    }
+    location.href = '/';
+}
+
+// Back link warning
+document.getElementById('backLink').addEventListener('click', function(e) {
+    if (elapsed > 0) {
+        if (!confirm('타이머가 실행 중입니다. 저장하지 않고 나가시겠습니까?')) {
+            e.preventDefault();
+        } else {
+            if (video && video.srcObject) video.srcObject.getTracks().forEach(t => t.stop());
+        }
+    }
+});
+
+// ── Computer Vision ──
+async function initWebcam() {
+    video = document.getElementById('webcamVideo');
+    canvas = document.getElementById('overlayCanvas');
+    ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: { width: 640, height: 480, facingMode: 'user' }
+        });
+        video.srcObject = stream;
+        video.addEventListener('loadeddata', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            addLog('웹캠 연결 완료');
+            requestAnimationFrame(processFrame);
+        });
+    } catch(e) {
+        addLog('웹캠 연결 실패: ' + e.message);
+        document.getElementById('webcamStatus').textContent = '웹캠 없음';
+        document.getElementById('webcamStatus').className = 'webcam-status away';
+    }
+}
+
+function processFrame() {
+    if (!video || video.paused || video.ended) {
+        requestAnimationFrame(processFrame);
+        return;
+    }
+
+    const w = canvas.width, h = canvas.height;
+    ctx.drawImage(video, 0, 0, w, h);
+    const frame = ctx.getImageData(0, 0, w, h);
+
+    frameCount++;
+
+    if (frameCount === 30) {
+        refFrame = new Uint8Array(frame.data);
+        addLog('기준 프레임 저장 완료');
+    }
+
+    if (prevFrame && frameCount > 10) {
+        let diff = 0;
+        let presenceDiff = 0;
+        const data = frame.data;
+        const step = 8;
+
+        for (let i = 0; i < data.length; i += step * 4) {
+            const r = Math.abs(data[i] - prevFrame[i]);
+            const g = Math.abs(data[i+1] - prevFrame[i+1]);
+            const b = Math.abs(data[i+2] - prevFrame[i+2]);
+            if ((r + g + b) / 3 > MOTION_THRESHOLD) diff++;
+        }
+
+        if (refFrame) {
+            for (let i = 0; i < data.length; i += step * 4) {
+                const r = Math.abs(data[i] - refFrame[i]);
+                const g = Math.abs(data[i+1] - refFrame[i+1]);
+                const b = Math.abs(data[i+2] - refFrame[i+2]);
+                if ((r + g + b) / 3 > 25) presenceDiff++;
+            }
+        }
+
+        const totalPixels = (data.length / 4) / step;
+        motionLevel = (diff / totalPixels) * 100;
+        const presenceLevel = refFrame ? (presenceDiff / totalPixels) * 100 : 50;
+
+        document.getElementById('motionFill').style.width = Math.min(motionLevel * 5, 100) + '%';
+        document.getElementById('motionVal').textContent = motionLevel.toFixed(1) + '%';
+
+        const statusEl = document.getElementById('webcamStatus');
+        if (presenceLevel < PRESENCE_THRESHOLD && refFrame) {
+            noPresenceCount++;
+            if (noPresenceCount > NO_PRESENCE_LIMIT && !currentTag) {
+                tagDistraction('away');
+                statusEl.textContent = '자리 비움 감지';
+                statusEl.className = 'webcam-status away';
+            }
+        } else {
+            if (currentTag === 'away' && noPresenceCount > NO_PRESENCE_LIMIT) {
+                tagDistraction('away');
+            }
+            noPresenceCount = 0;
+
+            if (motionLevel < 0.3) {
+                noMotionCount++;
+                if (noMotionCount > NO_MOTION_LIMIT && !currentTag) {
+                    tagDistraction('spacing');
+                    statusEl.textContent = '멍때림 감지';
+                    statusEl.className = 'webcam-status warn';
+                }
+            } else {
+                if (currentTag === 'spacing' && noMotionCount > NO_MOTION_LIMIT) {
+                    tagDistraction('spacing');
+                }
+                noMotionCount = 0;
+                if (!currentTag) {
+                    statusEl.textContent = '집중 중';
+                    statusEl.className = 'webcam-status ok';
+                }
+            }
+        }
+
+        // Draw contour guide
+        drawOverlay(w, h, presenceLevel);
+    }
+
+    prevFrame = new Uint8Array(frame.data);
+
+    if (frameCount % 3 === 0) {
+        requestAnimationFrame(processFrame);
+    } else {
+        requestAnimationFrame(processFrame);
+    }
+}
+
+function drawOverlay(w, h) {
+    ctx.clearRect(0, 0, w, h);
+
+    // Silhouette guide
+    ctx.strokeStyle = currentTag ? 'rgba(244,67,54,0.6)' : 'rgba(76,175,80,0.4)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([8, 4]);
+
+    // Head circle
+    const cx = w/2, headY = h * 0.22, headR = h * 0.12;
+    ctx.beginPath();
+    ctx.ellipse(cx, headY, headR * 0.85, headR, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Shoulders
+    ctx.beginPath();
+    ctx.moveTo(cx - w*0.25, h*0.55);
+    ctx.quadraticCurveTo(cx - w*0.15, h*0.32, cx, h*0.35);
+    ctx.quadraticCurveTo(cx + w*0.15, h*0.32, cx + w*0.25, h*0.55);
+    ctx.stroke();
+
+    ctx.setLineDash([]);
+
+    // Status text
+    if (currentTag) {
+        ctx.fillStyle = 'rgba(244,67,54,0.15)';
+        ctx.fillRect(0, 0, w, h);
+    }
+}
+
+// Init
+initWebcam();
+addLog(`${subject} 공부 시작`);
+</script>
+</body>
+</html>
