@@ -5,7 +5,7 @@
       "name": "study-timer",
       "runtimeExecutable": "study-timer/venv/bin/python",
       "runtimeArgs": ["study-timer/app.py"],
-      "port": 5050
+      "port": 5055
     },
     {
       "name": "dashboard",

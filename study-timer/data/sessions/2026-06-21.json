@@ -1,0 +1,50 @@
+[
+  {
+    "subject": "영어",
+    "start_time": "2026-06-21T08:00:00.000Z",
+    "end_time": "2026-06-21T08:41:00.000Z",
+    "duration_seconds": 2402,
+    "pause_count": 2,
+    "pause_seconds": 108
+  },
+  {
+    "subject": "영어",
+    "start_time": "2026-06-21T09:00:00.000Z",
+    "end_time": "2026-06-21T10:10:00.000Z",
+    "duration_seconds": 4136,
+    "pause_count": 1,
+    "pause_seconds": 103
+  },
+  {
+    "subject": "영어",
+    "start_time": "2026-06-21T11:00:00.000Z",
+    "end_time": "2026-06-21T11:37:00.000Z",
+    "duration_seconds": 2163,
+    "pause_count": 3,
+    "pause_seconds": 105
+  },
+  {
+    "subject": "과학",
+    "start_time": "2026-06-21T12:00:00.000Z",
+    "end_time": "2026-06-21T12:34:00.000Z",
+    "duration_seconds": 1956,
+    "pause_count": 1,
+    "pause_seconds": 93
+  },
+  {
+    "subject": "과학",
+    "start_time": "2026-06-21T13:00:00.000Z",
+    "end_time": "2026-06-21T14:02:00.000Z",
+    "duration_seconds": 3675,
+    "pause_count": 1,
+    "pause_seconds": 94
+  },
+  {
+    "subject": "과학",
+    "start_time": "2026-06-21T15:00:00.000Z",
+    "end_time": "2026-06-21T16:02:00.000Z",
+    "duration_seconds": 3677,
+    "pause_count": 2,
+    "pause_seconds": 84
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "subject": "수학",
+    "start_time": "2026-07-19T08:00:00.000Z",
+    "end_time": "2026-07-19T08:46:00.000Z",
+    "duration_seconds": 2760,
+    "pause_count": 1,
+    "pause_seconds": 49
+  },
+  {
+    "subject": "수학",
+    "start_time": "2026-07-19T09:00:00.000Z",
+    "end_time": "2026-07-19T09:34:00.000Z",
+    "duration_seconds": 2078,
+    "pause_count": 0,
+    "pause_seconds": 0
+  },
+  {
+    "subject": "수학",
+    "start_time": "2026-07-19T10:00:00.000Z",
+    "end_time": "2026-07-19T11:43:00.000Z",
+    "duration_seconds": 6198,
+    "pause_count": 0,
+    "pause_seconds": 0
+  }
+]

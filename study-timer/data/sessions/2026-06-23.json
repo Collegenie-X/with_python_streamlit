@@ -1,0 +1,26 @@
+[
+  {
+    "subject": "영어",
+    "start_time": "2026-06-23T08:00:00.000Z",
+    "end_time": "2026-06-23T09:05:00.000Z",
+    "duration_seconds": 3735,
+    "pause_count": 3,
+    "pause_seconds": 210
+  },
+  {
+    "subject": "영어",
+    "start_time": "2026-06-23T10:00:00.000Z",
+    "end_time": "2026-06-23T10:54:00.000Z",
+    "duration_seconds": 2968,
+    "pause_count": 3,
+    "pause_seconds": 297
+  },
+  {
+    "subject": "과학",
+    "start_time": "2026-06-23T11:00:00.000Z",
+    "end_time": "2026-06-23T12:02:00.000Z",
+    "duration_seconds": 3772,
+    "pause_count": 0,
+    "pause_seconds": 0
+  }
+]

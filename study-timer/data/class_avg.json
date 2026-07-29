@@ -1,0 +1,1995 @@
+{
+  "class_size": 20,
+  "daily": {
+    "2026-05-02": {
+      "avg_study_minutes": 73,
+      "avg_pause_minutes": 4,
+      "top_study_minutes": 122,
+      "bottom_study_minutes": 31
+    },
+    "2026-05-03": {
+      "avg_study_minutes": 92,
+      "avg_pause_minutes": 6,
+      "top_study_minutes": 196,
+      "bottom_study_minutes": 28
+    },
+    "2026-05-04": {
+      "avg_study_minutes": 145,
+      "avg_pause_minutes": 13,
+      "top_study_minutes": 244,
+      "bottom_study_minutes": 29
+    },
+    "2026-05-05": {
+      "avg_study_minutes": 89,
+      "avg_pause_minutes": 6,
+      "top_study_minutes": 190,
+      "bottom_study_minutes": 22
+    },
+    "2026-05-06": {
+      "avg_study_minutes": 145,
+      "avg_pause_minutes": 13,
+      "top_study_minutes": 226,
+      "bottom_study_minutes": 42
+    },
+    "2026-05-07": {
+      "avg_study_minutes": 147,
+      "avg_pause_minutes": 13,
+      "top_study_minutes": 299,
+      "bottom_study_minutes": 45
+    },
+    "2026-05-08": {
+      "avg_study_minutes": 153,
+      "avg_pause_minutes": 10,
+      "top_study_minutes": 248,
+      "bottom_study_minutes": 37
+    },
+    "2026-05-09": {
+      "avg_study_minutes": 127,
+      "avg_pause_minutes": 7,
+      "top_study_minutes": 216,
+      "bottom_study_minutes": 47
+    },
+    "2026-05-10": {
+      "avg_study_minutes": 139,
+      "avg_pause_minutes": 16,
+      "top_study_minutes": 247,
+      "bottom_study_minutes": 46
+    },
+    "2026-05-11": {
+      "avg_study_minutes": 119,
+      "avg_pause_minutes": 13,
+      "top_study_minutes": 199,
+      "bottom_study_minutes": 34
+    },
+    "2026-05-12": {
+      "avg_study_minutes": 148,
+      "avg_pause_minutes": 21,
+      "top_study_minutes": 248,
+      "bottom_study_minutes": 68
+    },
+    "2026-05-13": {
+      "avg_study_minutes": 85,
+      "avg_pause_minutes": 7,
+      "top_study_minutes": 150,
+      "bottom_study_minutes": 39
+    },
+    "2026-05-14": {
+      "avg_study_minutes": 112,
+      "avg_pause_minutes": 15,
+      "top_study_minutes": 186,
+      "bottom_study_minutes": 51
+    },
+    "2026-05-15": {
+      "avg_study_minutes": 181,
+      "avg_pause_minutes": 12,
+      "top_study_minutes": 370,
+      "bottom_study_minutes": 60
+    },
+    "2026-05-16": {
+      "avg_study_minutes": 92,
+      "avg_pause_minutes": 4,
+      "top_study_minutes": 144,
+      "bottom_study_minutes": 26
+    },
+    "2026-05-17": {
+      "avg_study_minutes": 77,
+      "avg_pause_minutes": 9,
+      "top_study_minutes": 168,
+      "bottom_study_minutes": 33
+    },
+    "2026-05-18": {
+      "avg_study_minutes": 75,
+      "avg_pause_minutes": 5,
+      "top_study_minutes": 125,
+      "bottom_study_minutes": 21
+    },
+    "2026-05-19": {
+      "avg_study_minutes": 148,
+      "avg_pause_minutes": 14,
+      "top_study_minutes": 239,
+      "bottom_study_minutes": 32
+    },
+    "2026-05-20": {
+      "avg_study_minutes": 98,
+      "avg_pause_minutes": 10,
+      "top_study_minutes": 175,
+      "bottom_study_minutes": 24
+    },
+    "2026-05-21": {
+      "avg_study_minutes": 122,
+      "avg_pause_minutes": 14,
+      "top_study_minutes": 218,
+      "bottom_study_minutes": 53
+    },
+    "2026-05-22": {
+      "avg_study_minutes": 108,
+      "avg_pause_minutes": 6,
+      "top_study_minutes": 213,
+      "bottom_study_minutes": 45
+    },
+    "2026-05-23": {
+      "avg_study_minutes": 142,
+      "avg_pause_minutes": 15,
+      "top_study_minutes": 288,
+      "bottom_study_minutes": 54
+    },
+    "2026-05-24": {
+      "avg_study_minutes": 137,
+      "avg_pause_minutes": 7,
+      "top_study_minutes": 241,
+      "bottom_study_minutes": 55
+    },
+    "2026-05-25": {
+      "avg_study_minutes": 131,
+      "avg_pause_minutes": 18,
+      "top_study_minutes": 273,
+      "bottom_study_minutes": 56
+    },
+    "2026-05-26": {
+      "avg_study_minutes": 149,
+      "avg_pause_minutes": 9,
+      "top_study_minutes": 268,
+      "bottom_study_minutes": 33
+    },
+    "2026-05-27": {
+      "avg_study_minutes": 133,
+      "avg_pause_minutes": 14,
+      "top_study_minutes": 250,
+      "bottom_study_minutes": 54
+    },
+    "2026-05-28": {
+      "avg_study_minutes": 160,
+      "avg_pause_minutes": 18,
+      "top_study_minutes": 258,
+      "bottom_study_minutes": 59
+    },
+    "2026-05-29": {
+      "avg_study_minutes": 162,
+      "avg_pause_minutes": 12,
+      "top_study_minutes": 308,
+      "bottom_study_minutes": 53
+    },
+    "2026-05-30": {
+      "avg_study_minutes": 135,
+      "avg_pause_minutes": 7,
+      "top_study_minutes": 249,
+      "bottom_study_minutes": 36
+    },
+    "2026-05-31": {
+      "avg_study_minutes": 74,
+      "avg_pause_minutes": 5,
+      "top_study_minutes": 154,
+      "bottom_study_minutes": 20
+    },
+    "2026-06-01": {
+      "avg_study_minutes": 107,
+      "avg_pause_minutes": 6,
+      "top_study_minutes": 179,
+      "bottom_study_minutes": 46
+    },
+    "2026-06-02": {
+      "avg_study_minutes": 147,
+      "avg_pause_minutes": 11,
+      "top_study_minutes": 248,
+      "bottom_study_minutes": 70
+    },
+    "2026-06-03": {
+      "avg_study_minutes": 137,
+      "avg_pause_minutes": 19,
+      "top_study_minutes": 208,
+      "bottom_study_minutes": 36
+    },
+    "2026-06-04": {
+      "avg_study_minutes": 166,
+      "avg_pause_minutes": 8,
+      "top_study_minutes": 269,
+      "bottom_study_minutes": 44
+    },
+    "2026-06-05": {
+      "avg_study_minutes": 118,
+      "avg_pause_minutes": 16,
+      "top_study_minutes": 240,
+      "bottom_study_minutes": 55
+    },
+    "2026-06-06": {
+      "avg_study_minutes": 81,
+      "avg_pause_minutes": 4,
+      "top_study_minutes": 171,
+      "bottom_study_minutes": 31
+    },
+    "2026-06-07": {
+      "avg_study_minutes": 79,
+      "avg_pause_minutes": 11,
+      "top_study_minutes": 157,
+      "bottom_study_minutes": 25
+    },
+    "2026-06-08": {
+      "avg_study_minutes": 129,
+      "avg_pause_minutes": 16,
+      "top_study_minutes": 199,
+      "bottom_study_minutes": 61
+    },
+    "2026-06-09": {
+      "avg_study_minutes": 162,
+      "avg_pause_minutes": 18,
+      "top_study_minutes": 308,
+      "bottom_study_minutes": 33
+    },
+    "2026-06-10": {
+      "avg_study_minutes": 170,
+      "avg_pause_minutes": 22,
+      "top_study_minutes": 352,
+      "bottom_study_minutes": 69
+    },
+    "2026-06-11": {
+      "avg_study_minutes": 117,
+      "avg_pause_minutes": 17,
+      "top_study_minutes": 188,
+      "bottom_study_minutes": 33
+    },
+    "2026-06-12": {
+      "avg_study_minutes": 113,
+      "avg_pause_minutes": 16,
+      "top_study_minutes": 230,
+      "bottom_study_minutes": 32
+    },
+    "2026-06-13": {
+      "avg_study_minutes": 59,
+      "avg_pause_minutes": 3,
+      "top_study_minutes": 111,
+      "bottom_study_minutes": 25
+    },
+    "2026-06-14": {
+      "avg_study_minutes": 90,
+      "avg_pause_minutes": 5,
+      "top_study_minutes": 147,
+      "bottom_study_minutes": 43
+    },
+    "2026-06-15": {
+      "avg_study_minutes": 152,
+      "avg_pause_minutes": 7,
+      "top_study_minutes": 317,
+      "bottom_study_minutes": 43
+    },
+    "2026-06-16": {
+      "avg_study_minutes": 162,
+      "avg_pause_minutes": 13,
+      "top_study_minutes": 346,
+      "bottom_study_minutes": 78
+    },
+    "2026-06-17": {
+      "avg_study_minutes": 94,
+      "avg_pause_minutes": 12,
+      "top_study_minutes": 176,
+      "bottom_study_minutes": 19
+    },
+    "2026-06-18": {
+      "avg_study_minutes": 129,
+      "avg_pause_minutes": 8,
+      "top_study_minutes": 223,
+      "bottom_study_minutes": 62
+    },
+    "2026-06-19": {
+      "avg_study_minutes": 164,
+      "avg_pause_minutes": 22,
+      "top_study_minutes": 308,
+      "bottom_study_minutes": 51
+    },
+    "2026-06-20": {
+      "avg_study_minutes": 98,
+      "avg_pause_minutes": 13,
+      "top_study_minutes": 172,
+      "bottom_study_minutes": 28
+    },
+    "2026-06-21": {
+      "avg_study_minutes": 105,
+      "avg_pause_minutes": 15,
+      "top_study_minutes": 206,
+      "bottom_study_minutes": 45
+    },
+    "2026-06-22": {
+      "avg_study_minutes": 132,
+      "avg_pause_minutes": 11,
+      "top_study_minutes": 275,
+      "bottom_study_minutes": 40
+    },
+    "2026-06-23": {
+      "avg_study_minutes": 144,
+      "avg_pause_minutes": 12,
+      "top_study_minutes": 312,
+      "bottom_study_minutes": 70
+    },
+    "2026-06-24": {
+      "avg_study_minutes": 97,
+      "avg_pause_minutes": 9,
+      "top_study_minutes": 189,
+      "bottom_study_minutes": 41
+    },
+    "2026-06-25": {
+      "avg_study_minutes": 205,
+      "avg_pause_minutes": 21,
+      "top_study_minutes": 348,
+      "bottom_study_minutes": 78
+    },
+    "2026-06-26": {
+      "avg_study_minutes": 169,
+      "avg_pause_minutes": 21,
+      "top_study_minutes": 343,
+      "bottom_study_minutes": 48
+    },
+    "2026-06-27": {
+      "avg_study_minutes": 51,
+      "avg_pause_minutes": 3,
+      "top_study_minutes": 85,
+      "bottom_study_minutes": 23
+    },
+    "2026-06-28": {
+      "avg_study_minutes": 90,
+      "avg_pause_minutes": 10,
+      "top_study_minutes": 149,
+      "bottom_study_minutes": 42
+    },
+    "2026-06-29": {
+      "avg_study_minutes": 161,
+      "avg_pause_minutes": 10,
+      "top_study_minutes": 259,
+      "bottom_study_minutes": 54
+    },
+    "2026-06-30": {
+      "avg_study_minutes": 121,
+      "avg_pause_minutes": 10,
+      "top_study_minutes": 238,
+      "bottom_study_minutes": 29
+    },
+    "2026-07-01": {
+      "avg_study_minutes": 142,
+      "avg_pause_minutes": 10,
+      "top_study_minutes": 275,
+      "bottom_study_minutes": 38
+    },
+    "2026-07-02": {
+      "avg_study_minutes": 156,
+      "avg_pause_minutes": 9,
+      "top_study_minutes": 285,
+      "bottom_study_minutes": 41
+    },
+    "2026-07-03": {
+      "avg_study_minutes": 117,
+      "avg_pause_minutes": 17,
+      "top_study_minutes": 226,
+      "bottom_study_minutes": 28
+    },
+    "2026-07-04": {
+      "avg_study_minutes": 131,
+      "avg_pause_minutes": 14,
+      "top_study_minutes": 245,
+      "bottom_study_minutes": 50
+    },
+    "2026-07-05": {
+      "avg_study_minutes": 109,
+      "avg_pause_minutes": 6,
+      "top_study_minutes": 178,
+      "bottom_study_minutes": 50
+    },
+    "2026-07-06": {
+      "avg_study_minutes": 129,
+      "avg_pause_minutes": 8,
+      "top_study_minutes": 279,
+      "bottom_study_minutes": 55
+    },
+    "2026-07-07": {
+      "avg_study_minutes": 149,
+      "avg_pause_minutes": 7,
+      "top_study_minutes": 271,
+      "bottom_study_minutes": 51
+    },
+    "2026-07-08": {
+      "avg_study_minutes": 145,
+      "avg_pause_minutes": 19,
+      "top_study_minutes": 312,
+      "bottom_study_minutes": 38
+    },
+    "2026-07-09": {
+      "avg_study_minutes": 126,
+      "avg_pause_minutes": 14,
+      "top_study_minutes": 190,
+      "bottom_study_minutes": 26
+    },
+    "2026-07-10": {
+      "avg_study_minutes": 73,
+      "avg_pause_minutes": 10,
+      "top_study_minutes": 109,
+      "bottom_study_minutes": 22
+    },
+    "2026-07-11": {
+      "avg_study_minutes": 72,
+      "avg_pause_minutes": 5,
+      "top_study_minutes": 153,
+      "bottom_study_minutes": 26
+    },
+    "2026-07-12": {
+      "avg_study_minutes": 106,
+      "avg_pause_minutes": 7,
+      "top_study_minutes": 221,
+      "bottom_study_minutes": 38
+    },
+    "2026-07-13": {
+      "avg_study_minutes": 166,
+      "avg_pause_minutes": 17,
+      "top_study_minutes": 350,
+      "bottom_study_minutes": 34
+    },
+    "2026-07-14": {
+      "avg_study_minutes": 167,
+      "avg_pause_minutes": 13,
+      "top_study_minutes": 278,
+      "bottom_study_minutes": 45
+    },
+    "2026-07-15": {
+      "avg_study_minutes": 127,
+      "avg_pause_minutes": 14,
+      "top_study_minutes": 277,
+      "bottom_study_minutes": 54
+    },
+    "2026-07-16": {
+      "avg_study_minutes": 117,
+      "avg_pause_minutes": 14,
+      "top_study_minutes": 217,
+      "bottom_study_minutes": 48
+    },
+    "2026-07-17": {
+      "avg_study_minutes": 131,
+      "avg_pause_minutes": 6,
+      "top_study_minutes": 204,
+      "bottom_study_minutes": 26
+    },
+    "2026-07-18": {
+      "avg_study_minutes": 37,
+      "avg_pause_minutes": 2,
+      "top_study_minutes": 65,
+      "bottom_study_minutes": 7
+    },
+    "2026-07-19": {
+      "avg_study_minutes": 110,
+      "avg_pause_minutes": 7,
+      "top_study_minutes": 204,
+      "bottom_study_minutes": 32
+    },
+    "2026-07-20": {
+      "avg_study_minutes": 147,
+      "avg_pause_minutes": 9,
+      "top_study_minutes": 297,
+      "bottom_study_minutes": 38
+    },
+    "2026-07-21": {
+      "avg_study_minutes": 144,
+      "avg_pause_minutes": 16,
+      "top_study_minutes": 260,
+      "bottom_study_minutes": 55
+    },
+    "2026-07-22": {
+      "avg_study_minutes": 59,
+      "avg_pause_minutes": 8,
+      "top_study_minutes": 119,
+      "bottom_study_minutes": 25
+    },
+    "2026-07-23": {
+      "avg_study_minutes": 150,
+      "avg_pause_minutes": 16,
+      "top_study_minutes": 304,
+      "bottom_study_minutes": 43
+    },
+    "2026-07-24": {
+      "avg_study_minutes": 148,
+      "avg_pause_minutes": 11,
+      "top_study_minutes": 235,
+      "bottom_study_minutes": 36
+    },
+    "2026-07-25": {
+      "avg_study_minutes": 96,
+      "avg_pause_minutes": 5,
+      "top_study_minutes": 198,
+      "bottom_study_minutes": 39
+    },
+    "2026-07-26": {
+      "avg_study_minutes": 130,
+      "avg_pause_minutes": 13,
+      "top_study_minutes": 220,
+      "bottom_study_minutes": 59
+    },
+    "2026-07-27": {
+      "avg_study_minutes": 122,
+      "avg_pause_minutes": 10,
+      "top_study_minutes": 196,
+      "bottom_study_minutes": 25
+    },
+    "2026-07-28": {
+      "avg_study_minutes": 129,
+      "avg_pause_minutes": 13,
+      "top_study_minutes": 237,
+      "bottom_study_minutes": 25
+    },
+    "2026-07-29": {
+      "avg_study_minutes": 153,
+      "avg_pause_minutes": 11,
+      "top_study_minutes": 259,
+      "bottom_study_minutes": 56
+    },
+    "2026-07-30": {
+      "avg_study_minutes": 89,
+      "avg_pause_minutes": 10,
+      "top_study_minutes": 144,
+      "bottom_study_minutes": 33
+    }
+  },
+  "subject_daily": {
+    "영어": {
+      "2026-05-02": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 31
+      },
+      "2026-05-03": {
+        "avg_study_minutes": 12,
+        "top_study_minutes": 17
+      },
+      "2026-05-04": {
+        "avg_study_minutes": 24,
+        "top_study_minutes": 36
+      },
+      "2026-05-05": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 45
+      },
+      "2026-05-06": {
+        "avg_study_minutes": 30,
+        "top_study_minutes": 42
+      },
+      "2026-05-07": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 41
+      },
+      "2026-05-08": {
+        "avg_study_minutes": 38,
+        "top_study_minutes": 57
+      },
+      "2026-05-09": {
+        "avg_study_minutes": 34,
+        "top_study_minutes": 55
+      },
+      "2026-05-10": {
+        "avg_study_minutes": 19,
+        "top_study_minutes": 30
+      },
+      "2026-05-11": {
+        "avg_study_minutes": 27,
+        "top_study_minutes": 44
+      },
+      "2026-05-12": {
+        "avg_study_minutes": 24,
+        "top_study_minutes": 39
+      },
+      "2026-05-13": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 23
+      },
+      "2026-05-14": {
+        "avg_study_minutes": 15,
+        "top_study_minutes": 24
+      },
+      "2026-05-15": {
+        "avg_study_minutes": 45,
+        "top_study_minutes": 82
+      },
+      "2026-05-16": {
+        "avg_study_minutes": 16,
+        "top_study_minutes": 27
+      },
+      "2026-05-17": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 21
+      },
+      "2026-05-18": {
+        "avg_study_minutes": 27,
+        "top_study_minutes": 47
+      },
+      "2026-05-19": {
+        "avg_study_minutes": 34,
+        "top_study_minutes": 47
+      },
+      "2026-05-20": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 35
+      },
+      "2026-05-21": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 50
+      },
+      "2026-05-22": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 24
+      },
+      "2026-05-23": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 49
+      },
+      "2026-05-24": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 42
+      },
+      "2026-05-25": {
+        "avg_study_minutes": 25,
+        "top_study_minutes": 35
+      },
+      "2026-05-26": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 45
+      },
+      "2026-05-27": {
+        "avg_study_minutes": 46,
+        "top_study_minutes": 72
+      },
+      "2026-05-28": {
+        "avg_study_minutes": 36,
+        "top_study_minutes": 59
+      },
+      "2026-05-29": {
+        "avg_study_minutes": 49,
+        "top_study_minutes": 83
+      },
+      "2026-05-30": {
+        "avg_study_minutes": 44,
+        "top_study_minutes": 76
+      },
+      "2026-05-31": {
+        "avg_study_minutes": 10,
+        "top_study_minutes": 17
+      },
+      "2026-06-01": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 46
+      },
+      "2026-06-02": {
+        "avg_study_minutes": 33,
+        "top_study_minutes": 52
+      },
+      "2026-06-03": {
+        "avg_study_minutes": 40,
+        "top_study_minutes": 70
+      },
+      "2026-06-04": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 40
+      },
+      "2026-06-05": {
+        "avg_study_minutes": 33,
+        "top_study_minutes": 51
+      },
+      "2026-06-06": {
+        "avg_study_minutes": 19,
+        "top_study_minutes": 31
+      },
+      "2026-06-07": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 60
+      },
+      "2026-06-08": {
+        "avg_study_minutes": 21,
+        "top_study_minutes": 41
+      },
+      "2026-06-09": {
+        "avg_study_minutes": 53,
+        "top_study_minutes": 99
+      },
+      "2026-06-10": {
+        "avg_study_minutes": 52,
+        "top_study_minutes": 76
+      },
+      "2026-06-11": {
+        "avg_study_minutes": 26,
+        "top_study_minutes": 38
+      },
+      "2026-06-12": {
+        "avg_study_minutes": 17,
+        "top_study_minutes": 30
+      },
+      "2026-06-13": {
+        "avg_study_minutes": 6,
+        "top_study_minutes": 10
+      },
+      "2026-06-14": {
+        "avg_study_minutes": 22,
+        "top_study_minutes": 32
+      },
+      "2026-06-15": {
+        "avg_study_minutes": 37,
+        "top_study_minutes": 59
+      },
+      "2026-06-16": {
+        "avg_study_minutes": 51,
+        "top_study_minutes": 96
+      },
+      "2026-06-17": {
+        "avg_study_minutes": 17,
+        "top_study_minutes": 29
+      },
+      "2026-06-18": {
+        "avg_study_minutes": 25,
+        "top_study_minutes": 39
+      },
+      "2026-06-19": {
+        "avg_study_minutes": 42,
+        "top_study_minutes": 74
+      },
+      "2026-06-20": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 41
+      },
+      "2026-06-21": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 45
+      },
+      "2026-06-22": {
+        "avg_study_minutes": 35,
+        "top_study_minutes": 62
+      },
+      "2026-06-23": {
+        "avg_study_minutes": 30,
+        "top_study_minutes": 58
+      },
+      "2026-06-24": {
+        "avg_study_minutes": 9,
+        "top_study_minutes": 13
+      },
+      "2026-06-25": {
+        "avg_study_minutes": 44,
+        "top_study_minutes": 81
+      },
+      "2026-06-26": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 52
+      },
+      "2026-06-27": {
+        "avg_study_minutes": 17,
+        "top_study_minutes": 27
+      },
+      "2026-06-28": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 40
+      },
+      "2026-06-29": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 50
+      },
+      "2026-06-30": {
+        "avg_study_minutes": 33,
+        "top_study_minutes": 48
+      },
+      "2026-07-01": {
+        "avg_study_minutes": 35,
+        "top_study_minutes": 69
+      },
+      "2026-07-02": {
+        "avg_study_minutes": 44,
+        "top_study_minutes": 74
+      },
+      "2026-07-03": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 50
+      },
+      "2026-07-04": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 63
+      },
+      "2026-07-05": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 29
+      },
+      "2026-07-06": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 57
+      },
+      "2026-07-07": {
+        "avg_study_minutes": 43,
+        "top_study_minutes": 81
+      },
+      "2026-07-08": {
+        "avg_study_minutes": 46,
+        "top_study_minutes": 72
+      },
+      "2026-07-09": {
+        "avg_study_minutes": 40,
+        "top_study_minutes": 68
+      },
+      "2026-07-10": {
+        "avg_study_minutes": 12,
+        "top_study_minutes": 18
+      },
+      "2026-07-11": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 18
+      },
+      "2026-07-12": {
+        "avg_study_minutes": 27,
+        "top_study_minutes": 51
+      },
+      "2026-07-13": {
+        "avg_study_minutes": 53,
+        "top_study_minutes": 76
+      },
+      "2026-07-14": {
+        "avg_study_minutes": 35,
+        "top_study_minutes": 61
+      },
+      "2026-07-15": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 48
+      },
+      "2026-07-16": {
+        "avg_study_minutes": 42,
+        "top_study_minutes": 78
+      },
+      "2026-07-17": {
+        "avg_study_minutes": 45,
+        "top_study_minutes": 65
+      },
+      "2026-07-18": {
+        "avg_study_minutes": 10,
+        "top_study_minutes": 16
+      },
+      "2026-07-19": {
+        "avg_study_minutes": 27,
+        "top_study_minutes": 48
+      },
+      "2026-07-20": {
+        "avg_study_minutes": 38,
+        "top_study_minutes": 54
+      },
+      "2026-07-21": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 40
+      },
+      "2026-07-22": {
+        "avg_study_minutes": 16,
+        "top_study_minutes": 23
+      },
+      "2026-07-23": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 43
+      },
+      "2026-07-24": {
+        "avg_study_minutes": 35,
+        "top_study_minutes": 66
+      },
+      "2026-07-25": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 45
+      },
+      "2026-07-26": {
+        "avg_study_minutes": 48,
+        "top_study_minutes": 88
+      },
+      "2026-07-27": {
+        "avg_study_minutes": 26,
+        "top_study_minutes": 44
+      },
+      "2026-07-28": {
+        "avg_study_minutes": 39,
+        "top_study_minutes": 68
+      },
+      "2026-07-29": {
+        "avg_study_minutes": 38,
+        "top_study_minutes": 71
+      },
+      "2026-07-30": {
+        "avg_study_minutes": 25,
+        "top_study_minutes": 41
+      }
+    },
+    "국어": {
+      "2026-05-02": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 8
+      },
+      "2026-05-03": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 35
+      },
+      "2026-05-04": {
+        "avg_study_minutes": 30,
+        "top_study_minutes": 50
+      },
+      "2026-05-05": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 9
+      },
+      "2026-05-06": {
+        "avg_study_minutes": 15,
+        "top_study_minutes": 22
+      },
+      "2026-05-07": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 9
+      },
+      "2026-05-08": {
+        "avg_study_minutes": 8,
+        "top_study_minutes": 15
+      },
+      "2026-05-09": {
+        "avg_study_minutes": 19,
+        "top_study_minutes": 35
+      },
+      "2026-05-10": {
+        "avg_study_minutes": 12,
+        "top_study_minutes": 19
+      },
+      "2026-05-11": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 25
+      },
+      "2026-05-12": {
+        "avg_study_minutes": 14,
+        "top_study_minutes": 21
+      },
+      "2026-05-13": {
+        "avg_study_minutes": 21,
+        "top_study_minutes": 41
+      },
+      "2026-05-14": {
+        "avg_study_minutes": 12,
+        "top_study_minutes": 20
+      },
+      "2026-05-15": {
+        "avg_study_minutes": 38,
+        "top_study_minutes": 63
+      },
+      "2026-05-16": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 32
+      },
+      "2026-05-17": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 19
+      },
+      "2026-05-18": {
+        "avg_study_minutes": 16,
+        "top_study_minutes": 30
+      },
+      "2026-05-19": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 46
+      },
+      "2026-05-20": {
+        "avg_study_minutes": 15,
+        "top_study_minutes": 24
+      },
+      "2026-05-21": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 32
+      },
+      "2026-05-22": {
+        "avg_study_minutes": 17,
+        "top_study_minutes": 31
+      },
+      "2026-05-23": {
+        "avg_study_minutes": 22,
+        "top_study_minutes": 39
+      },
+      "2026-05-24": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 33
+      },
+      "2026-05-25": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 37
+      },
+      "2026-05-26": {
+        "avg_study_minutes": 15,
+        "top_study_minutes": 24
+      },
+      "2026-05-27": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 32
+      },
+      "2026-05-28": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 30
+      },
+      "2026-05-29": {
+        "avg_study_minutes": 22,
+        "top_study_minutes": 43
+      },
+      "2026-05-30": {
+        "avg_study_minutes": 22,
+        "top_study_minutes": 36
+      },
+      "2026-05-31": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 9
+      },
+      "2026-06-01": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 28
+      },
+      "2026-06-02": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 56
+      },
+      "2026-06-03": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 37
+      },
+      "2026-06-04": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 18
+      },
+      "2026-06-05": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 20
+      },
+      "2026-06-06": {
+        "avg_study_minutes": 19,
+        "top_study_minutes": 26
+      },
+      "2026-06-07": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 8
+      },
+      "2026-06-08": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 29
+      },
+      "2026-06-09": {
+        "avg_study_minutes": 24,
+        "top_study_minutes": 47
+      },
+      "2026-06-10": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 43
+      },
+      "2026-06-11": {
+        "avg_study_minutes": 16,
+        "top_study_minutes": 24
+      },
+      "2026-06-12": {
+        "avg_study_minutes": 18,
+        "top_study_minutes": 30
+      },
+      "2026-06-13": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 8
+      },
+      "2026-06-14": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 9
+      },
+      "2026-06-15": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 49
+      },
+      "2026-06-16": {
+        "avg_study_minutes": 14,
+        "top_study_minutes": 24
+      },
+      "2026-06-17": {
+        "avg_study_minutes": 10,
+        "top_study_minutes": 14
+      },
+      "2026-06-18": {
+        "avg_study_minutes": 6,
+        "top_study_minutes": 10
+      },
+      "2026-06-19": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 54
+      },
+      "2026-06-20": {
+        "avg_study_minutes": 17,
+        "top_study_minutes": 26
+      },
+      "2026-06-21": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 7
+      },
+      "2026-06-22": {
+        "avg_study_minutes": 14,
+        "top_study_minutes": 23
+      },
+      "2026-06-23": {
+        "avg_study_minutes": 12,
+        "top_study_minutes": 23
+      },
+      "2026-06-24": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 18
+      },
+      "2026-06-25": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 40
+      },
+      "2026-06-26": {
+        "avg_study_minutes": 37,
+        "top_study_minutes": 52
+      },
+      "2026-06-27": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 9
+      },
+      "2026-06-28": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 8
+      },
+      "2026-06-29": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 51
+      },
+      "2026-06-30": {
+        "avg_study_minutes": 15,
+        "top_study_minutes": 27
+      },
+      "2026-07-01": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 37
+      },
+      "2026-07-02": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 39
+      },
+      "2026-07-03": {
+        "avg_study_minutes": 14,
+        "top_study_minutes": 23
+      },
+      "2026-07-04": {
+        "avg_study_minutes": 9,
+        "top_study_minutes": 17
+      },
+      "2026-07-05": {
+        "avg_study_minutes": 22,
+        "top_study_minutes": 37
+      },
+      "2026-07-06": {
+        "avg_study_minutes": 25,
+        "top_study_minutes": 49
+      },
+      "2026-07-07": {
+        "avg_study_minutes": 10,
+        "top_study_minutes": 15
+      },
+      "2026-07-08": {
+        "avg_study_minutes": 7,
+        "top_study_minutes": 13
+      },
+      "2026-07-09": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 39
+      },
+      "2026-07-10": {
+        "avg_study_minutes": 15,
+        "top_study_minutes": 23
+      },
+      "2026-07-11": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 9
+      },
+      "2026-07-12": {
+        "avg_study_minutes": 7,
+        "top_study_minutes": 9
+      },
+      "2026-07-13": {
+        "avg_study_minutes": 46,
+        "top_study_minutes": 77
+      },
+      "2026-07-14": {
+        "avg_study_minutes": 24,
+        "top_study_minutes": 45
+      },
+      "2026-07-15": {
+        "avg_study_minutes": 9,
+        "top_study_minutes": 14
+      },
+      "2026-07-16": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 7
+      },
+      "2026-07-17": {
+        "avg_study_minutes": 21,
+        "top_study_minutes": 38
+      },
+      "2026-07-18": {
+        "avg_study_minutes": 9,
+        "top_study_minutes": 17
+      },
+      "2026-07-19": {
+        "avg_study_minutes": 12,
+        "top_study_minutes": 22
+      },
+      "2026-07-20": {
+        "avg_study_minutes": 27,
+        "top_study_minutes": 52
+      },
+      "2026-07-21": {
+        "avg_study_minutes": 19,
+        "top_study_minutes": 32
+      },
+      "2026-07-22": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 7
+      },
+      "2026-07-23": {
+        "avg_study_minutes": 11,
+        "top_study_minutes": 21
+      },
+      "2026-07-24": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 25
+      },
+      "2026-07-25": {
+        "avg_study_minutes": 12,
+        "top_study_minutes": 23
+      },
+      "2026-07-26": {
+        "avg_study_minutes": 19,
+        "top_study_minutes": 33
+      },
+      "2026-07-27": {
+        "avg_study_minutes": 6,
+        "top_study_minutes": 9
+      },
+      "2026-07-28": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 37
+      },
+      "2026-07-29": {
+        "avg_study_minutes": 8,
+        "top_study_minutes": 12
+      },
+      "2026-07-30": {
+        "avg_study_minutes": 14,
+        "top_study_minutes": 24
+      }
+    },
+    "수학": {
+      "2026-05-02": {
+        "avg_study_minutes": 38,
+        "top_study_minutes": 74
+      },
+      "2026-05-03": {
+        "avg_study_minutes": 42,
+        "top_study_minutes": 82
+      },
+      "2026-05-04": {
+        "avg_study_minutes": 60,
+        "top_study_minutes": 116
+      },
+      "2026-05-05": {
+        "avg_study_minutes": 36,
+        "top_study_minutes": 50
+      },
+      "2026-05-06": {
+        "avg_study_minutes": 69,
+        "top_study_minutes": 129
+      },
+      "2026-05-07": {
+        "avg_study_minutes": 50,
+        "top_study_minutes": 88
+      },
+      "2026-05-08": {
+        "avg_study_minutes": 58,
+        "top_study_minutes": 110
+      },
+      "2026-05-09": {
+        "avg_study_minutes": 46,
+        "top_study_minutes": 74
+      },
+      "2026-05-10": {
+        "avg_study_minutes": 48,
+        "top_study_minutes": 92
+      },
+      "2026-05-11": {
+        "avg_study_minutes": 49,
+        "top_study_minutes": 95
+      },
+      "2026-05-12": {
+        "avg_study_minutes": 52,
+        "top_study_minutes": 93
+      },
+      "2026-05-13": {
+        "avg_study_minutes": 39,
+        "top_study_minutes": 58
+      },
+      "2026-05-14": {
+        "avg_study_minutes": 49,
+        "top_study_minutes": 68
+      },
+      "2026-05-15": {
+        "avg_study_minutes": 64,
+        "top_study_minutes": 113
+      },
+      "2026-05-16": {
+        "avg_study_minutes": 36,
+        "top_study_minutes": 62
+      },
+      "2026-05-17": {
+        "avg_study_minutes": 38,
+        "top_study_minutes": 72
+      },
+      "2026-05-18": {
+        "avg_study_minutes": 26,
+        "top_study_minutes": 51
+      },
+      "2026-05-19": {
+        "avg_study_minutes": 54,
+        "top_study_minutes": 99
+      },
+      "2026-05-20": {
+        "avg_study_minutes": 41,
+        "top_study_minutes": 63
+      },
+      "2026-05-21": {
+        "avg_study_minutes": 46,
+        "top_study_minutes": 79
+      },
+      "2026-05-22": {
+        "avg_study_minutes": 47,
+        "top_study_minutes": 84
+      },
+      "2026-05-23": {
+        "avg_study_minutes": 61,
+        "top_study_minutes": 89
+      },
+      "2026-05-24": {
+        "avg_study_minutes": 51,
+        "top_study_minutes": 95
+      },
+      "2026-05-25": {
+        "avg_study_minutes": 53,
+        "top_study_minutes": 104
+      },
+      "2026-05-26": {
+        "avg_study_minutes": 58,
+        "top_study_minutes": 92
+      },
+      "2026-05-27": {
+        "avg_study_minutes": 38,
+        "top_study_minutes": 58
+      },
+      "2026-05-28": {
+        "avg_study_minutes": 66,
+        "top_study_minutes": 128
+      },
+      "2026-05-29": {
+        "avg_study_minutes": 70,
+        "top_study_minutes": 122
+      },
+      "2026-05-30": {
+        "avg_study_minutes": 71,
+        "top_study_minutes": 107
+      },
+      "2026-05-31": {
+        "avg_study_minutes": 25,
+        "top_study_minutes": 42
+      },
+      "2026-06-01": {
+        "avg_study_minutes": 57,
+        "top_study_minutes": 81
+      },
+      "2026-06-02": {
+        "avg_study_minutes": 67,
+        "top_study_minutes": 99
+      },
+      "2026-06-03": {
+        "avg_study_minutes": 50,
+        "top_study_minutes": 79
+      },
+      "2026-06-04": {
+        "avg_study_minutes": 75,
+        "top_study_minutes": 136
+      },
+      "2026-06-05": {
+        "avg_study_minutes": 35,
+        "top_study_minutes": 54
+      },
+      "2026-06-06": {
+        "avg_study_minutes": 33,
+        "top_study_minutes": 53
+      },
+      "2026-06-07": {
+        "avg_study_minutes": 57,
+        "top_study_minutes": 98
+      },
+      "2026-06-08": {
+        "avg_study_minutes": 64,
+        "top_study_minutes": 113
+      },
+      "2026-06-09": {
+        "avg_study_minutes": 79,
+        "top_study_minutes": 111
+      },
+      "2026-06-10": {
+        "avg_study_minutes": 71,
+        "top_study_minutes": 103
+      },
+      "2026-06-11": {
+        "avg_study_minutes": 33,
+        "top_study_minutes": 53
+      },
+      "2026-06-12": {
+        "avg_study_minutes": 51,
+        "top_study_minutes": 75
+      },
+      "2026-06-13": {
+        "avg_study_minutes": 36,
+        "top_study_minutes": 67
+      },
+      "2026-06-14": {
+        "avg_study_minutes": 36,
+        "top_study_minutes": 62
+      },
+      "2026-06-15": {
+        "avg_study_minutes": 66,
+        "top_study_minutes": 113
+      },
+      "2026-06-16": {
+        "avg_study_minutes": 57,
+        "top_study_minutes": 112
+      },
+      "2026-06-17": {
+        "avg_study_minutes": 42,
+        "top_study_minutes": 72
+      },
+      "2026-06-18": {
+        "avg_study_minutes": 51,
+        "top_study_minutes": 76
+      },
+      "2026-06-19": {
+        "avg_study_minutes": 65,
+        "top_study_minutes": 129
+      },
+      "2026-06-20": {
+        "avg_study_minutes": 48,
+        "top_study_minutes": 70
+      },
+      "2026-06-21": {
+        "avg_study_minutes": 41,
+        "top_study_minutes": 67
+      },
+      "2026-06-22": {
+        "avg_study_minutes": 50,
+        "top_study_minutes": 99
+      },
+      "2026-06-23": {
+        "avg_study_minutes": 70,
+        "top_study_minutes": 100
+      },
+      "2026-06-24": {
+        "avg_study_minutes": 44,
+        "top_study_minutes": 72
+      },
+      "2026-06-25": {
+        "avg_study_minutes": 83,
+        "top_study_minutes": 117
+      },
+      "2026-06-26": {
+        "avg_study_minutes": 63,
+        "top_study_minutes": 108
+      },
+      "2026-06-27": {
+        "avg_study_minutes": 33,
+        "top_study_minutes": 52
+      },
+      "2026-06-28": {
+        "avg_study_minutes": 38,
+        "top_study_minutes": 62
+      },
+      "2026-06-29": {
+        "avg_study_minutes": 57,
+        "top_study_minutes": 85
+      },
+      "2026-06-30": {
+        "avg_study_minutes": 64,
+        "top_study_minutes": 110
+      },
+      "2026-07-01": {
+        "avg_study_minutes": 64,
+        "top_study_minutes": 126
+      },
+      "2026-07-02": {
+        "avg_study_minutes": 50,
+        "top_study_minutes": 82
+      },
+      "2026-07-03": {
+        "avg_study_minutes": 44,
+        "top_study_minutes": 73
+      },
+      "2026-07-04": {
+        "avg_study_minutes": 50,
+        "top_study_minutes": 84
+      },
+      "2026-07-05": {
+        "avg_study_minutes": 41,
+        "top_study_minutes": 75
+      },
+      "2026-07-06": {
+        "avg_study_minutes": 54,
+        "top_study_minutes": 82
+      },
+      "2026-07-07": {
+        "avg_study_minutes": 76,
+        "top_study_minutes": 107
+      },
+      "2026-07-08": {
+        "avg_study_minutes": 57,
+        "top_study_minutes": 102
+      },
+      "2026-07-09": {
+        "avg_study_minutes": 54,
+        "top_study_minutes": 106
+      },
+      "2026-07-10": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 56
+      },
+      "2026-07-11": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 45
+      },
+      "2026-07-12": {
+        "avg_study_minutes": 41,
+        "top_study_minutes": 64
+      },
+      "2026-07-13": {
+        "avg_study_minutes": 74,
+        "top_study_minutes": 106
+      },
+      "2026-07-14": {
+        "avg_study_minutes": 75,
+        "top_study_minutes": 135
+      },
+      "2026-07-15": {
+        "avg_study_minutes": 57,
+        "top_study_minutes": 112
+      },
+      "2026-07-16": {
+        "avg_study_minutes": 36,
+        "top_study_minutes": 54
+      },
+      "2026-07-17": {
+        "avg_study_minutes": 56,
+        "top_study_minutes": 109
+      },
+      "2026-07-18": {
+        "avg_study_minutes": 8,
+        "top_study_minutes": 14
+      },
+      "2026-07-19": {
+        "avg_study_minutes": 43,
+        "top_study_minutes": 70
+      },
+      "2026-07-20": {
+        "avg_study_minutes": 63,
+        "top_study_minutes": 97
+      },
+      "2026-07-21": {
+        "avg_study_minutes": 38,
+        "top_study_minutes": 56
+      },
+      "2026-07-22": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 48
+      },
+      "2026-07-23": {
+        "avg_study_minutes": 70,
+        "top_study_minutes": 123
+      },
+      "2026-07-24": {
+        "avg_study_minutes": 55,
+        "top_study_minutes": 83
+      },
+      "2026-07-25": {
+        "avg_study_minutes": 46,
+        "top_study_minutes": 89
+      },
+      "2026-07-26": {
+        "avg_study_minutes": 53,
+        "top_study_minutes": 86
+      },
+      "2026-07-27": {
+        "avg_study_minutes": 52,
+        "top_study_minutes": 93
+      },
+      "2026-07-28": {
+        "avg_study_minutes": 51,
+        "top_study_minutes": 92
+      },
+      "2026-07-29": {
+        "avg_study_minutes": 58,
+        "top_study_minutes": 94
+      },
+      "2026-07-30": {
+        "avg_study_minutes": 39,
+        "top_study_minutes": 61
+      }
+    },
+    "과학": {
+      "2026-05-02": {
+        "avg_study_minutes": 6,
+        "top_study_minutes": 10
+      },
+      "2026-05-03": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 22
+      },
+      "2026-05-04": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 20
+      },
+      "2026-05-05": {
+        "avg_study_minutes": 16,
+        "top_study_minutes": 26
+      },
+      "2026-05-06": {
+        "avg_study_minutes": 35,
+        "top_study_minutes": 54
+      },
+      "2026-05-07": {
+        "avg_study_minutes": 22,
+        "top_study_minutes": 36
+      },
+      "2026-05-08": {
+        "avg_study_minutes": 43,
+        "top_study_minutes": 64
+      },
+      "2026-05-09": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 45
+      },
+      "2026-05-10": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 52
+      },
+      "2026-05-11": {
+        "avg_study_minutes": 34,
+        "top_study_minutes": 65
+      },
+      "2026-05-12": {
+        "avg_study_minutes": 12,
+        "top_study_minutes": 21
+      },
+      "2026-05-13": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 49
+      },
+      "2026-05-14": {
+        "avg_study_minutes": 19,
+        "top_study_minutes": 35
+      },
+      "2026-05-15": {
+        "avg_study_minutes": 35,
+        "top_study_minutes": 65
+      },
+      "2026-05-16": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 45
+      },
+      "2026-05-17": {
+        "avg_study_minutes": 22,
+        "top_study_minutes": 40
+      },
+      "2026-05-18": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 9
+      },
+      "2026-05-19": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 53
+      },
+      "2026-05-20": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 33
+      },
+      "2026-05-21": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 41
+      },
+      "2026-05-22": {
+        "avg_study_minutes": 30,
+        "top_study_minutes": 54
+      },
+      "2026-05-23": {
+        "avg_study_minutes": 34,
+        "top_study_minutes": 57
+      },
+      "2026-05-24": {
+        "avg_study_minutes": 30,
+        "top_study_minutes": 56
+      },
+      "2026-05-25": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 59
+      },
+      "2026-05-26": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 60
+      },
+      "2026-05-27": {
+        "avg_study_minutes": 26,
+        "top_study_minutes": 44
+      },
+      "2026-05-28": {
+        "avg_study_minutes": 36,
+        "top_study_minutes": 71
+      },
+      "2026-05-29": {
+        "avg_study_minutes": 33,
+        "top_study_minutes": 52
+      },
+      "2026-05-30": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 53
+      },
+      "2026-05-31": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 23
+      },
+      "2026-06-01": {
+        "avg_study_minutes": 27,
+        "top_study_minutes": 38
+      },
+      "2026-06-02": {
+        "avg_study_minutes": 35,
+        "top_study_minutes": 55
+      },
+      "2026-06-03": {
+        "avg_study_minutes": 21,
+        "top_study_minutes": 39
+      },
+      "2026-06-04": {
+        "avg_study_minutes": 40,
+        "top_study_minutes": 79
+      },
+      "2026-06-05": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 46
+      },
+      "2026-06-06": {
+        "avg_study_minutes": 13,
+        "top_study_minutes": 23
+      },
+      "2026-06-07": {
+        "avg_study_minutes": 19,
+        "top_study_minutes": 29
+      },
+      "2026-06-08": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 53
+      },
+      "2026-06-09": {
+        "avg_study_minutes": 16,
+        "top_study_minutes": 25
+      },
+      "2026-06-10": {
+        "avg_study_minutes": 27,
+        "top_study_minutes": 42
+      },
+      "2026-06-11": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 48
+      },
+      "2026-06-12": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 49
+      },
+      "2026-06-13": {
+        "avg_study_minutes": 15,
+        "top_study_minutes": 25
+      },
+      "2026-06-14": {
+        "avg_study_minutes": 14,
+        "top_study_minutes": 24
+      },
+      "2026-06-15": {
+        "avg_study_minutes": 27,
+        "top_study_minutes": 38
+      },
+      "2026-06-16": {
+        "avg_study_minutes": 26,
+        "top_study_minutes": 45
+      },
+      "2026-06-17": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 55
+      },
+      "2026-06-18": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 46
+      },
+      "2026-06-19": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 57
+      },
+      "2026-06-20": {
+        "avg_study_minutes": 17,
+        "top_study_minutes": 30
+      },
+      "2026-06-21": {
+        "avg_study_minutes": 16,
+        "top_study_minutes": 26
+      },
+      "2026-06-22": {
+        "avg_study_minutes": 40,
+        "top_study_minutes": 59
+      },
+      "2026-06-23": {
+        "avg_study_minutes": 36,
+        "top_study_minutes": 70
+      },
+      "2026-06-24": {
+        "avg_study_minutes": 43,
+        "top_study_minutes": 83
+      },
+      "2026-06-25": {
+        "avg_study_minutes": 42,
+        "top_study_minutes": 68
+      },
+      "2026-06-26": {
+        "avg_study_minutes": 48,
+        "top_study_minutes": 72
+      },
+      "2026-06-27": {
+        "avg_study_minutes": 15,
+        "top_study_minutes": 29
+      },
+      "2026-06-28": {
+        "avg_study_minutes": 24,
+        "top_study_minutes": 39
+      },
+      "2026-06-29": {
+        "avg_study_minutes": 22,
+        "top_study_minutes": 31
+      },
+      "2026-06-30": {
+        "avg_study_minutes": 24,
+        "top_study_minutes": 38
+      },
+      "2026-07-01": {
+        "avg_study_minutes": 26,
+        "top_study_minutes": 47
+      },
+      "2026-07-02": {
+        "avg_study_minutes": 12,
+        "top_study_minutes": 23
+      },
+      "2026-07-03": {
+        "avg_study_minutes": 29,
+        "top_study_minutes": 49
+      },
+      "2026-07-04": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 45
+      },
+      "2026-07-05": {
+        "avg_study_minutes": 25,
+        "top_study_minutes": 43
+      },
+      "2026-07-06": {
+        "avg_study_minutes": 24,
+        "top_study_minutes": 42
+      },
+      "2026-07-07": {
+        "avg_study_minutes": 26,
+        "top_study_minutes": 51
+      },
+      "2026-07-08": {
+        "avg_study_minutes": 34,
+        "top_study_minutes": 54
+      },
+      "2026-07-09": {
+        "avg_study_minutes": 22,
+        "top_study_minutes": 39
+      },
+      "2026-07-10": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 8
+      },
+      "2026-07-11": {
+        "avg_study_minutes": 9,
+        "top_study_minutes": 13
+      },
+      "2026-07-12": {
+        "avg_study_minutes": 26,
+        "top_study_minutes": 47
+      },
+      "2026-07-13": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 49
+      },
+      "2026-07-14": {
+        "avg_study_minutes": 45,
+        "top_study_minutes": 71
+      },
+      "2026-07-15": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 49
+      },
+      "2026-07-16": {
+        "avg_study_minutes": 20,
+        "top_study_minutes": 39
+      },
+      "2026-07-17": {
+        "avg_study_minutes": 31,
+        "top_study_minutes": 57
+      },
+      "2026-07-18": {
+        "avg_study_minutes": 17,
+        "top_study_minutes": 26
+      },
+      "2026-07-19": {
+        "avg_study_minutes": 23,
+        "top_study_minutes": 38
+      },
+      "2026-07-20": {
+        "avg_study_minutes": 28,
+        "top_study_minutes": 53
+      },
+      "2026-07-21": {
+        "avg_study_minutes": 32,
+        "top_study_minutes": 55
+      },
+      "2026-07-22": {
+        "avg_study_minutes": 5,
+        "top_study_minutes": 7
+      },
+      "2026-07-23": {
+        "avg_study_minutes": 36,
+        "top_study_minutes": 61
+      },
+      "2026-07-24": {
+        "avg_study_minutes": 40,
+        "top_study_minutes": 62
+      },
+      "2026-07-25": {
+        "avg_study_minutes": 22,
+        "top_study_minutes": 40
+      },
+      "2026-07-26": {
+        "avg_study_minutes": 30,
+        "top_study_minutes": 51
+      },
+      "2026-07-27": {
+        "avg_study_minutes": 33,
+        "top_study_minutes": 57
+      },
+      "2026-07-28": {
+        "avg_study_minutes": 30,
+        "top_study_minutes": 53
+      },
+      "2026-07-29": {
+        "avg_study_minutes": 24,
+        "top_study_minutes": 46
+      },
+      "2026-07-30": {
+        "avg_study_minutes": 26,
+        "top_study_minutes": 38
+      }
+    }
+  }
+}

@@ -8,6 +8,14 @@ app = Flask(__name__)
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 SUBJECTS_FILE = os.path.join(DATA_DIR, 'subjects.json')
 SESSIONS_DIR = os.path.join(DATA_DIR, 'sessions')
+CLASS_AVG_FILE = os.path.join(DATA_DIR, 'class_avg.json')
+
+
+def load_class_avg():
+    if not os.path.exists(CLASS_AVG_FILE):
+        return {}
+    with open(CLASS_AVG_FILE, 'r', encoding='utf-8') as f:
+        return json.load(f)
 
 os.makedirs(SESSIONS_DIR, exist_ok=True)
 
@@ -188,13 +196,122 @@ def get_stats():
         for s in sessions:
             subj = s.get('subject', '기타')
             by_subject[subj] = by_subject.get(subj, 0) + s.get('duration_seconds', 0)
+        total_pause = sum(s.get('pause_seconds', 0) for s in sessions)
+        pause_by_subject = {}
+        for s in sessions:
+            subj = s.get('subject', '기타')
+            pause_by_subject[subj] = pause_by_subject.get(subj, 0) + s.get('pause_seconds', 0)
         daily.append({
             'date': d.isoformat(),
             'total_seconds': total,
             'by_subject': by_subject,
             'session_count': len(sessions),
+            'total_pause_seconds': total_pause,
+            'pause_by_subject': pause_by_subject,
         })
     return jsonify(daily)
+
+
+@app.route('/api/dashboard', methods=['GET'])
+def get_dashboard():
+    days = int(request.args.get('days', 7))
+    today = date.today()
+    subjects = load_subjects()
+
+    daily = []
+    for i in range(days):
+        d = date.fromordinal(today.toordinal() - i)
+        sessions = load_sessions_for_date(d.isoformat())
+        total = sum(s.get('duration_seconds', 0) for s in sessions)
+        total_pause = sum(s.get('pause_seconds', 0) for s in sessions)
+        by_subject = {}
+        for s in sessions:
+            subj = s.get('subject', '기타')
+            if subj not in by_subject:
+                by_subject[subj] = {
+                    'study_seconds': 0,
+                    'pause_seconds': 0,
+                    'session_count': 0,
+                    'pause_count': 0,
+                }
+            by_subject[subj]['study_seconds'] += s.get('duration_seconds', 0)
+            by_subject[subj]['pause_seconds'] += s.get('pause_seconds', 0)
+            by_subject[subj]['session_count'] += 1
+            by_subject[subj]['pause_count'] += s.get('pause_count', 0)
+        daily.append({
+            'date': d.isoformat(),
+            'total_study_seconds': total,
+            'total_pause_seconds': total_pause,
+            'total_elapsed_seconds': total + total_pause,
+            'session_count': len(sessions),
+            'by_subject': by_subject,
+        })
+
+    subject_summary = []
+    for subj in subjects:
+        name = subj['name']
+        history = []
+        for day in reversed(daily):
+            ds = day['by_subject'].get(name, {})
+            history.append({
+                'date': day['date'],
+                'study_seconds': ds.get('study_seconds', 0),
+                'pause_seconds': ds.get('pause_seconds', 0),
+                'session_count': ds.get('session_count', 0),
+            })
+
+        today_data = daily[0]['by_subject'].get(name, {})
+        yesterday_data = daily[1]['by_subject'].get(name, {}) if len(daily) > 1 else {}
+        today_min = today_data.get('study_seconds', 0) / 60
+        yesterday_min = yesterday_data.get('study_seconds', 0) / 60
+        goal = subj['goal_minutes']
+        achievement_rate = round(today_min / goal * 100) if goal > 0 else 0
+        change = round(today_min - yesterday_min)
+        change_pct = round((today_min - yesterday_min) / yesterday_min * 100) if yesterday_min > 0 else (100 if today_min > 0 else 0)
+        week_total = sum(d['by_subject'].get(name, {}).get('study_seconds', 0) for d in daily[:7])
+        week_avg = round(week_total / min(len(daily), 7) / 60)
+
+        subject_summary.append({
+            'name': name,
+            'color': subj['color'],
+            'goal_minutes': goal,
+            'today_study_minutes': round(today_min),
+            'today_pause_minutes': round(today_data.get('pause_seconds', 0) / 60),
+            'today_sessions': today_data.get('session_count', 0),
+            'achievement_rate': min(achievement_rate, 100),
+            'achievement_raw': achievement_rate,
+            'change_minutes': change,
+            'change_percent': change_pct,
+            'week_total_minutes': round(week_total / 60),
+            'week_avg_minutes': week_avg,
+            'history': history,
+            'status': 'done' if achievement_rate >= 100 else ('active' if today_min > 0 else 'idle'),
+        })
+
+    today_d = daily[0]
+    total_study = today_d['total_study_seconds']
+    total_pause = today_d['total_pause_seconds']
+    total_elapsed = today_d['total_elapsed_seconds']
+    focus_rate = round(total_study / total_elapsed * 100) if total_elapsed > 0 else 0
+    done_count = sum(1 for s in subject_summary if s['status'] == 'done')
+
+    class_avg = load_class_avg()
+
+    return jsonify({
+        'overview': {
+            'today_study_seconds': total_study,
+            'today_pause_seconds': total_pause,
+            'today_elapsed_seconds': total_elapsed,
+            'today_sessions': today_d['session_count'],
+            'today_focus_rate': focus_rate,
+            'subjects_done': done_count,
+            'subjects_total': len(subjects),
+            'week_total_seconds': sum(d['total_study_seconds'] for d in daily[:7]),
+        },
+        'subjects': subject_summary,
+        'daily': list(reversed(daily)),
+        'class_avg': class_avg,
+    })
 
 
 def generate_comment(session, all_today):

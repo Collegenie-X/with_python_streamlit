@@ -4,319 +4,575 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI 공부 매니저 - 대시보드</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: #0f0f23;
-    color: #e0e0e0;
-    min-height: 100vh;
-}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a0e1a;color:#e2e8f0;min-height:100vh}
 
-/* ── 네비게이션 ── */
-nav {
-    background: #16213e;
-    padding: 12px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #0f3460;
-}
-nav .logo { font-size: 1.2rem; font-weight: 700; color: #e94560; }
-nav .nav-links a {
-    color: #a0a0c0;
-    text-decoration: none;
-    margin-left: 24px;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-nav .nav-links a:hover, nav .nav-links a.active { color: #e94560; }
+nav{background:#111827;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1e293b}
+nav .logo{font-size:1.2rem;font-weight:700;color:#e94560}
+nav a{color:#94a3b8;text-decoration:none;margin-left:20px;font-weight:500}
+nav a:hover,nav a.active{color:#e94560}
 
-/* ── 레이아웃 ── */
-.main {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 24px 16px;
-}
+.main{max-width:1200px;margin:0 auto;padding:20px 16px}
 
-/* ── 요약 카드 ── */
-.summary-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
-}
-.stat-card {
-    background: #16213e;
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-    border: 1px solid #1a1a40;
-}
-.stat-card .value {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-.stat-card .label { font-size: 0.85rem; color: #888; }
-.stat-card.highlight .value { color: #e94560; }
-.stat-card.green .value { color: #4CAF50; }
-.stat-card.blue .value { color: #2196F3; }
-.stat-card.orange .value { color: #FF9800; }
+.ov-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:18px}
+.ov{background:#111827;border:1px solid #1e293b;border-radius:10px;padding:14px;text-align:center}
+.ov .v{font-size:1.4rem;font-weight:700}.ov .l{font-size:.7rem;color:#64748b;margin-top:2px}
+.ov .sub{font-size:.65rem;margin-top:3px}
 
-/* ── 카드 ── */
-.card {
-    background: #16213e;
-    border-radius: 16px;
-    padding: 24px;
-    border: 1px solid #1a1a40;
-    margin-bottom: 24px;
-}
-.card h2 {
-    font-size: 1rem;
-    color: #a0a0c0;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+.section{margin-bottom:20px}
+.section-title{font-size:.85rem;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-left:4px}
 
-/* ── 차트 (CSS 바) ── */
-.bar-chart { display: flex; flex-direction: column; gap: 10px; }
-.bar-row { display: flex; align-items: center; gap: 12px; }
-.bar-row .day-label { width: 80px; font-size: 0.85rem; color: #888; text-align: right; flex-shrink: 0; }
-.bar-row .bar-track {
-    flex: 1; height: 28px; background: #0f0f23; border-radius: 8px; overflow: hidden;
-    display: flex;
-}
-.bar-row .bar-fill {
-    height: 100%; border-radius: 8px; transition: width 0.5s;
-    display: flex; align-items: center; justify-content: flex-end;
-    padding: 0 8px; font-size: 0.75rem; font-weight: 600; color: #fff;
-    min-width: 0;
-}
-.bar-row .bar-fill span { white-space: nowrap; }
+.subj-tabs{display:flex;gap:4px;margin-bottom:14px;overflow-x:auto}
+.subj-tab{padding:8px 18px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;border:1px solid #1e293b;background:transparent;color:#94a3b8;white-space:nowrap;transition:all .2s}
+.subj-tab:hover{background:#1e293b}
+.subj-tab.active{color:#fff;border-color:var(--sc)}
+.subj-tab.all{color:#e94560}
+.subj-tab.all.active{background:#e94560;border-color:#e94560;color:#fff}
 
-/* ── 과목별 파이 (간단 막대) ── */
-.subject-bars { display: flex; flex-direction: column; gap: 8px; }
-.subject-bar-row { display: flex; align-items: center; gap: 10px; }
-.subject-bar-row .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.subject-bar-row .name { width: 60px; font-size: 0.85rem; }
-.subject-bar-row .track { flex: 1; height: 20px; background: #0f0f23; border-radius: 6px; overflow: hidden; }
-.subject-bar-row .fill { height: 100%; border-radius: 6px; transition: width 0.5s; }
-.subject-bar-row .mins { width: 60px; text-align: right; font-size: 0.85rem; color: #888; }
+.period-tabs{display:flex;gap:4px;margin-bottom:12px}
+.period-tab{padding:5px 14px;border-radius:6px;border:1px solid #334155;background:transparent;color:#94a3b8;cursor:pointer;font-size:.78rem}
+.period-tab.active{background:#475569;color:#fff;border-color:#475569}
 
-/* ── 코멘트 영역 ── */
-.comment-section {
-    background: #1a1a40;
-    border-radius: 12px;
-    padding: 20px;
-}
-.comment-section .title { color: #e94560; font-weight: 600; margin-bottom: 12px; }
-.comment-section ul { list-style: none; }
-.comment-section li {
-    padding: 8px 0;
-    border-bottom: 1px solid #252550;
-    line-height: 1.5;
-}
-.comment-section li:last-child { border-bottom: none; }
-.comment-section li .subj { font-weight: 600; margin-right: 8px; }
-.comment-section .empty { color: #555; }
+.card{background:#111827;border:1px solid #1e293b;border-radius:12px;padding:18px;margin-bottom:14px}
 
-/* ── 기간 선택 ── */
-.period-selector {
-    display: flex; gap: 8px; margin-bottom: 16px;
-}
-.period-selector button {
-    padding: 6px 16px; border-radius: 8px; border: 1px solid #333;
-    background: #0f0f23; color: #aaa; cursor: pointer; font-size: 0.85rem;
-}
-.period-selector button.active { background: #e94560; color: #fff; border-color: #e94560; }
+.chart-area{height:260px;position:relative}
+.chart-area canvas{width:100%!important;height:100%!important}
+
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:768px){.compare-grid{grid-template-columns:1fr}}
+.compare-chart{height:240px;position:relative}
+.compare-chart canvas{width:100%!important;height:100%!important}
+
+.rank-bar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rank-bar .rb-label{font-size:.78rem;color:#94a3b8;width:36px;flex-shrink:0}
+.rank-bar .rb-track{flex:1;height:20px;background:#1e293b;border-radius:10px;position:relative;overflow:hidden}
+.rank-bar .rb-fill{height:100%;border-radius:10px;display:flex;align-items:center;padding:0 8px;font-size:.65rem;font-weight:700;color:#fff}
+.rank-bar .rb-me{position:absolute;top:-2px;width:24px;height:24px;background:#e94560;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;z-index:2}
+
+.gap-bar{height:24px;background:#1e293b;border-radius:6px;overflow:hidden;display:flex;margin-bottom:6px}
+.gap-bar .seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;color:#fff}
+.gap-legend{display:flex;gap:14px;font-size:.72rem;color:#94a3b8;flex-wrap:wrap}
+.gap-legend .gl{display:flex;align-items:center;gap:4px}
+.gap-legend .gd{width:8px;height:8px;border-radius:50%}
+
+.legend-row{display:flex;gap:16px;margin-bottom:10px;font-size:.75rem}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+
+/* ── Report ── */
+.report{background:#111827;border:1px solid #1e293b;border-radius:12px;overflow:hidden}
+.rpt-hdr{background:linear-gradient(135deg,#1a1a3e,#0f172a);padding:22px 26px;border-bottom:1px solid #1e293b}
+.rpt-hdr .rh-row{display:flex;justify-content:space-between;align-items:center}
+.rpt-hdr .rh-title{font-size:1.1rem;font-weight:700}
+.rpt-hdr .rh-date{font-size:.72rem;color:#64748b}
+.rpt-hdr .rh-sub{font-size:.78rem;color:#94a3b8;margin-top:4px}
+.rpt-body{padding:24px}
+.rpt-sec{margin-bottom:24px}
+.rpt-sec:last-child{margin-bottom:0}
+.rpt-sec-title{font-size:.72rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #1e293b}
+
+/* Grade banner */
+.grade-banner{display:flex;align-items:center;gap:20px;padding:20px;background:#0f172a;border:1px solid #1e293b;border-radius:12px}
+.grade-banner .gb-left{flex-shrink:0;text-align:center;width:80px}
+.grade-banner .gb-char{font-size:0;line-height:0}
+.grade-banner .gb-char img{width:40px!important;height:40px!important}
+.grade-banner .gb-grade{font-size:2.2rem;font-weight:900;line-height:1}
+.grade-banner .gb-title{font-size:.68rem;color:#94a3b8;margin-top:2px}
+.grade-banner .gb-right{flex:1;min-width:0}
+.grade-banner .gb-rank{font-size:.9rem;font-weight:700;margin-bottom:6px}
+.grade-banner .gb-msg{font-size:.78rem;color:#cbd5e1;line-height:1.6}
+.grade-banner .gb-msg strong{color:#e2e8f0}
+@media(max-width:600px){.grade-banner{flex-direction:column;text-align:center}}
+
+/* KPI row */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-top:14px}
+.kpi{background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:12px;text-align:center}
+.kpi .kv{font-size:1.2rem;font-weight:700}
+.kpi .kl{font-size:.6rem;color:#64748b;margin-top:2px}
+.kpi .kb{height:3px;background:#1e293b;border-radius:2px;margin-top:6px;overflow:hidden}
+.kpi .kf{height:100%;border-radius:2px}
+
+/* Chart cards in report */
+.rpt-charts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:768px){.rpt-charts{grid-template-columns:1fr}}
+.rpt-chart-card{background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:14px}
+.rpt-chart-card .rcc-title{font-size:.72rem;color:#94a3b8;margin-bottom:8px}
+.rpt-chart-area{height:180px;position:relative}
+.rpt-chart-area canvas{width:100%!important;height:100%!important}
+
+/* Subject table */
+.rpt-table{width:100%;border-collapse:collapse;margin-top:6px}
+.rpt-table th{text-align:left;font-size:.68rem;color:#64748b;font-weight:600;padding:8px 8px;border-bottom:1px solid #1e293b}
+.rpt-table td{padding:8px;font-size:.78rem;border-bottom:1px solid rgba(30,41,59,.5)}
+.rpt-table .sd{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.rpt-table .prog{width:80px}
+.rpt-table .prog-bg{height:5px;background:#1e293b;border-radius:3px;overflow:hidden}
+.rpt-table .prog-fill{height:100%;border-radius:3px}
+.rpt-table .status-pill{display:inline-block;font-size:.6rem;padding:1px 7px;border-radius:8px;font-weight:600}
+
+/* AI comment */
+.ai-box{background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:18px}
+.ai-box .ai-title{font-size:.82rem;font-weight:700;color:#c4b5fd;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.ai-box .ai-p{font-size:.78rem;color:#cbd5e1;line-height:1.8;margin-bottom:10px}
+.ai-box .ai-p:last-child{margin-bottom:0}
+.ai-box .ai-p strong{color:#e2e8f0}
+.ai-box .up{color:#22c55e;font-weight:600}
+.ai-box .dn{color:#ef4444;font-weight:600}
+.ai-box .warn{color:#f59e0b;font-weight:600}
+.ai-box .ai-hr{height:1px;background:#1e293b;margin:12px 0}
+
+/* Tips */
+.tip-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:768px){.tip-grid{grid-template-columns:1fr}}
+.tip-card{background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:12px}
+.tip-card .tc-head{font-size:.72rem;font-weight:700;margin-bottom:4px}
+.tip-card .tc-body{font-size:.7rem;color:#94a3b8;line-height:1.6}
+.tip-card .tc-body strong{color:#cbd5e1}
 </style>
 </head>
 <body>
 
 <nav>
     <div class="logo">AI 공부 매니저</div>
-    <div class="nav-links">
+    <div>
         <a href="/">타이머</a>
         <a href="/dashboard" class="active">대시보드</a>
     </div>
 </nav>
 
 <div class="main">
-    <!-- 요약 카드 -->
-    <div class="summary-row" id="summaryRow">
-        <div class="stat-card highlight">
-            <div class="value" id="totalToday">0분</div>
-            <div class="label">오늘 총 공부</div>
+    <div class="ov-row" id="ovRow"></div>
+
+    <div class="section">
+        <div class="section-title">나 vs 반 평균 비교</div>
+        <div class="subj-tabs" id="subjTabs"></div>
+        <div class="period-tabs" id="periodTabs"></div>
+
+        <div class="card">
+            <div class="legend-row">
+                <div class="legend-item"><div class="legend-dot" style="background:#e94560"></div>나</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div>반 평균</div>
+            </div>
+            <div class="chart-area"><canvas id="compareChart"></canvas></div>
         </div>
-        <div class="stat-card green">
-            <div class="value" id="sessionCount">0회</div>
-            <div class="label">오늘 세션 수</div>
+
+        <div class="compare-grid">
+            <div class="card">
+                <div style="font-size:.8rem;color:#94a3b8;margin-bottom:10px">과목별 나 vs 반 평균 (분)</div>
+                <div class="compare-chart"><canvas id="subjBar"></canvas></div>
+            </div>
+            <div class="card">
+                <div style="font-size:.8rem;color:#94a3b8;margin-bottom:10px">과목 균형 비교</div>
+                <div class="compare-chart"><canvas id="radarCompare"></canvas></div>
+            </div>
         </div>
-        <div class="stat-card blue">
-            <div class="value" id="avgSession">0분</div>
-            <div class="label">평균 세션 시간</div>
-        </div>
-        <div class="stat-card orange">
-            <div class="value" id="weekTotal">0분</div>
-            <div class="label">이번 주 총 공부</div>
+
+        <div class="card">
+            <div style="font-size:.8rem;color:#94a3b8;margin-bottom:14px">반 20명 중 나의 위치</div>
+            <div id="rankBars"></div>
         </div>
     </div>
 
-    <!-- 일별 공부 시간 차트 -->
-    <div class="card">
-        <h2>일별 공부 시간</h2>
-        <div class="period-selector">
-            <button class="active" onclick="changePeriod(7, this)">7일</button>
-            <button onclick="changePeriod(14, this)">14일</button>
-            <button onclick="changePeriod(30, this)">30일</button>
-        </div>
-        <div class="bar-chart" id="dailyChart"></div>
+    <div class="section">
+        <div class="section-title">시간 분석</div>
+        <div class="card" id="gapSection"></div>
     </div>
 
-    <!-- 과목별 공부 시간 (오늘) -->
-    <div class="card">
-        <h2>오늘 과목별 공부 시간</h2>
-        <div class="subject-bars" id="subjectBars"></div>
-    </div>
-
-    <!-- 코멘트 / 피드백 -->
-    <div class="card">
-        <h2>오늘의 코멘트</h2>
-        <div class="comment-section" id="commentSection">
-            <div class="empty">아직 오늘 공부 기록이 없어요.</div>
-        </div>
+    <div class="section">
+        <div class="section-title">AI 학습 보고서</div>
+        <div class="report" id="reportSection"></div>
     </div>
 </div>
 
 <script>
-const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
-let currentDays = 7;
+const WD=['일','월','화','수','목','금','토'];
+let DATA=null, CX={}, curSubj='all', curPeriod=7;
 
-function formatMin(sec) {
-    const m = Math.floor(sec / 60);
-    if (m >= 60) return `${Math.floor(m/60)}시간 ${m%60}분`;
-    return `${m}분`;
+function fmt(s){const m=Math.round(s/60);return m>=60?`${Math.floor(m/60)}시간 ${m%60}분`:`${m}분`}
+function fmtM(m){return m>=60?`${Math.floor(m/60)}h ${m%60>0?m%60+'m':''}`:`${m}m`}
+function pct(a,b){return b>0?Math.round(a/b*100):0}
+function dl(ds){const d=new Date(ds+'T00:00:00');return `${d.getMonth()+1}/${d.getDate()}`}
+function kill(k){if(CX[k]){CX[k].destroy();CX[k]=null}}
+
+function getClassAvg(dates,subjName){
+    const ca=DATA.class_avg;
+    if(!ca||!ca.daily) return dates.map(()=>0);
+    if(subjName==='all') return dates.map(d=>ca.daily[d]?.avg_study_minutes||0);
+    return dates.map(d=>ca.subject_daily?.[subjName]?.[d]?.avg_study_minutes||0);
+}
+function getClassTop(dates,subjName){
+    const ca=DATA.class_avg;
+    if(!ca||!ca.daily) return dates.map(()=>0);
+    if(subjName==='all') return dates.map(d=>ca.daily[d]?.top_study_minutes||0);
+    return dates.map(d=>ca.subject_daily?.[subjName]?.[d]?.top_study_minutes||0);
 }
 
-async function loadStats(days) {
-    const res = await fetch(`/api/stats?days=${days}`);
-    return await res.json();
+async function init(){
+    DATA=await(await fetch('/api/dashboard?days=90')).json();
+    buildTabs();
+    render();
 }
 
-async function loadTodaySessions() {
-    const res = await fetch('/api/sessions/today');
-    return await res.json();
+function buildTabs(){
+    const el=document.getElementById('subjTabs');
+    let html=`<button class="subj-tab all active" onclick="selSubj('all',this)">전체</button>`;
+    DATA.subjects.forEach(s=>{
+        html+=`<button class="subj-tab" style="--sc:${s.color}" onclick="selSubj('${s.name}',this)">${s.name}</button>`;
+    });
+    el.innerHTML=html;
 }
 
-async function loadSubjects() {
-    const res = await fetch('/api/subjects');
-    return await res.json();
-}
-
-async function renderAll() {
-    const [stats, sessions, subjects] = await Promise.all([
-        loadStats(currentDays),
-        loadTodaySessions(),
-        loadSubjects()
-    ]);
-
-    const subjectMap = {};
-    subjects.forEach(s => subjectMap[s.name] = s);
-
-    // 요약 카드
-    const today = stats[0] || {total_seconds: 0, session_count: 0, by_subject: {}};
-    const todayMin = Math.floor(today.total_seconds / 60);
-    const weekTotal = stats.slice(0, 7).reduce((a, d) => a + d.total_seconds, 0);
-    const avgSec = today.session_count > 0 ? Math.floor(today.total_seconds / today.session_count) : 0;
-
-    document.getElementById('totalToday').textContent = formatMin(today.total_seconds);
-    document.getElementById('sessionCount').textContent = `${today.session_count}회`;
-    document.getElementById('avgSession').textContent = formatMin(avgSec);
-    document.getElementById('weekTotal').textContent = formatMin(weekTotal);
-
-    // 일별 차트
-    const maxSec = Math.max(...stats.map(d => d.total_seconds), 3600);
-    const chartEl = document.getElementById('dailyChart');
-    chartEl.innerHTML = stats.slice().reverse().map(d => {
-        const dt = new Date(d.date + 'T00:00:00');
-        const dayStr = `${dt.getMonth()+1}/${dt.getDate()}(${WEEKDAY[dt.getDay()]})`;
-        const pct = Math.max((d.total_seconds / maxSec) * 100, 0);
-
-        const segments = Object.entries(d.by_subject).map(([name, sec]) => {
-            const segPct = (sec / maxSec) * 100;
-            const color = (subjectMap[name] && subjectMap[name].color) || '#888';
-            return `<div class="bar-fill" style="width:${segPct}%;background:${color}"><span>${segPct > 8 ? name : ''}</span></div>`;
-        }).join('');
-
-        return `<div class="bar-row">
-            <div class="day-label">${dayStr}</div>
-            <div class="bar-track">${segments}</div>
-        </div>`;
-    }).join('');
-
-    // 과목별 바
-    const subjectEl = document.getElementById('subjectBars');
-    const bySubj = today.by_subject;
-    const maxSubjSec = Math.max(...Object.values(bySubj), 1);
-    if (Object.keys(bySubj).length === 0) {
-        subjectEl.innerHTML = '<div style="color:#555;text-align:center;padding:16px;">오늘 기록이 없어요</div>';
-    } else {
-        subjectEl.innerHTML = Object.entries(bySubj).map(([name, sec]) => {
-            const color = (subjectMap[name] && subjectMap[name].color) || '#888';
-            const pct = (sec / maxSubjSec) * 100;
-            return `<div class="subject-bar-row">
-                <span class="dot" style="background:${color}"></span>
-                <span class="name">${name}</span>
-                <div class="track"><div class="fill" style="width:${pct}%;background:${color}"></div></div>
-                <span class="mins">${formatMin(sec)}</span>
-            </div>`;
-        }).join('');
-    }
-
-    // 코멘트
-    const commentEl = document.getElementById('commentSection');
-    if (sessions.length === 0) {
-        commentEl.innerHTML = '<div class="empty">아직 오늘 공부 기록이 없어요.</div>';
-    } else {
-        const totalSec = sessions.reduce((a, s) => a + s.duration_seconds, 0);
-        const totalPause = sessions.reduce((a, s) => a + s.pause_count, 0);
-
-        const comments = [];
-
-        sessions.forEach(s => {
-            const d = s.duration_seconds;
-            let msg = '';
-            if (d >= 3600) msg = `1시간 이상 집중! 대단해!`;
-            else if (d >= 1800) msg = `30분 넘게 꾸준히 했어요.`;
-            else if (d >= 600) msg = `10분 이상 좋은 시작!`;
-            else msg = `짧은 세션이지만 시작이 중요해요.`;
-            comments.push({subject: s.subject, text: msg});
-        });
-
-        if (totalSec >= 7200) {
-            comments.push({subject: '총평', text: `오늘 ${formatMin(totalSec)} 공부! 정말 열심히 했어요!`});
-        } else if (totalSec >= 3600) {
-            comments.push({subject: '총평', text: `오늘 ${formatMin(totalSec)} 공부. 좋은 페이스에요!`});
-        } else if (sessions.length > 0) {
-            comments.push({subject: '총평', text: `오늘 ${formatMin(totalSec)} 공부했어요. 조금씩 늘려봐요!`});
-        }
-
-        commentEl.innerHTML = `<ul>${comments.map(c =>
-            `<li><span class="subj">[${c.subject}]</span>${c.text}</li>`
-        ).join('')}</ul>`;
-    }
-}
-
-function changePeriod(days, btn) {
-    currentDays = days;
-    document.querySelectorAll('.period-selector button').forEach(b => b.classList.remove('active'));
+function selSubj(name,btn){
+    curSubj=name;
+    document.querySelectorAll('.subj-tab').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
-    renderAll();
+    render();
+}
+function selPeriod(days,btn){
+    curPeriod=days;
+    document.querySelectorAll('.period-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
 }
 
-renderAll();
+function render(){
+    const {overview:ov,subjects,daily}=DATA;
+    const ca=DATA.class_avg||{};
+    const sliced=daily.slice(-curPeriod);
+    const dates=sliced.map(d=>d.date);
+    const isAll=curSubj==='all';
+
+    let myPeriodMin,avgPeriodMin;
+    if(isAll) myPeriodMin=Math.round(sliced.reduce((a,d)=>a+d.total_study_seconds,0)/60);
+    else myPeriodMin=Math.round(sliced.reduce((a,d)=>a+(d.by_subject[curSubj]?.study_seconds||0),0)/60);
+    const classAvgArr=getClassAvg(dates,curSubj);
+    avgPeriodMin=Math.round(classAvgArr.reduce((a,b)=>a+b,0));
+    const diff=myPeriodMin-avgPeriodMin;
+    const diffPct=avgPeriodMin>0?Math.round(diff/avgPeriodMin*100):0;
+
+    const todayMin=Math.round(ov.today_study_seconds/60);
+    const todayAvg=ca.daily?.[dates[dates.length-1]]?.avg_study_minutes||0;
+    const todayDiff=todayMin-todayAvg;
+
+    document.getElementById('ovRow').innerHTML=`
+        <div class="ov"><div class="v" style="color:#22c55e">${fmt(ov.today_study_seconds)}</div><div class="l">오늘 순공</div><div class="sub" style="color:${todayDiff>=0?'#22c55e':'#ef4444'}">${todayDiff>=0?'+':''}${todayDiff}분 vs 반평균</div></div>
+        <div class="ov"><div class="v" style="color:#f59e0b">${ov.today_focus_rate}%</div><div class="l">집중률</div></div>
+        <div class="ov"><div class="v" style="color:#8b5cf6">${ov.subjects_done}/${ov.subjects_total}</div><div class="l">목표달성</div></div>
+        <div class="ov"><div class="v" style="color:#e94560">${fmtM(myPeriodMin)}</div><div class="l">기간 합계</div><div class="sub" style="color:${diff>=0?'#22c55e':'#ef4444'}">${diff>=0?'+':''}${diff}분 (${diffPct>=0?'+':''}${diffPct}%)</div></div>
+        <div class="ov"><div class="v" style="color:#3b82f6">${fmtM(avgPeriodMin)}</div><div class="l">반 평균 합계</div></div>`;
+
+    document.getElementById('periodTabs').innerHTML=[
+        {d:1,l:'1일'},{d:7,l:'1주'},{d:30,l:'1달'},{d:90,l:'3달'}
+    ].map(p=>`<button class="period-tab${curPeriod===p.d?' active':''}" onclick="selPeriod(${p.d},this)">${p.l}</button>`).join('');
+
+    renderCompareChart(sliced,dates);
+    renderSubjBar(sliced,dates);
+    renderRadar(subjects,sliced,dates);
+    renderRanks(subjects,sliced,dates);
+    renderGap(ov,subjects);
+    renderReport(ov,subjects,daily,dates,sliced);
+}
+
+function renderCompareChart(sliced,dates){
+    kill('compare');
+    const isAll=curSubj==='all';
+    const myData=sliced.map(d=>isAll?Math.round(d.total_study_seconds/60):Math.round((d.by_subject[curSubj]?.study_seconds||0)/60));
+    const avgData=getClassAvg(dates,curSubj);
+    const labels=dates.map(dl);
+    const useBar=curPeriod<=7;
+    CX.compare=new Chart(document.getElementById('compareChart'),{
+        type:useBar?'bar':'line',
+        data:{labels,datasets:[
+            {label:'나',data:myData,backgroundColor:'#e9456099',borderColor:'#e94560',borderWidth:useBar?0:2,borderRadius:useBar?4:0,fill:!useBar&&'origin',tension:.3,pointRadius:useBar?0:(curPeriod<=30?3:0),pointBackgroundColor:'#e94560',order:1},
+            {label:'반 평균',data:avgData,backgroundColor:'#3b82f655',borderColor:'#3b82f6',borderWidth:useBar?0:2,borderRadius:useBar?4:0,fill:!useBar&&'origin',tension:.3,pointRadius:useBar?0:(curPeriod<=30?3:0),pointBackgroundColor:'#3b82f6',borderDash:useBar?[]:[5,5],order:2},
+        ]},
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'분'}}},scales:{x:{ticks:{color:'#475569',maxRotation:0,autoSkip:true,maxTicksLimit:curPeriod<=7?7:10},grid:{display:false}},y:{beginAtZero:true,ticks:{color:'#475569',callback:v=>v+'분'},grid:{color:'rgba(255,255,255,.04)'}}}}
+    });
+}
+
+function renderSubjBar(sliced,dates){
+    kill('subjBar');
+    const subjects=DATA.subjects;
+    const myMins=subjects.map(s=>Math.round(sliced.reduce((a,d)=>a+(d.by_subject[s.name]?.study_seconds||0),0)/60));
+    const avgMins=subjects.map(s=>Math.round(getClassAvg(dates,s.name).reduce((a,b)=>a+b,0)));
+    CX.subjBar=new Chart(document.getElementById('subjBar'),{
+        type:'bar',data:{labels:subjects.map(s=>s.name),datasets:[
+            {label:'나',data:myMins,backgroundColor:subjects.map(s=>s.color+'cc'),borderRadius:4},
+            {label:'반 평균',data:avgMins,backgroundColor:'#3b82f666',borderRadius:4},
+        ]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'분'}}},scales:{x:{beginAtZero:true,ticks:{color:'#475569',callback:v=>v+'분'},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#cbd5e1'},grid:{display:false}}}}
+    });
+}
+
+function renderRadar(subjects,sliced,dates){
+    kill('radar');
+    if(subjects.length<3) return;
+    const myPct=subjects.map(s=>{const t=Math.round(sliced.reduce((a,d)=>a+(d.by_subject[s.name]?.study_seconds||0),0)/60);return Math.min(Math.round(t/(s.goal_minutes*curPeriod)*100),100)});
+    const avgPct=subjects.map(s=>{const t=Math.round(getClassAvg(dates,s.name).reduce((a,b)=>a+b,0));return Math.min(Math.round(t/(s.goal_minutes*curPeriod)*100),100)});
+    CX.radar=new Chart(document.getElementById('radarCompare'),{
+        type:'radar',data:{labels:subjects.map(s=>s.name),datasets:[
+            {label:'나',data:myPct,backgroundColor:'rgba(233,69,96,.15)',borderColor:'#e94560',pointBackgroundColor:'#e94560',borderWidth:2},
+            {label:'반 평균',data:avgPct,backgroundColor:'rgba(59,130,246,.1)',borderColor:'#3b82f6',pointBackgroundColor:'#3b82f6',borderWidth:2,borderDash:[4,4]},
+        ]},options:{responsive:true,maintainAspectRatio:false,scales:{r:{beginAtZero:true,max:100,grid:{color:'rgba(255,255,255,.06)'},angleLines:{color:'rgba(255,255,255,.06)'},pointLabels:{color:'#cbd5e1',font:{size:11}},ticks:{display:false}}},plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+    });
+}
+
+function renderRanks(subjects,sliced,dates){
+    const ca=DATA.class_avg||{};
+    const cs=ca.class_size||20;
+    const el=document.getElementById('rankBars');
+    const items=[{name:'전체',color:'#e94560'},...subjects.map(s=>({name:s.name,color:s.color}))];
+    el.innerHTML=items.map(item=>{
+        const isAll=item.name==='전체';
+        let myMin,avgMin,topMin;
+        if(isAll){myMin=Math.round(sliced.reduce((a,d)=>a+d.total_study_seconds,0)/60);avgMin=Math.round(dates.reduce((a,d)=>a+(ca.daily?.[d]?.avg_study_minutes||0),0));topMin=Math.round(dates.reduce((a,d)=>a+(ca.daily?.[d]?.top_study_minutes||0),0))}
+        else{myMin=Math.round(sliced.reduce((a,d)=>a+(d.by_subject[item.name]?.study_seconds||0),0)/60);avgMin=Math.round(getClassAvg(dates,item.name).reduce((a,b)=>a+b,0));topMin=Math.round(getClassTop(dates,item.name).reduce((a,b)=>a+b,0))}
+        const rank=myMin>=topMin?1:myMin>=avgMin?Math.round(cs*0.4):Math.min(Math.round(cs*(1-myMin/Math.max(avgMin,1)*0.5)),cs);
+        const pos=Math.round((rank-1)/(cs-1)*100);
+        return `<div class="rank-bar"><div class="rb-label" style="color:${item.color}">${item.name}</div><div class="rb-track"><div class="rb-fill" style="width:100%;background:linear-gradient(90deg,#22c55e33,#f59e0b33,#ef444433)"></div><div class="rb-me" style="left:calc(${100-pos}% - 12px)" title="${rank}등/${cs}명">${rank}</div></div><div style="font-size:.7rem;color:${myMin>=avgMin?'#22c55e':'#ef4444'};width:60px;text-align:right">${myMin>=avgMin?'+':''}${myMin-avgMin}분</div></div>`;
+    }).join('');
+}
+
+function renderGap(ov,subjects){
+    const study=ov.today_study_seconds,pause=ov.today_pause_seconds,total=study+pause;
+    const sp=pct(study,total),pp=100-sp;
+    const subjSegs=subjects.filter(s=>s.today_study_minutes>0).map(s=>{const w=pct(s.today_study_minutes*60,study);return `<div class="seg" style="width:${w}%;background:${s.color}">${w>8?s.name:''}</div>`}).join('');
+    document.getElementById('gapSection').innerHTML=`
+        <div style="font-size:.8rem;color:#94a3b8;margin-bottom:8px">순공 vs 비공부 시간</div>
+        <div class="gap-bar"><div class="seg" style="width:${sp}%;background:#22c55e">${sp}% 순공</div><div class="seg" style="width:${pp}%;background:#334155">${pp>5?pp+'% 갭':''}</div></div>
+        <div class="gap-legend"><div class="gl"><span class="gd" style="background:#22c55e"></span>순공 ${fmt(study)}</div><div class="gl"><span class="gd" style="background:#334155"></span>쉬는시간 ${fmt(pause)}</div></div>
+        <div style="font-size:.8rem;color:#94a3b8;margin:14px 0 8px">과목별 순공시간 구성</div>
+        <div class="gap-bar">${subjSegs||'<div class="seg" style="width:100%;background:#1e293b;color:#475569">기록 없음</div>'}</div>
+        <div class="gap-legend">${subjects.filter(s=>s.today_study_minutes>0).map(s=>`<div class="gl"><span class="gd" style="background:${s.color}"></span>${s.name} ${s.today_study_minutes}분</div>`).join('')}</div>`;
+}
+
+function renderReport(ov,subjects,daily,dates,sliced){
+    const el=document.getElementById('reportSection');
+    const ca=DATA.class_avg||{};
+    const cs=ca.class_size||20;
+    const studyMin=Math.round(ov.today_study_seconds/60);
+    const pauseMin=Math.round(ov.today_pause_seconds/60);
+    const focus=ov.today_focus_rate;
+    const done=ov.subjects_done;
+    const todayAvg=ca.daily?.[dates[dates.length-1]]?.avg_study_minutes||0;
+    const todayDiff=studyMin-todayAvg;
+
+    const periodMyMin=Math.round(sliced.reduce((a,d)=>a+d.total_study_seconds,0)/60);
+    const periodAvgMin=Math.round(dates.reduce((a,d)=>a+(ca.daily?.[d]?.avg_study_minutes||0),0));
+    const periodTopMin=Math.round(dates.reduce((a,d)=>a+(ca.daily?.[d]?.top_study_minutes||0),0));
+    const rank=periodMyMin>=periodTopMin?1:periodMyMin>=periodAvgMin?Math.round(cs*0.35):Math.round(cs*0.65);
+    const topPct=Math.round(rank/cs*100);
+
+    let grade,gradeColor,gradeEmoji;
+    if(rank<=3){grade='A+';gradeColor='#22c55e';gradeEmoji='\u{1F929}'}
+    else if(rank<=cs*0.3){grade='A';gradeColor='#22c55e';gradeEmoji='\u{1F60E}'}
+    else if(rank<=cs*0.5){grade='B';gradeColor='#3b82f6';gradeEmoji='\u{1F4AA}'}
+    else if(rank<=cs*0.7){grade='C';gradeColor='#f59e0b';gradeEmoji='\u{1F914}'}
+    else{grade='D';gradeColor='#ef4444';gradeEmoji='\u{1F622}'}
+
+    const subjData=subjects.map(s=>{
+        const myM=Math.round(sliced.reduce((a,d)=>a+(d.by_subject[s.name]?.study_seconds||0),0)/60);
+        const avgM=Math.round(getClassAvg(dates,s.name).reduce((a,b)=>a+b,0));
+        const diff=myM-avgM;
+        const ratio=avgM>0?Math.round(myM/avgM*100):0;
+        const goalT=s.goal_minutes*curPeriod;
+        const achv=goalT>0?Math.round(myM/goalT*100):0;
+        let status,sColor;
+        if(ratio>=150){status='최상';sColor='#22c55e'}
+        else if(ratio>=100){status='양호';sColor='#22c55e'}
+        else if(ratio>=70){status='부족';sColor='#f59e0b'}
+        else{status='위험';sColor='#ef4444'}
+        return {name:s.name,color:s.color,myM,avgM,diff,ratio,achv,goalT,status,sColor,goal_minutes:s.goal_minutes};
+    });
+
+    const weakSubjs=subjData.filter(s=>s.ratio<100);
+    const strongSubjs=subjData.filter(s=>s.ratio>=120);
+
+    const week7=sliced.slice(-7);
+    const trend3=week7.slice(-3).map(d=>Math.round(d.total_study_seconds/60));
+    const isUp=trend3.length>=3&&trend3[2]>=trend3[0];
+    const weekAvg=Math.round(week7.reduce((a,d)=>a+d.total_study_seconds,0)/7/60);
+
+    const today=new Date();
+    const dateStr=`${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일 (${WD[today.getDay()]})`;
+
+    // Destroy previous report charts
+    kill('rpt_trend');kill('rpt_achieve');kill('rpt_compare');kill('rpt_subj_trend');
+
+    el.innerHTML=`
+        <div class="rpt-hdr">
+            <div class="rh-row"><div class="rh-title">AI 학습 분석 보고서</div><div class="rh-date">${dateStr}</div></div>
+            <div class="rh-sub">반 ${cs}명 기준 | 분석 기간: ${curPeriod}일</div>
+        </div>
+        <div class="rpt-body">
+
+            <!-- 1. Grade -->
+            <div class="rpt-sec">
+                <div class="rpt-sec-title">1. 종합 평가</div>
+                <div class="grade-banner">
+                    <div class="gb-left">
+                        <span class="gb-char tw-target">${gradeEmoji}</span>
+                        <div class="gb-grade" style="color:${gradeColor}">${grade}</div>
+                        <div class="gb-title">${cs}명 중 ${rank}등 (상위 ${topPct}%)</div>
+                    </div>
+                    <div class="gb-right">
+                        <div class="gb-rank" style="color:${gradeColor}">
+                            ${grade==='A+'||grade==='A'?'우수한 학습 성과':grade==='B'?'평균 이상, 상위권 도전 가능':grade==='C'?'분발이 필요한 시기':'즉각적인 학습량 개선 필요'}
+                        </div>
+                        <div class="gb-msg">
+                            ${curPeriod}일간 총 <strong>${periodMyMin}분</strong> 공부 (일 평균 ${Math.round(periodMyMin/curPeriod)}분).
+                            반 평균 ${periodAvgMin}분 대비 <strong style="color:${periodMyMin>=periodAvgMin?'#22c55e':'#ef4444'}">${periodMyMin>=periodAvgMin?'+':''}${periodMyMin-periodAvgMin}분 (${periodAvgMin>0?(periodMyMin>=periodAvgMin?'+':'')+Math.round((periodMyMin-periodAvgMin)/periodAvgMin*100)+'%':'--'})</strong>.
+                            ${isUp?'최근 학습량 상승 추세로 긍정적입니다.':'최근 학습량이 감소 추세이므로 학습 루틴 점검이 필요합니다.'}
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi-row">
+                    <div class="kpi"><div class="kv" style="color:#22c55e">${studyMin}분</div><div class="kl">오늘 순공</div><div class="kb"><div class="kf" style="width:${Math.min(studyMin/180*100,100)}%;background:#22c55e"></div></div></div>
+                    <div class="kpi"><div class="kv" style="color:#ef4444">${pauseMin}분</div><div class="kl">비공부 시간</div><div class="kb"><div class="kf" style="width:${Math.min(pauseMin/60*100,100)}%;background:#ef4444"></div></div></div>
+                    <div class="kpi"><div class="kv" style="color:#f59e0b">${focus}%</div><div class="kl">집중률</div><div class="kb"><div class="kf" style="width:${focus}%;background:#f59e0b"></div></div></div>
+                    <div class="kpi"><div class="kv" style="color:#8b5cf6">${done}/${ov.subjects_total}</div><div class="kl">목표 달성</div><div class="kb"><div class="kf" style="width:${pct(done,ov.subjects_total)}%;background:#8b5cf6"></div></div></div>
+                    <div class="kpi"><div class="kv" style="color:#06b6d4">${weekAvg}분</div><div class="kl">주간 일평균</div><div class="kb"><div class="kf" style="width:${Math.min(weekAvg/120*100,100)}%;background:#06b6d4"></div></div></div>
+                </div>
+            </div>
+
+            <!-- 2. Charts -->
+            <div class="rpt-sec">
+                <div class="rpt-sec-title">2. 학습 추이 그래프</div>
+                <div class="rpt-charts">
+                    <div class="rpt-chart-card">
+                        <div class="rcc-title">일별 나 vs 반 평균 추이 (최근 7일)</div>
+                        <div class="rpt-chart-area"><canvas id="rptTrend"></canvas></div>
+                    </div>
+                    <div class="rpt-chart-card">
+                        <div class="rcc-title">과목별 나 vs 반 평균 비교</div>
+                        <div class="rpt-chart-area"><canvas id="rptCompare"></canvas></div>
+                    </div>
+                    <div class="rpt-chart-card">
+                        <div class="rcc-title">과목별 목표 달성률</div>
+                        <div class="rpt-chart-area"><canvas id="rptAchieve"></canvas></div>
+                    </div>
+                    <div class="rpt-chart-card">
+                        <div class="rcc-title">과목별 학습 추이 (최근 7일)</div>
+                        <div class="rpt-chart-area"><canvas id="rptSubjTrend"></canvas></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Subject table -->
+            <div class="rpt-sec">
+                <div class="rpt-sec-title">3. 과목별 상세 분석</div>
+                <table class="rpt-table">
+                    <thead><tr><th>과목</th><th>나</th><th>반 평균</th><th>차이</th><th>달성률</th><th class="prog">대비</th><th>상태</th></tr></thead>
+                    <tbody>${subjData.map(s=>`<tr>
+                        <td><span class="sd" style="background:${s.color}"></span>${s.name}</td>
+                        <td><strong>${s.myM}분</strong></td>
+                        <td>${s.avgM}분</td>
+                        <td style="color:${s.diff>=0?'#22c55e':'#ef4444'}">${s.diff>=0?'+':''}${s.diff}분</td>
+                        <td>${s.achv}%</td>
+                        <td class="prog"><div class="prog-bg"><div class="prog-fill" style="width:${Math.min(s.ratio,100)}%;background:${s.ratio>=100?'#22c55e':'#ef4444'}"></div></div><div style="font-size:.6rem;color:#64748b;margin-top:2px">${s.ratio}%</div></td>
+                        <td><span class="status-pill" style="background:${s.sColor}22;color:${s.sColor}">${s.status}</span></td>
+                    </tr>`).join('')}</tbody>
+                </table>
+            </div>
+
+            <!-- 4. AI Comment -->
+            <div class="rpt-sec">
+                <div class="rpt-sec-title">4. AI 종합 코멘트</div>
+                <div class="ai-box">
+                    <div class="ai-title"><span style="font-size:.9rem">AI 학습 코치</span></div>
+                    <div class="ai-p">
+                        <strong>종합 성적:</strong> 반 ${cs}명 중 <strong style="color:${gradeColor}">${rank}등 (${grade})</strong>.
+                        ${curPeriod}일간 총 <strong>${periodMyMin}분</strong> 공부하여 반 평균(${periodAvgMin}분) 대비
+                        <span class="${periodMyMin>=periodAvgMin?'up':'dn'}">${periodMyMin>=periodAvgMin?'+':''}${periodMyMin-periodAvgMin}분</span>.
+                    </div>
+                    ${strongSubjs.length?`<div class="ai-p"><strong>강점 과목:</strong> ${strongSubjs.map(s=>`<strong style="color:${s.color}">${s.name}</strong>(반 평균의 ${s.ratio}%)`).join(', ')}. 해당 과목의 학습 방법을 약한 과목에도 적용하면 효과적입니다.</div>`:''}
+                    ${weakSubjs.length?`<div class="ai-p"><strong>보강 과목:</strong> ${weakSubjs.map(s=>`<strong style="color:${s.color}">${s.name}</strong>(${Math.abs(s.diff)}분 부족)`).join(', ')}. ${weakSubjs.length===1?'해당 과목에':'이 과목들에'} 하루 평균 <strong>${Math.round(weakSubjs.reduce((a,s)=>a+Math.abs(s.diff),0)/weakSubjs.length/Math.max(curPeriod,1))}분</strong>씩 추가 투자하면 반 평균에 도달할 수 있습니다.</div>`:''}
+                    <div class="ai-p">
+                        <strong>집중력:</strong> ${focus>=90?`집중률 <span class="up">${focus}%</span>로 매우 우수합니다.`:focus>=70?`집중률 ${focus}%로 양호합니다. 휴식 관리를 개선하면 더 효율적인 학습이 가능합니다.`:`집중률 <span class="warn">${focus}%</span>로 개선이 필요합니다. 포모도로 기법(25분 공부 + 5분 휴식)을 권장합니다.`}
+                    </div>
+                    <div class="ai-p">
+                        <strong>추세:</strong> ${isUp?`최근 학습량이 <span class="up">상승 추세</span>입니다. 현재 페이스를 유지하면 순위 상승이 기대됩니다.`:`최근 학습량이 <span class="dn">감소 추세</span>입니다. 고정된 학습 시간대를 설정하여 루틴을 만들어보세요.`}
+                    </div>
+                    <div class="ai-hr"></div>
+                    <div class="ai-p" style="font-style:italic;color:#94a3b8">
+                        "${grade==='A+'||grade==='A'?'꾸준한 노력이 빛나고 있습니다. 약한 과목 보완에 집중하세요.':grade==='B'?'평균 이상의 학습량입니다. 약한 과목에 10~15분만 더 투자하면 상위권 진입이 가능합니다.':grade==='C'?'반 평균과의 격차를 좁히는 것이 우선입니다. 매일 꾸준히 하는 습관부터 만들어보세요.':'작은 목표부터 달성하며 자신감을 쌓아가세요. 하루 30분부터 시작해봅시다.'}"
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Tips -->
+            <div class="rpt-sec">
+                <div class="rpt-sec-title">5. 맞춤 학습 제안</div>
+                <div class="tip-grid">
+                    ${weakSubjs.map(s=>`<div class="tip-card">
+                        <div class="tc-head" style="color:${s.sColor}">${s.name} 보강 필요</div>
+                        <div class="tc-body">반 평균 대비 <strong>${Math.abs(s.diff)}분</strong> 부족. 매일 <strong>${Math.round(Math.abs(s.diff)/Math.max(curPeriod,1))}분</strong> 추가하면 평균에 도달합니다.</div>
+                    </div>`).join('')}
+                    ${strongSubjs.map(s=>`<div class="tip-card">
+                        <div class="tc-head" style="color:#22c55e">${s.name} 우수</div>
+                        <div class="tc-body">반 평균의 <strong>${s.ratio}%</strong> 달성. 이 과목의 학습법을 다른 과목에 적용해보세요.</div>
+                    </div>`).join('')}
+                    ${!isUp?`<div class="tip-card">
+                        <div class="tc-head" style="color:#f59e0b">학습량 추세 관리</div>
+                        <div class="tc-body">최근 3일 학습량 감소. 고정 시간대를 정하고 루틴을 만들어보세요.</div>
+                    </div>`:''}
+                    ${pauseMin>studyMin*0.15?`<div class="tip-card">
+                        <div class="tc-head" style="color:#f59e0b">휴식 관리</div>
+                        <div class="tc-body">비공부 시간 비율이 높습니다. 포모도로 기법(25분 공부 + 5분 휴식)을 추천합니다.</div>
+                    </div>`:''}
+                    ${weakSubjs.length===0&&isUp?`<div class="tip-card">
+                        <div class="tc-head" style="color:#22c55e">우수한 학습 패턴</div>
+                        <div class="tc-body">모든 과목이 반 평균 이상이며 학습량도 상승 중입니다. 현재 페이스를 유지하세요.</div>
+                    </div>`:''}
+                </div>
+            </div>
+        </div>`;
+
+    // Twemoji: only parse the character emoji (small)
+    const twTarget=el.querySelector('.tw-target');
+    if(twTarget&&window.twemoji) twemoji.parse(twTarget,{folder:'svg',ext:'.svg'});
+
+    // Report charts
+    const w7=sliced.slice(-7);
+    const w7dates=w7.map(d=>d.date);
+    const w7labels=w7dates.map(dl);
+    const w7my=w7.map(d=>Math.round(d.total_study_seconds/60));
+    const w7avg=getClassAvg(w7dates,'all');
+
+    CX.rpt_trend=new Chart(document.getElementById('rptTrend'),{
+        type:'line',data:{labels:w7labels,datasets:[
+            {label:'나',data:w7my,borderColor:'#e94560',backgroundColor:'rgba(233,69,96,.1)',borderWidth:2,fill:true,tension:.3,pointRadius:3,pointBackgroundColor:'#e94560'},
+            {label:'반 평균',data:w7avg,borderColor:'#3b82f6',borderWidth:2,borderDash:[5,5],fill:false,tension:.3,pointRadius:3,pointBackgroundColor:'#3b82f6'},
+        ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:10},padding:8}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'분'}}},scales:{x:{ticks:{color:'#475569',font:{size:9}},grid:{display:false}},y:{beginAtZero:true,ticks:{color:'#475569',callback:v=>v+'분',font:{size:9}},grid:{color:'rgba(255,255,255,.04)'}}}}
+    });
+
+    CX.rpt_compare=new Chart(document.getElementById('rptCompare'),{
+        type:'bar',data:{labels:subjData.map(s=>s.name),datasets:[
+            {label:'나',data:subjData.map(s=>s.myM),backgroundColor:subjData.map(s=>s.color+'cc'),borderRadius:4},
+            {label:'반 평균',data:subjData.map(s=>s.avgM),backgroundColor:'#3b82f666',borderRadius:4},
+        ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:10},padding:8}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'분'}}},scales:{x:{ticks:{color:'#64748b',font:{size:10}},grid:{display:false}},y:{beginAtZero:true,ticks:{color:'#475569',callback:v=>v+'분',font:{size:9}},grid:{color:'rgba(255,255,255,.04)'}}}}
+    });
+
+    CX.rpt_achieve=new Chart(document.getElementById('rptAchieve'),{
+        type:'bar',data:{labels:subjData.map(s=>s.name),datasets:[{
+            data:subjData.map(s=>Math.min(s.achv,150)),
+            backgroundColor:subjData.map(s=>s.achv>=100?'#22c55ecc':s.achv>=70?'#f59e0bcc':'#ef4444cc'),
+            borderRadius:4,
+        }]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'% 달성'}}},scales:{x:{beginAtZero:true,max:150,ticks:{color:'#475569',callback:v=>v+'%',font:{size:9}},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#cbd5e1',font:{size:10}},grid:{display:false}}}}
+    });
+
+    const subjColors=subjects.map(s=>s.color);
+    CX.rpt_subj_trend=new Chart(document.getElementById('rptSubjTrend'),{
+        type:'line',data:{labels:w7labels,datasets:subjects.map((s,i)=>({
+            label:s.name,data:w7.map(d=>Math.round((d.by_subject[s.name]?.study_seconds||0)/60)),
+            borderColor:s.color,borderWidth:2,fill:false,tension:.3,pointRadius:2,pointBackgroundColor:s.color,
+        }))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:10},padding:8}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'분'}}},scales:{x:{ticks:{color:'#475569',font:{size:9}},grid:{display:false}},y:{beginAtZero:true,ticks:{color:'#475569',callback:v=>v+'분',font:{size:9}},grid:{color:'rgba(255,255,255,.04)'}}}}
+    });
+}
+
+init();
 </script>
 </body>
 </html>

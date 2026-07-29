@@ -1,0 +1,50 @@
+[
+  {
+    "subject": "영어",
+    "start_time": "2026-05-11T08:00:00.000Z",
+    "end_time": "2026-05-11T08:59:00.000Z",
+    "duration_seconds": 3427,
+    "pause_count": 1,
+    "pause_seconds": 114
+  },
+  {
+    "subject": "영어",
+    "start_time": "2026-05-11T09:00:00.000Z",
+    "end_time": "2026-05-11T09:42:00.000Z",
+    "duration_seconds": 2468,
+    "pause_count": 1,
+    "pause_seconds": 63
+  },
+  {
+    "subject": "국어",
+    "start_time": "2026-05-11T10:00:00.000Z",
+    "end_time": "2026-05-11T10:24:00.000Z",
+    "duration_seconds": 1377,
+    "pause_count": 1,
+    "pause_seconds": 99
+  },
+  {
+    "subject": "국어",
+    "start_time": "2026-05-11T11:00:00.000Z",
+    "end_time": "2026-05-11T11:35:00.000Z",
+    "duration_seconds": 2035,
+    "pause_count": 1,
+    "pause_seconds": 69
+  },
+  {
+    "subject": "수학",
+    "start_time": "2026-05-11T12:00:00.000Z",
+    "end_time": "2026-05-11T13:36:00.000Z",
+    "duration_seconds": 5480,
+    "pause_count": 3,
+    "pause_seconds": 288
+  },
+  {
+    "subject": "수학",
+    "start_time": "2026-05-11T14:00:00.000Z",
+    "end_time": "2026-05-11T15:12:00.000Z",
+    "duration_seconds": 4301,
+    "pause_count": 1,
+    "pause_seconds": 58
+  }
+]

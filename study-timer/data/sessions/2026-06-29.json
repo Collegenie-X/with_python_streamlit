@@ -1,0 +1,18 @@
+[
+  {
+    "subject": "수학",
+    "start_time": "2026-06-29T08:00:00.000Z",
+    "end_time": "2026-06-29T09:39:00.000Z",
+    "duration_seconds": 5613,
+    "pause_count": 3,
+    "pause_seconds": 333
+  },
+  {
+    "subject": "수학",
+    "start_time": "2026-06-29T10:00:00.000Z",
+    "end_time": "2026-06-29T12:00:00.000Z",
+    "duration_seconds": 7205,
+    "pause_count": 0,
+    "pause_seconds": 0
+  }
+]

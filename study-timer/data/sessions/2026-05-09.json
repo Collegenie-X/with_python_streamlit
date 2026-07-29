@@ -1,0 +1,18 @@
+[
+  {
+    "subject": "과학",
+    "start_time": "2026-05-09T08:00:00.000Z",
+    "end_time": "2026-05-09T09:03:00.000Z",
+    "duration_seconds": 3696,
+    "pause_count": 1,
+    "pause_seconds": 94
+  },
+  {
+    "subject": "과학",
+    "start_time": "2026-05-09T10:00:00.000Z",
+    "end_time": "2026-05-09T11:02:00.000Z",
+    "duration_seconds": 3520,
+    "pause_count": 2,
+    "pause_seconds": 222
+  }
+]

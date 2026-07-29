@@ -1,0 +1,26 @@
+[
+  {
+    "subject": "영어",
+    "start_time": "2026-06-22T08:00:00.000Z",
+    "end_time": "2026-06-22T08:22:00.000Z",
+    "duration_seconds": 1229,
+    "pause_count": 3,
+    "pause_seconds": 93
+  },
+  {
+    "subject": "국어",
+    "start_time": "2026-06-22T09:00:00.000Z",
+    "end_time": "2026-06-22T09:38:00.000Z",
+    "duration_seconds": 2264,
+    "pause_count": 1,
+    "pause_seconds": 39
+  },
+  {
+    "subject": "수학",
+    "start_time": "2026-06-22T10:00:00.000Z",
+    "end_time": "2026-06-22T11:06:00.000Z",
+    "duration_seconds": 3631,
+    "pause_count": 3,
+    "pause_seconds": 339
+  }
+]

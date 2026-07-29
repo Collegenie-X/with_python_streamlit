@@ -1,0 +1,26 @@
+[
+  {
+    "subject": "국어",
+    "start_time": "2026-05-30T08:00:00.000Z",
+    "end_time": "2026-05-30T08:32:00.000Z",
+    "duration_seconds": 1780,
+    "pause_count": 2,
+    "pause_seconds": 172
+  },
+  {
+    "subject": "국어",
+    "start_time": "2026-05-30T09:00:00.000Z",
+    "end_time": "2026-05-30T09:13:00.000Z",
+    "duration_seconds": 693,
+    "pause_count": 2,
+    "pause_seconds": 120
+  },
+  {
+    "subject": "국어",
+    "start_time": "2026-05-30T10:00:00.000Z",
+    "end_time": "2026-05-30T10:21:00.000Z",
+    "duration_seconds": 1077,
+    "pause_count": 2,
+    "pause_seconds": 198
+  }
+]

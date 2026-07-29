@@ -1,0 +1,34 @@
+[
+  {
+    "subject": "국어",
+    "start_time": "2026-05-08T08:00:00.000Z",
+    "end_time": "2026-05-08T08:16:00.000Z",
+    "duration_seconds": 665,
+    "pause_count": 3,
+    "pause_seconds": 318
+  },
+  {
+    "subject": "국어",
+    "start_time": "2026-05-08T09:00:00.000Z",
+    "end_time": "2026-05-08T09:45:00.000Z",
+    "duration_seconds": 2512,
+    "pause_count": 2,
+    "pause_seconds": 200
+  },
+  {
+    "subject": "수학",
+    "start_time": "2026-05-08T10:00:00.000Z",
+    "end_time": "2026-05-08T11:34:00.000Z",
+    "duration_seconds": 5660,
+    "pause_count": 0,
+    "pause_seconds": 0
+  },
+  {
+    "subject": "과학",
+    "start_time": "2026-05-08T12:00:00.000Z",
+    "end_time": "2026-05-08T12:53:00.000Z",
+    "duration_seconds": 3092,
+    "pause_count": 2,
+    "pause_seconds": 88
+  }
+]

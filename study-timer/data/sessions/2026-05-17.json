@@ -1,0 +1,58 @@
+[
+  {
+    "subject": "영어",
+    "start_time": "2026-05-17T08:00:00.000Z",
+    "end_time": "2026-05-17T08:18:00.000Z",
+    "duration_seconds": 1087,
+    "pause_count": 0,
+    "pause_seconds": 0
+  },
+  {
+    "subject": "영어",
+    "start_time": "2026-05-17T09:00:00.000Z",
+    "end_time": "2026-05-17T09:18:00.000Z",
+    "duration_seconds": 1126,
+    "pause_count": 0,
+    "pause_seconds": 0
+  },
+  {
+    "subject": "국어",
+    "start_time": "2026-05-17T10:00:00.000Z",
+    "end_time": "2026-05-17T10:14:00.000Z",
+    "duration_seconds": 777,
+    "pause_count": 1,
+    "pause_seconds": 104
+  },
+  {
+    "subject": "국어",
+    "start_time": "2026-05-17T11:00:00.000Z",
+    "end_time": "2026-05-17T11:28:00.000Z",
+    "duration_seconds": 1717,
+    "pause_count": 0,
+    "pause_seconds": 0
+  },
+  {
+    "subject": "국어",
+    "start_time": "2026-05-17T12:00:00.000Z",
+    "end_time": "2026-05-17T12:32:00.000Z",
+    "duration_seconds": 1841,
+    "pause_count": 2,
+    "pause_seconds": 126
+  },
+  {
+    "subject": "과학",
+    "start_time": "2026-05-17T13:00:00.000Z",
+    "end_time": "2026-05-17T13:28:00.000Z",
+    "duration_seconds": 1598,
+    "pause_count": 1,
+    "pause_seconds": 115
+  },
+  {
+    "subject": "과학",
+    "start_time": "2026-05-17T14:00:00.000Z",
+    "end_time": "2026-05-17T14:48:00.000Z",
+    "duration_seconds": 2727,
+    "pause_count": 3,
+    "pause_seconds": 210
+  }
+]
