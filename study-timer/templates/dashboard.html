@@ -46,11 +46,15 @@ nav a:hover,nav a.active{color:#e94560}
 .compare-chart{height:240px;position:relative}
 .compare-chart canvas{width:100%!important;height:100%!important}
 
-.rank-bar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.rank-bar .rb-label{font-size:.78rem;color:#94a3b8;width:36px;flex-shrink:0}
-.rank-bar .rb-track{flex:1;height:20px;background:#1e293b;border-radius:10px;position:relative;overflow:hidden}
-.rank-bar .rb-fill{height:100%;border-radius:10px;display:flex;align-items:center;padding:0 8px;font-size:.65rem;font-weight:700;color:#fff}
-.rank-bar .rb-me{position:absolute;top:-2px;width:24px;height:24px;background:#e94560;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;z-index:2}
+.rank-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.rank-bar .rb-label{font-size:.8rem;font-weight:600;width:36px;flex-shrink:0;text-align:right}
+.rank-bar .rb-track{flex:1;height:28px;background:#1e293b;border-radius:14px;position:relative;overflow:visible}
+.rank-bar .rb-fill{height:100%;border-radius:14px;overflow:hidden}
+.rank-bar .rb-zone{position:absolute;top:0;height:100%;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:rgba(255,255,255,.4);font-weight:600;pointer-events:none}
+.rank-bar .rb-avg-line{position:absolute;top:-4px;width:2px;height:36px;background:#fbbf24;z-index:1;border-radius:1px}
+.rank-bar .rb-avg-label{position:absolute;top:-18px;font-size:.55rem;color:#fbbf24;white-space:nowrap;transform:translateX(-50%)}
+.rank-bar .rb-me{position:absolute;top:50%;width:30px;height:30px;background:#e94560;border-radius:50%;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;z-index:3;transform:translateY(-50%);box-shadow:0 2px 8px rgba(233,69,96,.5);transition:left .6s cubic-bezier(.25,.8,.25,1)}
+.rank-bar .rb-diff{font-size:.75rem;font-weight:600;width:70px;text-align:right;flex-shrink:0}
 
 .gap-bar{height:24px;background:#1e293b;border-radius:6px;overflow:hidden;display:flex;margin-bottom:6px}
 .gap-bar .seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;color:#fff}
@@ -148,8 +152,10 @@ nav a:hover,nav a.active{color:#e94560}
 
     <div class="section">
         <div class="section-title">나 vs 반 평균 비교</div>
-        <div class="subj-tabs" id="subjTabs"></div>
-        <div class="period-tabs" id="periodTabs"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+            <div class="subj-tabs" id="subjTabs" style="margin-bottom:0"></div>
+            <div class="period-tabs" id="periodTabs" style="margin-bottom:0"></div>
+        </div>
 
         <div class="card">
             <div class="legend-row">
@@ -171,8 +177,28 @@ nav a:hover,nav a.active{color:#e94560}
         </div>
 
         <div class="card">
-            <div style="font-size:.8rem;color:#94a3b8;margin-bottom:14px">반 20명 중 나의 위치</div>
-            <div id="rankBars"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+                <div style="font-size:.85rem;color:#94a3b8;font-weight:600">반 20명 중 나의 위치</div>
+                <div style="display:flex;gap:10px;font-size:.6rem;color:#64748b">
+                    <span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#22c55e;margin-right:3px"></span>상위</span>
+                    <span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3b82f6;margin-right:3px"></span>중상</span>
+                    <span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;margin-right:3px"></span>중하</span>
+                    <span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ef4444;margin-right:3px"></span>하위</span>
+                    <span><span style="display:inline-block;width:8px;height:2px;background:#fbbf24;margin-right:3px;vertical-align:middle"></span>평균</span>
+                </div>
+            </div>
+            <div id="rankBars" style="padding-top:6px"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title" style="display:flex;justify-content:space-between;align-items:center">
+            <span>과목별 일별 누적</span>
+            <div class="period-tabs" id="stackPeriodTabs" style="margin-bottom:0"></div>
+        </div>
+        <div class="card">
+            <div class="legend-row" id="stackLegend"></div>
+            <div class="chart-area" style="height:300px"><canvas id="stackedChart"></canvas></div>
         </div>
     </div>
 
@@ -189,7 +215,7 @@ nav a:hover,nav a.active{color:#e94560}
 
 <script>
 const WD=['일','월','화','수','목','금','토'];
-let DATA=null, CX={}, curSubj='all', curPeriod=7;
+let DATA=null, CX={}, curSubj='all', curPeriod=7, curStackPeriod=7;
 
 function fmt(s){const m=Math.round(s/60);return m>=60?`${Math.floor(m/60)}시간 ${m%60}분`:`${m}분`}
 function fmtM(m){return m>=60?`${Math.floor(m/60)}h ${m%60>0?m%60+'m':''}`:`${m}m`}
@@ -272,7 +298,8 @@ function render(){
     renderSubjBar(sliced,dates);
     renderRadar(subjects,sliced,dates);
     renderRanks(subjects,sliced,dates);
-    renderGap(ov,subjects);
+    renderStackedChart();
+    renderGap(ov,subjects,daily);
     renderReport(ov,subjects,daily,dates,sliced);
 }
 
@@ -331,19 +358,47 @@ function renderRanks(subjects,sliced,dates){
         else{myMin=Math.round(sliced.reduce((a,d)=>a+(d.by_subject[item.name]?.study_seconds||0),0)/60);avgMin=Math.round(getClassAvg(dates,item.name).reduce((a,b)=>a+b,0));topMin=Math.round(getClassTop(dates,item.name).reduce((a,b)=>a+b,0))}
         const rank=myMin>=topMin?1:myMin>=avgMin?Math.round(cs*0.4):Math.min(Math.round(cs*(1-myMin/Math.max(avgMin,1)*0.5)),cs);
         const pos=Math.round((rank-1)/(cs-1)*100);
-        return `<div class="rank-bar"><div class="rb-label" style="color:${item.color}">${item.name}</div><div class="rb-track"><div class="rb-fill" style="width:100%;background:linear-gradient(90deg,#22c55e33,#f59e0b33,#ef444433)"></div><div class="rb-me" style="left:calc(${100-pos}% - 12px)" title="${rank}등/${cs}명">${rank}</div></div><div style="font-size:.7rem;color:${myMin>=avgMin?'#22c55e':'#ef4444'};width:60px;text-align:right">${myMin>=avgMin?'+':''}${myMin-avgMin}분</div></div>`;
+        const mePct=100-pos;
+        const avgPos=Math.round((Math.round(cs*0.5)-1)/(cs-1)*100);
+        const avgPct=100-avgPos;
+        const diff=myMin-avgMin;
+        const diffSign=diff>=0?'+':'';
+        const diffColor=diff>=0?'#22c55e':'#ef4444';
+        const topZoneW=Math.round(100*5/cs);
+        const midZoneW=Math.round(100*10/cs);
+        return `<div class="rank-bar">
+            <div class="rb-label" style="color:${item.color}">${item.name}</div>
+            <div class="rb-track">
+                <div class="rb-fill" style="width:100%;background:linear-gradient(90deg,#22c55e22 0%,#22c55e22 ${topZoneW}%,#3b82f622 ${topZoneW}%,#3b82f622 ${topZoneW+midZoneW}%,#f59e0b15 ${topZoneW+midZoneW}%,#f59e0b15 70%,#ef444422 70%,#ef444422 100%)"></div>
+                <div class="rb-avg-line" style="left:${avgPct}%"></div>
+                <div class="rb-avg-label" style="left:${avgPct}%">평균</div>
+                <div class="rb-me" style="left:calc(${mePct}% - 15px)" title="${rank}등/${cs}명 | 나: ${myMin}분 | 평균: ${avgMin}분">${rank}</div>
+            </div>
+            <div class="rb-diff" style="color:${diffColor}">${diffSign}${diff}분</div>
+        </div>`;
     }).join('');
 }
 
-function renderGap(ov,subjects){
+function renderGap(ov,subjects,daily){
     const study=ov.today_study_seconds,pause=ov.today_pause_seconds,total=study+pause;
     const sp=pct(study,total),pp=100-sp;
     const subjSegs=subjects.filter(s=>s.today_study_minutes>0).map(s=>{const w=pct(s.today_study_minutes*60,study);return `<div class="seg" style="width:${w}%;background:${s.color}">${w>8?s.name:''}</div>`}).join('');
+    const week7=daily.slice(-8,-1);
+    const avg7Study=week7.length?Math.round(week7.reduce((a,d)=>a+d.total_study_seconds,0)/week7.length):0;
+    const avg7Pause=week7.length?Math.round(week7.reduce((a,d)=>a+(d.total_pause_seconds||0),0)/week7.length):0;
+    const avg7Total=avg7Study+avg7Pause;
+    const avg7Sp=pct(avg7Study,avg7Total),avg7Pp=100-avg7Sp;
+    const studyDiff=Math.round(study/60)-Math.round(avg7Study/60);
+    const diffColor=studyDiff>=0?'#22c55e':'#ef4444';
+    const diffSign=studyDiff>=0?'+':'';
     document.getElementById('gapSection').innerHTML=`
-        <div style="font-size:.8rem;color:#94a3b8;margin-bottom:8px">순공 vs 비공부 시간</div>
+        <div style="font-size:.8rem;color:#94a3b8;margin-bottom:8px">오늘 순공 vs 비공부 시간</div>
         <div class="gap-bar"><div class="seg" style="width:${sp}%;background:#22c55e">${sp}% 순공</div><div class="seg" style="width:${pp}%;background:#334155">${pp>5?pp+'% 갭':''}</div></div>
         <div class="gap-legend"><div class="gl"><span class="gd" style="background:#22c55e"></span>순공 ${fmt(study)}</div><div class="gl"><span class="gd" style="background:#334155"></span>쉬는시간 ${fmt(pause)}</div></div>
-        <div style="font-size:.8rem;color:#94a3b8;margin:14px 0 8px">과목별 순공시간 구성</div>
+        <div style="font-size:.8rem;color:#94a3b8;margin:14px 0 8px">최근 7일 평균</div>
+        <div class="gap-bar"><div class="seg" style="width:${avg7Sp}%;background:#22c55e88">${avg7Sp}% 순공</div><div class="seg" style="width:${avg7Pp}%;background:#334155">${avg7Pp>5?avg7Pp+'% 갭':''}</div></div>
+        <div class="gap-legend"><div class="gl"><span class="gd" style="background:#22c55e88"></span>순공 ${fmt(avg7Study)}</div><div class="gl"><span class="gd" style="background:#334155"></span>쉬는시간 ${fmt(avg7Pause)}</div><div class="gl" style="color:${diffColor};font-weight:600">오늘 ${diffSign}${studyDiff}분</div></div>
+        <div style="font-size:.8rem;color:#94a3b8;margin:14px 0 8px">오늘 과목별 순공시간 구성</div>
         <div class="gap-bar">${subjSegs||'<div class="seg" style="width:100%;background:#1e293b;color:#475569">기록 없음</div>'}</div>
         <div class="gap-legend">${subjects.filter(s=>s.today_study_minutes>0).map(s=>`<div class="gl"><span class="gd" style="background:${s.color}"></span>${s.name} ${s.today_study_minutes}분</div>`).join('')}</div>`;
 }
@@ -569,6 +624,46 @@ function renderReport(ov,subjects,daily,dates,sliced){
             label:s.name,data:w7.map(d=>Math.round((d.by_subject[s.name]?.study_seconds||0)/60)),
             borderColor:s.color,borderWidth:2,fill:false,tension:.3,pointRadius:2,pointBackgroundColor:s.color,
         }))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:10},padding:8}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'분'}}},scales:{x:{ticks:{color:'#475569',font:{size:9}},grid:{display:false}},y:{beginAtZero:true,ticks:{color:'#475569',callback:v=>v+'분',font:{size:9}},grid:{color:'rgba(255,255,255,.04)'}}}}
+    });
+}
+
+function selStackPeriod(days,btn){
+    curStackPeriod=days;
+    document.querySelectorAll('#stackPeriodTabs .period-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderStackedChart();
+}
+
+function renderStackedChart(){
+    kill('stacked');
+    const {subjects,daily}=DATA;
+    let sliced,labels;
+    if(curStackPeriod===1){
+        sliced=daily.slice(-1);
+        labels=sliced.map(d=>dl(d.date));
+    } else if(curStackPeriod===7){
+        sliced=daily.slice(-7);
+        labels=sliced.map(d=>{const dt=new Date(d.date+'T00:00:00');return `${dt.getMonth()+1}/${dt.getDate()}(${WD[dt.getDay()]})`;});
+    } else {
+        sliced=daily.slice(-30);
+        labels=sliced.map(d=>dl(d.date));
+    }
+    const datasets=subjects.map(s=>({
+        label:s.name,
+        data:sliced.map(d=>Math.round((d.by_subject[s.name]?.study_seconds||0)/60)),
+        backgroundColor:s.color+'cc',
+        borderRadius:2,
+    }));
+    document.getElementById('stackLegend').innerHTML=subjects.map(s=>`<div class="legend-item"><div class="legend-dot" style="background:${s.color}"></div>${s.name}</div>`).join('');
+    document.getElementById('stackPeriodTabs').innerHTML=[
+        {d:1,l:'일별'},{d:7,l:'주별'},{d:30,l:'월별'}
+    ].map(p=>`<button class="period-tab${curStackPeriod===p.d?' active':''}" onclick="selStackPeriod(${p.d},this)">${p.l}</button>`).join('');
+    CX.stacked=new Chart(document.getElementById('stackedChart'),{
+        type:'bar',data:{labels,datasets},
+        options:{responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{display:false},tooltip:{mode:'index',callbacks:{label:c=>c.dataset.label+': '+c.raw+'분',footer:items=>'합계: '+items.reduce((a,i)=>a+i.raw,0)+'분'}}},
+            scales:{x:{stacked:true,ticks:{color:'#475569',maxRotation:45,font:{size:curStackPeriod===30?8:10}},grid:{display:false}},
+                    y:{stacked:true,beginAtZero:true,ticks:{color:'#475569',callback:v=>v+'분'},grid:{color:'rgba(255,255,255,.04)'}}}}
     });
 }
 

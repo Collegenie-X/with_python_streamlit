@@ -6,55 +6,54 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-SUBJECTS_FILE = os.path.join(DATA_DIR, 'subjects.json')
-SESSIONS_DIR = os.path.join(DATA_DIR, 'sessions')
-CLASS_AVG_FILE = os.path.join(DATA_DIR, 'class_avg.json')
+STUDY_DATA_FILE = os.path.join(DATA_DIR, 'study_data.json')
+COLORS_12 = [
+    '#3b82f6', '#f97316', '#a855f7', '#22c55e', '#ef4444', '#06b6d4',
+    '#eab308', '#ec4899', '#14b8a6', '#f43f5e', '#8b5cf6', '#84cc16',
+]
 
 
-def load_class_avg():
-    if not os.path.exists(CLASS_AVG_FILE):
-        return {}
-    with open(CLASS_AVG_FILE, 'r', encoding='utf-8') as f:
+def load_study_data():
+    if not os.path.exists(STUDY_DATA_FILE):
+        return {'subjects': [], 'class_avg': {}, 'sessions': {}}
+    with open(STUDY_DATA_FILE, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-os.makedirs(SESSIONS_DIR, exist_ok=True)
+
+def save_study_data(data):
+    with open(STUDY_DATA_FILE, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def load_subjects():
-    if not os.path.exists(SUBJECTS_FILE):
-        return []
-    with open(SUBJECTS_FILE, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    return load_study_data().get('subjects', [])
 
 
 def save_subjects(subjects):
-    with open(SUBJECTS_FILE, 'w', encoding='utf-8') as f:
-        json.dump(subjects, f, ensure_ascii=False, indent=2)
+    data = load_study_data()
+    data['subjects'] = subjects
+    save_study_data(data)
 
 
-def today_file():
-    return os.path.join(SESSIONS_DIR, f'{date.today().isoformat()}.json')
+def load_class_avg():
+    return load_study_data().get('class_avg', {})
 
 
 def load_today_sessions():
-    path = today_file()
-    if not os.path.exists(path):
-        return []
-    with open(path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    today_key = date.today().isoformat()
+    return load_study_data().get('sessions', {}).get(today_key, [])
 
 
 def save_today_sessions(sessions):
-    with open(today_file(), 'w', encoding='utf-8') as f:
-        json.dump(sessions, f, ensure_ascii=False, indent=2)
+    data = load_study_data()
+    if 'sessions' not in data:
+        data['sessions'] = {}
+    data['sessions'][date.today().isoformat()] = sessions
+    save_study_data(data)
 
 
 def load_sessions_for_date(d):
-    path = os.path.join(SESSIONS_DIR, f'{d}.json')
-    if not os.path.exists(path):
-        return []
-    with open(path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    return load_study_data().get('sessions', {}).get(d, [])
 
 
 @app.route('/')
@@ -80,11 +79,12 @@ def add_subject():
     data = request.get_json()
     name = data.get('name', '').strip()
     goal = data.get('goal_minutes', 30)
-    color = data.get('color', '#9C27B0')
     if not name:
         return jsonify({'error': '과목 이름을 입력해주세요'}), 400
 
     subjects = load_subjects()
+    default_color = COLORS_12[len(subjects) % len(COLORS_12)]
+    color = data.get('color', default_color)
     if any(s['name'] == name for s in subjects):
         return jsonify({'error': '이미 존재하는 과목입니다'}), 400
 
@@ -348,4 +348,4 @@ def generate_comment(session, all_today):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5055))
-    app.run(debug=True, port=port)
+    app.run(debug=True, host='0.0.0.0', port=port)
