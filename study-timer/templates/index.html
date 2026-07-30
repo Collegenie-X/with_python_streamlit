@@ -107,6 +107,43 @@ nav .nav-links a:hover, nav .nav-links a.active { color: #e94560; }
 .plan-item:hover .plan-del { opacity: 0.5; }
 .plan-del:hover { opacity: 1 !important; }
 
+.plan-item.done, .plan-item.skipped { opacity: 0.6; }
+.plan-item.done .plan-name {
+    text-decoration: line-through;
+    text-decoration-color: #4CAF50;
+    text-decoration-thickness: 2px;
+    color: #888;
+}
+.plan-item.skipped .plan-name {
+    text-decoration: line-through;
+    text-decoration-color: #FFC107;
+    text-decoration-thickness: 2px;
+    color: #666;
+}
+.plan-item.done .plan-minutes,
+.plan-item.skipped .plan-minutes { color: #555; }
+.plan-item.done .plan-time-range,
+.plan-item.skipped .plan-time-range { color: #555; }
+.plan-done-btn {
+    background: none; border: 2px solid #444; border-radius: 50%;
+    width: 20px; height: 20px; cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; padding: 0; font-size: 0.7rem; color: transparent;
+}
+.plan-done-btn:hover { border-color: #4CAF50; }
+.plan-item.done .plan-done-btn {
+    border-color: #4CAF50; background: #4CAF50; color: #fff;
+}
+.plan-item.skipped .plan-done-btn {
+    border-color: #FFC107; background: #FFC107; color: #333;
+}
+.plan-done-label {
+    font-size: 0.6rem; font-weight: 600;
+    flex-shrink: 0; margin-left: -4px;
+}
+.plan-done-label.completed { color: #4CAF50; }
+.plan-done-label.skipped { color: #FFC107; }
+
 .plan-total {
     text-align: center; margin-top: 8px; padding-top: 8px;
     border-top: 1px solid #1a1a40;
@@ -234,6 +271,26 @@ nav .nav-links a:hover, nav .nav-links a.active { color: #e94560; }
 }
 .desel-btn:hover { background: #e94560; color: #fff; }
 
+/* ── 학생 바 ── */
+.student-bar {
+    background: #16213e; border-bottom: 1px solid #1a1a40;
+    padding: 8px 24px; display: flex; align-items: center; gap: 12px;
+    font-size: 0.85rem;
+}
+.student-bar label { color: #94a3b8; white-space: nowrap; }
+.student-bar select {
+    background: #0f0f23; color: #e0e0e0; border: 1px solid #1a1a40;
+    border-radius: 6px; padding: 4px 8px; font-size: 0.85rem;
+}
+.student-bar .stu-btn {
+    background: none; border: 1px solid #3b82f6; color: #3b82f6;
+    border-radius: 6px; padding: 3px 10px; cursor: pointer; font-size: 0.75rem;
+}
+.student-bar .stu-btn:hover { background: #3b82f6; color: #fff; }
+.student-bar .stu-btn.del { border-color: #e94560; color: #e94560; }
+.student-bar .stu-btn.del:hover { background: #e94560; color: #fff; }
+.student-bar .stu-count { color: #64748b; font-size: 0.75rem; }
+
 /* ── 모니터링 패널 ── */
 .monitor-panel { display: none; margin-top: 16px; }
 .monitor-panel.active { display: block; }
@@ -337,8 +394,20 @@ nav .nav-links a:hover, nav .nav-links a.active { color: #e94560; }
     <div class="nav-links">
         <a href="/" class="active">타이머</a>
         <a href="/dashboard">대시보드</a>
+        <a href="/db">DB</a>
     </div>
 </nav>
+
+<div class="student-bar">
+    <label>학생:</label>
+    <select id="studentSelect" onchange="switchStudent()">
+        <option value="">-- 선택 --</option>
+    </select>
+    <button class="stu-btn" onclick="addStudent()">+ 추가</button>
+    <button class="stu-btn" onclick="editStudent()">수정</button>
+    <button class="stu-btn del" onclick="deleteStudent()">삭제</button>
+    <span class="stu-count" id="stuCount"></span>
+</div>
 
 <div class="datetime-header">
     <div class="date" id="curDate"></div>
@@ -360,23 +429,8 @@ nav .nav-links a:hover, nav .nav-links a.active { color: #e94560; }
         <ul class="plan-list" id="planList"></ul>
         <div class="plan-total" id="planTotal"></div>
 
-        <!-- 추가 / 편집 폼 (하나만 보임) -->
-        <div class="input-form" id="inputForm">
-            <div class="form-label" id="formLabel">새 과목 추가</div>
-            <div class="form-row">
-                <input type="text" id="fName" placeholder="과목명">
-                <input type="number" id="fGoal" value="60" min="10" max="480">
-                <span class="unit">분</span>
-                <input type="color" id="fColor" value="#9C27B0">
-            </div>
-            <div class="form-btns" id="formBtns">
-                <button class="primary-btn" id="formAction" onclick="doFormAction()">추가</button>
-            </div>
-            <div class="warning-msg" id="formWarning" style="display:none"></div>
-        </div>
-
-        <div class="debug-bar">
-            <button onclick="loadDummy()">더미 데이터 로드</button>
+        <div class="plan-hint" style="text-align:center;font-size:.7rem;color:#555;margin-top:8px">
+            과목을 클릭하면 타이머가 시작됩니다. 같은 과목을 여러 번 할 수 있어요.
         </div>
     </div>
 
@@ -464,8 +518,7 @@ nav .nav-links a:hover, nav .nav-links a.active { color: #e94560; }
 
 <script>
 let subjects = [];
-let selected = null;  // selected subject name
-let formMode = 'add'; // 'add' or 'edit'
+let selected = null;
 let timerInterval = null;
 let running = false;
 let elapsed = 0;
@@ -474,6 +527,63 @@ let pauseSec = 0;
 let pauseStart = null;
 let startTime = null;
 let dragSrc = null;
+let studentId = localStorage.getItem('student_id') || '';
+
+// ── 학생 CRUD ──
+async function loadStudents() {
+    const res = await fetch('/api/students');
+    const list = await res.json();
+    const sel = document.getElementById('studentSelect');
+    sel.innerHTML = '<option value="">-- 선택 --</option>' +
+        list.map(s => `<option value="${s.id}" ${s.id===studentId?'selected':''}>${s.name}</option>`).join('');
+    document.getElementById('stuCount').textContent = `(${list.length}명)`;
+    if (studentId && !list.find(s=>s.id===studentId)) {
+        studentId = ''; localStorage.removeItem('student_id');
+    }
+}
+function switchStudent() {
+    studentId = document.getElementById('studentSelect').value;
+    if (studentId) localStorage.setItem('student_id', studentId);
+    else localStorage.removeItem('student_id');
+    loadSessions();
+}
+async function addStudent() {
+    const name = prompt('학생 이름을 입력하세요:');
+    if (!name) return;
+    const res = await fetch('/api/students/add', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({name})
+    });
+    const d = await res.json();
+    if (d.error) { alert(d.error); return; }
+    studentId = d.id;
+    localStorage.setItem('student_id', studentId);
+    await loadStudents();
+    loadSessions();
+}
+async function editStudent() {
+    if (!studentId) { alert('학생을 먼저 선택해주세요'); return; }
+    const name = prompt('새 이름을 입력하세요:');
+    if (!name) return;
+    const res = await fetch('/api/students/edit', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({id:studentId, name})
+    });
+    const d = await res.json();
+    if (d.error) { alert(d.error); return; }
+    await loadStudents();
+}
+async function deleteStudent() {
+    if (!studentId) { alert('학생을 먼저 선택해주세요'); return; }
+    if (!confirm('이 학생의 모든 데이터가 삭제됩니다. 계속하시겠습니까?')) return;
+    await fetch('/api/students/delete', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({id:studentId})
+    });
+    studentId = ''; localStorage.removeItem('student_id');
+    await loadStudents();
+    loadSessions();
+}
 
 // ── 시계 ──
 function tickClock() {
@@ -495,13 +605,16 @@ function calcTimes() {
     const now = new Date();
     let cursor = now.getTime();
     return subjects.map(s => {
+        const skipped = s.done === 2;
         const st = new Date(cursor);
-        cursor += s.goal_minutes * 60000;
+        if (!skipped) cursor += s.goal_minutes * 60000;
         const en = new Date(cursor);
         const mid = new Date(now); mid.setHours(24,0,0,0);
         return {
-            start: hm(st), end: hm(en),
-            overMidnight: cursor > mid.getTime()
+            start: skipped ? '-' : hm(st),
+            end: skipped ? '-' : hm(en),
+            overMidnight: !skipped && cursor > mid.getTime(),
+            skipped
         };
     });
 }
@@ -533,7 +646,8 @@ function render() {
 
     subjects.forEach((s, i) => {
         const li = document.createElement('li');
-        li.className = 'plan-item' + (selected === s.name ? ' selected' : '');
+        const doneClass = s.done === 1 ? ' done' : (s.done === 2 ? ' skipped' : '');
+        li.className = 'plan-item' + (selected === s.name ? ' selected' : '') + doneClass;
         li.draggable = true;
         li.dataset.idx = i;
         li.addEventListener('dragstart', onDS);
@@ -543,29 +657,34 @@ function render() {
         li.addEventListener('dragend', onDE);
 
         const t = times[i];
+        const isDone = s.done === 1 || s.done === 2;
+        const labelHtml = s.done === 1
+            ? '<span class="plan-done-label completed">완료</span>'
+            : (s.done === 2 ? '<span class="plan-done-label skipped">건너뛰기</span>' : '');
         li.innerHTML = `
+            <button class="plan-done-btn" onclick="event.stopPropagation();toggleDone('${s.name}')" title="${isDone ? '취소' : '완료/건너뛰기'}">${isDone ? '✓' : ''}</button>
             <span class="drag-handle" title="순서 변경">&#9776;</span>
             <span class="plan-num">${i+1}</span>
             <span class="plan-dot" style="background:${s.color}"></span>
             <span class="plan-name">${s.name}</span>
+            ${labelHtml}
             <span class="plan-minutes">${s.goal_minutes}분</span>
-            <span class="plan-time-range">${t.start}~<span class="end">${t.overMidnight ? '초과' : t.end}</span></span>
-            <button class="plan-del" onclick="event.stopPropagation();delSub('${s.name}')" title="삭제">&times;</button>
+            <span class="plan-time-range">${t.skipped ? '' : t.start+'~'}<span class="end">${t.skipped ? '' : (t.overMidnight ? '초과' : t.end)}</span></span>
         `;
         li.onclick = (e) => { e.stopPropagation(); selectSub(s.name); };
         ul.appendChild(li);
     });
 
     if (subjects.length > 0) {
-        const last = times[times.length-1];
-        const h = Math.floor(total/60), m = total%60;
+        const activeTotal = subjects.reduce((a,s) => a + (s.done === 2 ? 0 : s.goal_minutes), 0);
+        const lastActive = [...times].reverse().find(t => !t.skipped) || times[times.length-1];
+        const h = Math.floor(activeTotal/60), m = activeTotal%60;
         document.getElementById('planTotal').innerHTML =
-            `총 <strong>${h}시간${m>0?' '+m+'분':''}</strong> · 종료 <strong>${last.overMidnight?'자정 초과':last.end}</strong>`;
+            `총 <strong>${h}시간${m>0?' '+m+'분':''}</strong> · 종료 <strong>${lastActive.overMidnight?'자정 초과':lastActive.end}</strong>`;
     } else {
         document.getElementById('planTotal').innerHTML = '';
     }
 
-    updateForm();
     updateTimer();
 }
 
@@ -599,154 +718,10 @@ function updateTimer() {
     }
 }
 
-// ── 폼: 선택 없으면 추가, 선택 있으면 편집 ──
-function updateForm() {
-    const label = document.getElementById('formLabel');
-    const nameEl = document.getElementById('fName');
-    const goalEl = document.getElementById('fGoal');
-    const colorEl = document.getElementById('fColor');
-    const btns = document.getElementById('formBtns');
-    const warn = document.getElementById('formWarning');
-    warn.style.display = 'none';
-
-    if (selected) {
-        formMode = 'edit';
-        const s = subjects.find(x=>x.name===selected);
-        label.textContent = `"${s.name}" 수정`;
-        nameEl.value = s.name;
-        goalEl.value = s.goal_minutes;
-        colorEl.value = s.color;
-        btns.innerHTML = '';
-        checkGoal(s.goal_minutes);
-    } else {
-        formMode = 'add';
-        label.textContent = '새 과목 추가';
-        nameEl.value = '';
-        goalEl.value = '60';
-        colorEl.value = randomColor();
-        btns.innerHTML = `<button class="primary-btn" onclick="doFormAction()">추가</button>`;
-    }
-}
-
 function deselect() {
     if (running) return;
     selected = null;
     render();
-    updateTimer();
-}
-
-function randomColor() {
-    const colors = ['#4CAF50','#2196F3','#FF9800','#9C27B0','#E91E63','#00BCD4','#FF5722','#8BC34A'];
-    return colors[Math.floor(Math.random()*colors.length)];
-}
-
-function checkGoal(val) {
-    const warn = document.getElementById('formWarning');
-    if (val < 60) {
-        warn.textContent = `⚠ ${val}분은 짧습니다. 최소 1시간(60분) 이상 공부해야 효과적입니다.`;
-        warn.style.display = 'block';
-    } else {
-        warn.style.display = 'none';
-    }
-}
-document.getElementById('fGoal').addEventListener('input', function() {
-    checkGoal(+this.value);
-    if (formMode === 'edit') autoSave();
-});
-document.getElementById('fName').addEventListener('input', function() {
-    if (formMode === 'edit') autoSave();
-});
-document.getElementById('fColor').addEventListener('input', function() {
-    if (formMode === 'edit') autoSave();
-});
-
-let saveTimer = null;
-function autoSave() {
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(async () => {
-        const name = document.getElementById('fName').value.trim();
-        const goal = parseInt(document.getElementById('fGoal').value) || 60;
-        const color = document.getElementById('fColor').value;
-        if (!name || !selected) return;
-        await fetch('/api/subjects/edit', {
-            method:'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({old_name:selected, name, goal_minutes:goal, color})
-        });
-        const prev = selected;
-        selected = name;
-        const res = await fetch('/api/subjects');
-        subjects = await res.json();
-        const ul = document.getElementById('planList');
-        const times = calcTimes();
-        const total = subjects.reduce((a,s)=>a+s.goal_minutes,0);
-        ul.innerHTML = '';
-        subjects.forEach((s,i) => {
-            const li = document.createElement('li');
-            li.className = 'plan-item' + (selected===s.name?' selected':'');
-            li.draggable = true; li.dataset.idx = i;
-            li.addEventListener('dragstart',onDS); li.addEventListener('dragover',onDO);
-            li.addEventListener('dragleave',onDL); li.addEventListener('drop',onDD); li.addEventListener('dragend',onDE);
-            const t = times[i];
-            li.innerHTML = `
-                <span class="drag-handle" title="순서 변경">&#9776;</span>
-                <span class="plan-num">${i+1}</span>
-                <span class="plan-dot" style="background:${s.color}"></span>
-                <span class="plan-name">${s.name}</span>
-                <span class="plan-minutes">${s.goal_minutes}분</span>
-                <span class="plan-time-range">${t.start}~<span class="end">${t.overMidnight?'초과':t.end}</span></span>
-                <button class="plan-del" onclick="event.stopPropagation();delSub('${s.name}')" title="삭제">&times;</button>
-            `;
-            li.onclick = (e) => { e.stopPropagation(); selectSub(s.name); };
-            ul.appendChild(li);
-        });
-        if (subjects.length > 0) {
-            const last = times[times.length-1];
-            const h=Math.floor(total/60), m=total%60;
-            document.getElementById('planTotal').innerHTML =
-                `총 <strong>${h}시간${m>0?' '+m+'분':''}</strong> · 종료 <strong>${last.overMidnight?'자정 초과':last.end}</strong>`;
-        }
-        updateTimer();
-    }, 400);
-}
-
-async function doFormAction() {
-    const name = document.getElementById('fName').value.trim();
-    const goal = parseInt(document.getElementById('fGoal').value) || 60;
-    const color = document.getElementById('fColor').value;
-    if (!name) { document.getElementById('fName').focus(); return; }
-
-    if (goal < 60) {
-        if (!confirm(`목표가 ${goal}분입니다.\n최소 1시간 이상 권장합니다. 그래도 진행할까요?`)) return;
-    }
-
-    if (formMode === 'add') {
-        const res = await fetch('/api/subjects/add', {
-            method:'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({name, goal_minutes:goal, color})
-        });
-        const d = await res.json();
-        if (d.error) { alert(d.error); return; }
-    } else {
-        await fetch('/api/subjects/edit', {
-            method:'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({old_name:selected, name, goal_minutes:goal, color})
-        });
-        selected = name;
-    }
-    load();
-}
-
-document.getElementById('fName').addEventListener('keydown', e => { if (e.key==='Enter') doFormAction(); });
-
-async function delSub(name) {
-    if (running && selected === name) return;
-    if (!confirm(`"${name}" 삭제할까요?`)) return;
-    await fetch('/api/subjects/delete', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({name})
-    });
-    if (selected === name) selected = null;
-    load();
     updateTimer();
 }
 
@@ -787,6 +762,7 @@ function tick() {
 
 function startTimer() {
     if (running || !selected) return;
+    if (!studentId) { alert('학생을 먼저 선택해주세요'); return; }
     running = true;
     if (!startTime) {
         startTime = new Date().toISOString();
@@ -822,7 +798,7 @@ async function stopTimer() {
         const res = await fetch('/api/sessions/save', {
             method:'POST', headers:{'Content-Type':'application/json'},
             body: JSON.stringify({
-                subject:selected, start_time:startTime, end_time:endTime,
+                student_id:studentId, subject:selected, start_time:startTime, end_time:endTime,
                 duration_seconds:elapsed, pause_count:pauseCount, pause_seconds:pauseSec,
                 distractions:cvDistractions, distraction_seconds:totalDist
             })
@@ -848,7 +824,7 @@ async function stopTimer() {
 
 // ── 오늘 기록 ──
 async function loadSessions() {
-    const res = await fetch('/api/sessions/today');
+    const res = await fetch('/api/sessions/today?student_id='+studentId);
     const sessions = await res.json();
     const tbody = document.getElementById('todayBody');
     if (!sessions.length) {
@@ -870,36 +846,6 @@ async function loadSessions() {
         <div class="stat"><div class="val">${Math.floor(tot/3600)}h ${Math.floor((tot%3600)/60)}m</div><div class="lbl">총 공부</div></div>
         <div class="stat"><div class="val">${sessions.reduce((a,s)=>a+s.pause_count,0)}</div><div class="lbl">일시정지</div></div>
     `;
-}
-
-// ── 더미 데이터 ──
-async function loadDummy() {
-    const dummy = [
-        {name:'수학', goal_minutes:60, color:'#4CAF50'},
-        {name:'영어', goal_minutes:50, color:'#2196F3'},
-        {name:'국어', goal_minutes:30, color:'#FF9800'},
-        {name:'과학', goal_minutes:45, color:'#9C27B0'},
-    ];
-    for (const d of dummy) {
-        await fetch('/api/subjects/add', {
-            method:'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify(d)
-        });
-    }
-    const now = new Date();
-    const sessions = [
-        {subject:'수학', duration_seconds:3720, pause_count:1, pause_seconds:120,
-         start_time:new Date(now-7200000).toISOString(), end_time:new Date(now-3480000).toISOString()},
-        {subject:'영어', duration_seconds:1800, pause_count:0, pause_seconds:0,
-         start_time:new Date(now-3000000).toISOString(), end_time:new Date(now-1200000).toISOString()},
-    ];
-    for (const s of sessions) {
-        await fetch('/api/sessions/save', {
-            method:'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify(s)
-        });
-    }
-    load(); loadSessions();
 }
 
 // ── 외부 클릭 시 선택 해제 ──
@@ -1091,8 +1037,43 @@ function addCvLog(msg) {
     el.innerHTML=cvLogs.slice(0,15).map(l=>`<div class="entry"><span class="t">${l.time}</span>${l.msg}</div>`).join('');
 }
 
+// ── 완료 토글 ──
+async function toggleDone(name) {
+    const res = await fetch('/api/subjects/toggle_done', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({name, student_id: studentId})
+    });
+    const d = await res.json();
+    const s = subjects.find(x=>x.name===name);
+    if (s) s.done = d.done;
+    render();
+}
+
+function autoCompletePastSubjects() {
+    const now = new Date();
+    const times = calcTimes();
+    let changed = false;
+    subjects.forEach((s, i) => {
+        if (s.done !== 0) return;
+        const endParts = times[i].end.split(':');
+        const endDate = new Date(now);
+        endDate.setHours(+endParts[0], +endParts[1], 0, 0);
+        if (!times[i].overMidnight && now >= endDate) {
+            changed = true;
+            fetch('/api/subjects/toggle_done', {
+                method:'POST', headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({name: s.name, student_id: studentId})
+            }).then(r => r.json()).then(d => {
+                s.done = d.done;
+                render();
+            });
+        }
+    });
+}
+setInterval(autoCompletePastSubjects, 30000);
+
 // ── 초기화 ──
-load(); loadSessions();
+loadStudents().then(() => { load().then(() => { autoCompletePastSubjects(); }); loadSessions(); });
 </script>
 </body>
 </html>

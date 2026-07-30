@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 공부 매니저 - DB 뷰어</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',system-ui,sans-serif; background:#0f0f23; color:#e0e0e0; min-height:100vh; }
+nav { background:#16213e; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0f3460; }
+nav .logo { font-size:1.2rem; font-weight:700; color:#e94560; }
+nav a { color:#a0a0c0; text-decoration:none; margin-left:24px; font-weight:500; }
+nav a:hover, nav a.active { color:#e94560; }
+
+.container { max-width:1200px; margin:0 auto; padding:16px; }
+
+.top-bar { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:16px; }
+.table-tabs { display:flex; gap:6px; flex-wrap:wrap; }
+.tab { padding:6px 14px; border-radius:8px; border:1px solid #1a1a40; background:#16213e; color:#94a3b8; cursor:pointer; font-size:.8rem; transition:all .2s; }
+.tab:hover { border-color:#3b82f6; color:#e0e0e0; }
+.tab.active { background:#3b82f6; color:#fff; border-color:#3b82f6; }
+.tab .cnt { font-size:.65rem; color:#64748b; margin-left:4px; }
+.tab.active .cnt { color:#c0d8ff; }
+
+.controls { display:flex; gap:8px; align-items:center; margin-left:auto; flex-wrap:wrap; }
+.search-box { background:#0f0f23; border:1px solid #1a1a40; border-radius:6px; padding:5px 10px; color:#e0e0e0; font-size:.8rem; width:180px; }
+.search-box:focus { outline:none; border-color:#3b82f6; }
+.limit-sel { background:#0f0f23; border:1px solid #1a1a40; border-radius:6px; padding:5px 8px; color:#e0e0e0; font-size:.8rem; }
+
+.card { background:#16213e; border-radius:12px; border:1px solid #1a1a40; overflow:hidden; margin-bottom:16px; }
+.card-header { padding:12px 16px; border-bottom:1px solid #1a1a40; display:flex; justify-content:space-between; align-items:center; }
+.card-header h3 { font-size:.9rem; color:#e0e0e0; }
+.card-header .info { font-size:.75rem; color:#64748b; }
+
+.table-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:.78rem; }
+th { background:#0f0f23; padding:8px 12px; text-align:left; color:#94a3b8; font-weight:600; border-bottom:1px solid #1a1a40; white-space:nowrap; cursor:pointer; user-select:none; }
+th:hover { color:#3b82f6; }
+th.sorted { color:#3b82f6; }
+th .arrow { font-size:.6rem; margin-left:4px; }
+td { padding:7px 12px; border-bottom:1px solid #0f0f23; color:#c0c0d0; max-width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+tr:hover td { background:#1a1a40; }
+td.pk { color:#e94560; font-weight:600; }
+td.null { color:#4a4a6a; font-style:italic; }
+
+.pagination { display:flex; justify-content:center; align-items:center; gap:8px; padding:12px; }
+.pg-btn { padding:5px 12px; border-radius:6px; border:1px solid #1a1a40; background:#16213e; color:#94a3b8; cursor:pointer; font-size:.75rem; }
+.pg-btn:hover { border-color:#3b82f6; color:#e0e0e0; }
+.pg-btn:disabled { opacity:.3; cursor:default; }
+.pg-info { font-size:.75rem; color:#64748b; }
+
+.sql-section { margin-top:16px; }
+.sql-bar { display:flex; gap:8px; align-items:flex-start; }
+.sql-input { flex:1; background:#0f0f23; border:1px solid #1a1a40; border-radius:8px; padding:10px 14px; color:#e0e0e0; font-family:'Fira Code',monospace; font-size:.8rem; min-height:60px; resize:vertical; }
+.sql-input:focus { outline:none; border-color:#3b82f6; }
+.sql-btn { padding:10px 20px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer; font-size:.8rem; font-weight:600; }
+.sql-btn:hover { background:#2563eb; }
+.sql-error { color:#e94560; font-size:.78rem; padding:8px 16px; }
+.sql-hint { font-size:.7rem; color:#4a4a6a; margin-top:6px; }
+
+.schema-badge { display:inline-block; padding:1px 6px; border-radius:4px; font-size:.65rem; margin-left:4px; }
+.schema-badge.pk { background:#2a1020; color:#e94560; }
+.schema-badge.type { background:#0f1f30; color:#3b82f6; }
+
+.summary-row { display:flex; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+.summary-card { background:#16213e; border-radius:10px; border:1px solid #1a1a40; padding:14px 20px; flex:1; min-width:150px; text-align:center; }
+.summary-card .val { font-size:1.4rem; font-weight:700; color:#3b82f6; }
+.summary-card .lbl { font-size:.7rem; color:#64748b; margin-top:2px; }
+
+.stats-card { background:#16213e; border-radius:12px; border:1px solid #1a1a40; overflow:hidden; margin-bottom:16px; }
+.stats-card .card-header { padding:12px 16px; border-bottom:1px solid #1a1a40; }
+.stats-card .card-header h3 { font-size:.9rem; color:#e0e0e0; }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:12px; padding:16px; }
+.stat-item { background:#0f0f23; border-radius:10px; padding:14px; border:1px solid #1a1a40; }
+.stat-item .subject-name { font-size:.85rem; font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.stat-item .subject-dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+.stat-item .stat-main { font-size:1.3rem; font-weight:700; color:#3b82f6; }
+.stat-item .stat-label { font-size:.65rem; color:#64748b; margin-top:2px; }
+.stat-item .stat-details { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:10px; padding-top:10px; border-top:1px solid #1a1a40; }
+.stat-item .stat-detail { text-align:center; }
+.stat-item .stat-detail .dval { font-size:.8rem; font-weight:600; color:#c0c0d0; }
+.stat-item .stat-detail .dlbl { font-size:.6rem; color:#4a4a6a; }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">AI 공부 매니저</div>
+    <div>
+        <a href="/">타이머</a>
+        <a href="/dashboard">대시보드</a>
+        <a href="/db" class="active">DB</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="summary-row" id="summaryRow"></div>
+
+    <div class="stats-card" id="statsCard">
+        <div class="card-header"><h3>과목별 평균 공부 시간</h3></div>
+        <div class="stats-grid" id="statsGrid"></div>
+    </div>
+
+    <div class="top-bar">
+        <div class="table-tabs" id="tableTabs"></div>
+        <div class="controls">
+            <input class="search-box" id="searchBox" placeholder="검색..." oninput="debounceSearch()">
+            <select class="limit-sel" id="limitSel" onchange="loadData()">
+                <option value="50">50행</option>
+                <option value="100" selected>100행</option>
+                <option value="200">200행</option>
+                <option value="500">500행</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="card" id="dataCard">
+        <div class="card-header">
+            <h3 id="tableTitle">테이블 선택</h3>
+            <span class="info" id="tableInfo"></span>
+        </div>
+        <div class="table-wrap">
+            <table id="dataTable"><thead><tr></tr></thead><tbody></tbody></table>
+        </div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <div class="sql-section">
+        <div class="card" style="padding:16px">
+            <h3 style="font-size:.85rem;margin-bottom:10px">SQL 쿼리 실행</h3>
+            <div class="sql-bar">
+                <textarea class="sql-input" id="sqlInput" placeholder="SELECT * FROM students LIMIT 10"></textarea>
+                <button class="sql-btn" onclick="runSQL()">실행</button>
+            </div>
+            <div class="sql-hint">SELECT 쿼리만 실행 가능합니다. 예: SELECT s.name, COUNT(*) as cnt FROM sessions s GROUP BY s.subject</div>
+            <div class="sql-error" id="sqlError"></div>
+        </div>
+        <div class="card" id="sqlResultCard" style="display:none">
+            <div class="card-header">
+                <h3>쿼리 결과</h3>
+                <span class="info" id="sqlInfo"></span>
+            </div>
+            <div class="table-wrap">
+                <table id="sqlTable"><thead><tr></tr></thead><tbody></tbody></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let tables = [];
+let curTable = '';
+let curPage = 0;
+let curOrder = '';
+let curDesc = false;
+let pkCols = {};
+let searchTimer = null;
+
+function fmtTime(v) {
+    if (typeof v !== 'string') return v;
+    const m = v.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+    if (m) return `${m[2]}-${m[3]} ${m[4]}:${m[5]}`;
+    const m2 = v.match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
+    if (m2) return `${m2[2]}-${m2[3]} ${m2[4]}:${m2[5]}`;
+    return v;
+}
+
+const timeCols = new Set(['start_time','end_time','created_at','updated_at']);
+const secCols = new Set(['duration_seconds','pause_seconds','distraction_seconds']);
+let studentMap = {};
+
+function fmtSec(v) {
+    const n = Number(v);
+    if (isNaN(n)) return v;
+    const m = Math.floor(n / 60);
+    const s = n % 60;
+    return s ? `${m}분 ${s}초` : `${m}분`;
+}
+
+const subjectColors = {};
+
+async function init() {
+    const [tablesRes, studentsRes, statsRes] = await Promise.all([
+        fetch('/api/db/tables'),
+        fetch('/api/students'),
+        fetch('/api/db/stats/subjects')
+    ]);
+    tables = await tablesRes.json();
+    const students = await studentsRes.json();
+    students.forEach(s => { studentMap[s.id] = s.name; });
+    const subjectsTable = tables.find(t => t.name === 'subjects');
+    if (subjectsTable) {
+        const sRes = await fetch('/api/db/query', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({sql:"SELECT name, color FROM subjects"})
+        });
+        const sData = await sRes.json();
+        (sData.rows||[]).forEach(r => { subjectColors[r.name] = r.color; });
+    }
+    renderSummary();
+    renderStats(await statsRes.json());
+    renderTabs();
+    if (tables.length) selectTable(tables[0].name);
+}
+
+function renderStats(stats) {
+    const grid = document.getElementById('statsGrid');
+    if (!stats.length) { document.getElementById('statsCard').style.display='none'; return; }
+    grid.innerHTML = stats.map(s => {
+        const color = subjectColors[s.subject] || '#3b82f6';
+        return `<div class="stat-item">
+            <div class="subject-name"><span class="subject-dot" style="background:${color}"></span>${s.subject}</div>
+            <div class="stat-main">${s.avg_minutes}분</div>
+            <div class="stat-label">평균 공부 시간</div>
+            <div class="stat-details">
+                <div class="stat-detail"><div class="dval">${s.total_minutes}분</div><div class="dlbl">총 시간</div></div>
+                <div class="stat-detail"><div class="dval">${s.session_count}회</div><div class="dlbl">세션 수</div></div>
+                <div class="stat-detail"><div class="dval">${s.min_minutes}~${s.max_minutes}분</div><div class="dlbl">최소~최대</div></div>
+                <div class="stat-detail"><div class="dval">${s.student_count}명</div><div class="dlbl">학생 수</div></div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderSummary() {
+    const el = document.getElementById('summaryRow');
+    const totalRows = tables.reduce((a, t) => a + t.count, 0);
+    el.innerHTML = `
+        <div class="summary-card"><div class="val">${tables.length}</div><div class="lbl">테이블</div></div>
+        <div class="summary-card"><div class="val">${totalRows.toLocaleString()}</div><div class="lbl">전체 행</div></div>
+        ${tables.map(t => `<div class="summary-card"><div class="val">${t.count.toLocaleString()}</div><div class="lbl">${t.name}</div></div>`).join('')}
+    `;
+}
+
+function renderTabs() {
+    const el = document.getElementById('tableTabs');
+    el.innerHTML = tables.map(t =>
+        `<div class="tab ${t.name===curTable?'active':''}" onclick="selectTable('${t.name}')">${t.name}<span class="cnt">(${t.count.toLocaleString()})</span></div>`
+    ).join('');
+}
+
+function selectTable(name) {
+    curTable = name;
+    curPage = 0;
+    curOrder = '';
+    curDesc = false;
+    document.getElementById('searchBox').value = '';
+    renderTabs();
+    const t = tables.find(x => x.name === name);
+    pkCols[name] = t.columns.filter(c => c.pk).map(c => c.name);
+    loadData();
+}
+
+async function loadData() {
+    const limit = parseInt(document.getElementById('limitSel').value);
+    const search = document.getElementById('searchBox').value.trim();
+    const res = await fetch('/api/db/query', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+            table: curTable, limit, offset: curPage * limit,
+            order: curOrder, desc: curDesc, search
+        })
+    });
+    const d = await res.json();
+    if (d.error) { return; }
+
+    document.getElementById('tableTitle').textContent = curTable;
+    const t = tables.find(x => x.name === curTable);
+    const schemaInfo = t.columns.map(c => {
+        let badges = `<span class="schema-badge type">${c.type||'ANY'}</span>`;
+        if (c.pk) badges += `<span class="schema-badge pk">PK</span>`;
+        return `${c.name}${badges}`;
+    }).join(' &nbsp;|&nbsp; ');
+    document.getElementById('tableInfo').innerHTML = `${d.total.toLocaleString()}행 &nbsp;| &nbsp;${schemaInfo}`;
+
+    const pks = pkCols[curTable] || [];
+    const thead = document.querySelector('#dataTable thead tr');
+    thead.innerHTML = d.columns.map(c => {
+        const sorted = c === curOrder;
+        const arrow = sorted ? (curDesc ? '▼' : '▲') : '';
+        return `<th class="${sorted?'sorted':''}" onclick="sortBy('${c}')">${c}<span class="arrow">${arrow}</span></th>`;
+    }).join('');
+
+    const tbody = document.querySelector('#dataTable tbody');
+    tbody.innerHTML = d.rows.map(r =>
+        '<tr>' + d.columns.map(c => {
+            const v = r[c];
+            const isPk = pks.includes(c);
+            if (v === null || v === undefined) return `<td class="null">NULL</td>`;
+            let display = v;
+            if (timeCols.has(c)) display = fmtTime(v);
+            else if (secCols.has(c)) display = fmtSec(v);
+            else if (c === 'student_id' && studentMap[v]) display = studentMap[v];
+            return `<td class="${isPk?'pk':''}" title="${String(v).replace(/"/g,'&quot;')}">${display}</td>`;
+        }).join('') + '</tr>'
+    ).join('');
+
+    const totalPages = Math.ceil(d.total / limit);
+    const pg = document.getElementById('pagination');
+    if (totalPages <= 1) { pg.innerHTML = ''; return; }
+    pg.innerHTML = `
+        <button class="pg-btn" onclick="goPage(0)" ${curPage===0?'disabled':''}>처음</button>
+        <button class="pg-btn" onclick="goPage(${curPage-1})" ${curPage===0?'disabled':''}>이전</button>
+        <span class="pg-info">${curPage+1} / ${totalPages}</span>
+        <button class="pg-btn" onclick="goPage(${curPage+1})" ${curPage>=totalPages-1?'disabled':''}>다음</button>
+        <button class="pg-btn" onclick="goPage(${totalPages-1})" ${curPage>=totalPages-1?'disabled':''}>마지막</button>
+    `;
+}
+
+function sortBy(col) {
+    if (curOrder === col) { curDesc = !curDesc; }
+    else { curOrder = col; curDesc = false; }
+    curPage = 0;
+    loadData();
+}
+
+function goPage(p) { curPage = Math.max(0, p); loadData(); }
+
+function debounceSearch() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => { curPage = 0; loadData(); }, 300);
+}
+
+async function runSQL() {
+    const sql = document.getElementById('sqlInput').value.trim();
+    if (!sql) return;
+    document.getElementById('sqlError').textContent = '';
+    const res = await fetch('/api/db/query', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ sql })
+    });
+    const d = await res.json();
+    if (d.error) {
+        document.getElementById('sqlError').textContent = d.error;
+        document.getElementById('sqlResultCard').style.display = 'none';
+        return;
+    }
+    document.getElementById('sqlResultCard').style.display = '';
+    document.getElementById('sqlInfo').textContent = `${d.total}행`;
+    const thead = document.querySelector('#sqlTable thead tr');
+    thead.innerHTML = (d.columns||[]).map(c => `<th>${c}</th>`).join('');
+    const tbody = document.querySelector('#sqlTable tbody');
+    tbody.innerHTML = (d.rows||[]).map(r =>
+        '<tr>' + (d.columns||[]).map(c => {
+            const v = r[c];
+            if (v === null || v === undefined) return `<td class="null">NULL</td>`;
+            return `<td title="${String(v).replace(/"/g,'&quot;')}">${v}</td>`;
+        }).join('') + '</tr>'
+    ).join('');
+}
+
+document.getElementById('sqlInput').addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runSQL(); }
+});
+
+init();
+</script>
+</body>
+</html>
